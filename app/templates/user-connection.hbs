@@ -15,17 +15,18 @@
     </div>
 
     <div class="right-container">
-            <div class="connection-mode-switch">
-          {{#paper-button raised=loginRaised onClick=(action "showLogin")}}Log In{{/paper-button}}
-          {{#paper-button raised=(not loginRaised) onClick=(action "showRegister")}}Cadastro{{/paper-button}}
-
-            </div>
-
-        <div class="content-container">
-
-           
+        <div class="connection-mode-switch">
+            {{#paper-button raised=loginRaised onClick=(action "showLogin")}}Log In{{/paper-button}} 
+            {{#paper-button raised=(not loginRaised) onClick=(action "showRegister")}}Cadastro{{/paper-button}}
         </div>
 
+        <div class="content-container">
+            {{#if loginRaised}}
+             {{user-signup}} 
+            {{else}} 
+                {{user-signin}} 
+            {{/if}}
+        </div>
 
     </div>
 
