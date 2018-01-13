@@ -1,5 +1,26 @@
 <div class="user-signup">
+<h1>Usuário</h1>
+<p>
+  {{paper-input
+    label=""
+    value=user
+    onChange=(action (mut user))
+    type="email"
+  }}
+</p>
 
-    
+<h1 style="margin-top: 45px;">Senha</h1>
+<p>
+  {{paper-input
+    label=""
+    value=password
+    onChange=(action (mut password))
+    type="password"
+  }}
+</p>
+
+{{#paper-button raised=true onClick=(action "login")}}Entrar{{/paper-button}} 
+{{#paper-button href="https://web-agro-control-system.herokuapp.com/index.html" target="_blank"}}Esqueceu a senha?{{/paper-button}}
+
 
 </div>

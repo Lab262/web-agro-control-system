@@ -2,23 +2,26 @@
   @font-face {
     font-family: $name;
     src:  url("./fonts/#{$name}/#{$name}.eot?") format("eot"),
-	  url("./fonts/#{$name}/#{$name}.woff") format("woff"),url("./fonts/#{$name}/#{$name}.ttc") format("ttc");;
+      url("./fonts/#{$name}/#{$name}.woff") format("woff"),
+      url("./fonts/#{$name}/#{$name}.ttc") format("ttc"),
+      url("./fonts/#{$name}/#{$name}.ttf") format("ttf")
+
   }
 }
-@include font-face('AppleSDGothicNeo');
+@include font-face('Montserrat');
+@include font-face('LucidaGrande');
 
 
 @import "_color-definitions";
 $color-primary: $palette-grey-900;
 $color-accent: $palette-indigo-A700;
-$primary: "grey";
-$accent: "indigo";
-$warn: "pink";
+$primary: "green";
+$accent: "grey";
+$warn: "red";
 @import "ember-power-select-material";
 @import 'ember-paper';
 @import "navigation-bar-main";
 @import "user-connection";
-
 
 html,
 body {
@@ -124,4 +127,21 @@ video {
 
  ::-webkit-scrollbar-thumb {
     background-color: black;
+}
+.md-input {
+    font-family: 'Montserrat-Regular', sans-serif;
+}
+input[type="password"] {
+    margin-top: -20px;
+    height: 55px;
+    font-size: 55px;
+}
+
+.md-button {
+    text-transform: capitalize;
+    font-family: 'Montserrat-Regular', sans-serif;
+    &.md-raised{
+        background-color: white;
+        color:black;
+      }
 }
