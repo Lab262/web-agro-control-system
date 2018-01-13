@@ -1,9 +1,14 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+    loginRaised: true,
+
     actions: {
-        flatButton() {
-    
+        showLogin() {
+            this.set('loginRaised', true);
+        },
+        showRegister() {
+            this.set('loginRaised', false);
         }
       }
 });

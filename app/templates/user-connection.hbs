@@ -16,8 +16,8 @@
 
     <div class="right-container">
             <div class="connection-mode-switch">
-          {{#paper-button raised=true onClick=(action "flatButton")}}Log In{{/paper-button}}
-          {{#paper-button raised=false onClick=(action "flatButton")}}Cadastro{{/paper-button}}
+          {{#paper-button raised=loginRaised onClick=(action "showLogin")}}Log In{{/paper-button}}
+          {{#paper-button raised=(not loginRaised) onClick=(action "showRegister")}}Cadastro{{/paper-button}}
 
             </div>
 
