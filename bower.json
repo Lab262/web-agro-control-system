@@ -1,0 +1,11 @@
+{
+  "name": "patterns-platform",
+  "dependencies": {
+    "material-design-lite": "~1.0.4",
+    "mapbox.js": "2.3.0",
+    "leaflet.markerclusterer": "0.4.0",
+    "animate.css": "^3.5.2",
+    "hammer.js": "^2.0.8",
+    "matchMedia": "0.2.0"
+  }
+}

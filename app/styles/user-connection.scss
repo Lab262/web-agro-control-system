@@ -1,0 +1,113 @@
+.user-connection {
+    $main-color: #36CC79;
+    width: 100vw;
+    height: 100vh;
+    background: $main-color;
+    overflow: hidden;
+    .left-container {
+        float: left;
+        width: 50%;
+        height: 100%;
+        background: white;
+        position: relative;
+        .background {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            background: url("../images/user-connection-background.png") scroll no-repeat center/cover;
+            background-size: cover;
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-image: linear-gradient(to top, rgba(255, 255, 255, 0.4), white);
+                opacity: 1;
+            }
+        }
+        .brand-container {
+            position: relative;
+            text-align: center;
+            margin-top: 15%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .logo {
+                width: 100%;
+                display: inline-block;
+                background: url('../images/web-agro-logo.png') scroll no-repeat center/cover;
+                background-repeat: no-repeat;
+                background-size: 178.5px 175.5px;
+                height: 175.5px;
+            }
+            .brand {
+                width: 100%;
+                margin-top: 25px;
+                display: inline-block;
+                background: url('../images/control-system-logo.png') scroll no-repeat center/cover;
+                background-repeat: no-repeat;
+                background-size: 171px 53.5px;
+                height: 53.5px;
+            }
+        }
+        .simple-carousel {
+            margin-top: 50px;
+            height: 50%;
+            .swiper-container {
+                height: 175px;
+                .swiper-wrapper {
+                    .swiper-slide {
+                        display: flex;
+                        justify-content: center;
+                        text-align: center;
+                        .text {
+                            font-family: 'AppleSDGothicNeo-Bold';
+                            width: 75%;
+                            font-size: 12.5px;
+                        }
+                    }
+                }
+            }
+            span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+                background-color: black;
+            }
+        }
+    }
+    .right-container {
+        float: right;
+        height: 100%;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        .content-container {
+            margin-left: 15%;
+            margin-right: 15%;
+            
+            .content {
+                display: relative;
+                width: 100%;
+                color: white;
+                line-height: 35px;
+            }
+            .header-text {
+                font-size: 35px;
+                @extend .content;
+            }
+            .subheader-text {
+                font-size: 20px;
+                margin-top: 25px;
+
+                @extend .content;
+            }
+            .login-button {
+                width: 100%;
+                margin-top: 15%;
+            }
+        }
+    }
+}

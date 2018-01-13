@@ -1,0 +1,32 @@
+image: node:6.5.0
+cache:
+  paths:
+  - node_modules/
+
+before_script:
+  - npm config set spin false
+  - npm install -g bower
+  - npm install -g ember-cli
+  - npm install -g phantomjs-prebuilt
+  - npm install
+  - bower install --allow-root
+
+production:
+  type: deploy
+  script:
+  - sh ./build-app.sh
+  - sh ./deploy-app.sh
+  only:
+  - master
+
+# stagging:
+#   type: deploy
+#   script:
+#   - apt-get update -qy
+#   - echo "Y" |apt-get install libssl-dev
+#   - apt-get install -y rubygems
+#   - gem install dpl
+#   - dpl --provider=heroku --app=a55labwebfrontend-staging --api-key=$HEROKU_PRODUCTION_API_KEY
+#
+#   only:
+#   - dev

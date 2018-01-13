@@ -1,0 +1,27 @@
+
+.navigation-bar-main {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+    .logo-link {
+        background: url('../images/patterns_menu_logo.svg') left;
+        background-repeat: no-repeat;
+        width: 200px;
+        height: 100%;
+    }
+    .logged-in {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 300px;
+    }
+    .user-info {
+        float: left;
+    }
+    .logout {
+        float: right;
+        margin-left: 5%;
+    }
+}
+

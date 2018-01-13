@@ -1,0 +1,38 @@
+<div class="navigation-bar-main">
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout-drawer mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Logo -->
+        {{link-to "" "user-connection" class='logo-link mdl-navigation__link__left-section'}}
+        <!-- Title -->
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          {{link-to "Connect" "user-connection" class='mdl-navigation__link'}}
+          {{link-to "About" "user-connection" class='mdl-navigation__link'}}
+          {{link-to "Any other link" "user-connection" class='mdl-navigation__link'}}
+        </nav>
+        {{#if session.isAuthenticated }}
+          <div class="logged-in">
+            <div class="user-info mdl-navigation__link__right-section">Welcome, {{session.data.authenticated.currentUser.name}}</div>
+            <div class="logout mdl-navigation__link__right-section" {{action 'logout'}}>Sair</div>
+          </div>
+        {{/if}}
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Title</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" href="">Link</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        {{yield}}
+      </div>
+    </main>
+  </div>
+</div>
