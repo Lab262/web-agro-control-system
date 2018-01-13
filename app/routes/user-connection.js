@@ -7,5 +7,5 @@ export default Route.extend({
     if(this.get('session.isAuthenticated')) {
       this.transitionTo('bot-creation'); // Implicitly aborts the on-going transition.
     }
-  }
+  },
 });

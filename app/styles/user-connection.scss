@@ -65,7 +65,7 @@
                         text-align: center;
                         .text {
                             font-family: 'AppleSDGothicNeo-Bold';
-                            width: 75%;
+                            width: 60%;
                             font-size: 12.5px;
                         }
                     }
@@ -84,30 +84,36 @@
         justify-content: center;
         flex-wrap: wrap;
         align-items: center;
-        .content-container {
-            margin-left: 15%;
-            margin-right: 15%;
-            
-            .content {
-                display: relative;
-                width: 100%;
-                color: white;
-                line-height: 35px;
-            }
-            .header-text {
-                font-size: 35px;
-                @extend .content;
-            }
-            .subheader-text {
-                font-size: 20px;
-                margin-top: 25px;
+        .connection-mode-switch {
+            text-align: right;
+            margin-right: 5%;
+            width: 100%;
+            .md-button {
+                margin: 0;
+                padding: 0;
+                margin-left: -5px;
+                text-transform: capitalize;
+                font-family: 'AppleSDGothicNeo-Regular';
+                font-size: 12.5px;
+                height: 30px;
+                width: 86px;
+                background-color: #2FAF68;
+                color: rgba(255,255,255,0.4);
+                  &.md-raised{
+                    background-color: white;
+                    color:black;
+    
+                  }
+                }
+        }
+        
 
-                @extend .content;
-            }
-            .login-button {
-                width: 100%;
-                margin-top: 15%;
-            }
+        .content-container {
+            margin-left: 20%;
+            margin-right: 20%;
+            background: blue;
+            height: 500px;
+            width: 500px;            
         }
     }
 }
