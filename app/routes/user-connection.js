@@ -5,7 +5,7 @@ export default Route.extend({
   session: Ember.inject.service('session'),
   beforeModel(/* transition */) {
     if(this.get('session.isAuthenticated')) {
-      this.transitionTo('bot-creation'); // Implicitly aborts the on-going transition.
+      this.transitionTo('dashboard-overview'); // Implicitly aborts the on-going transition.
     }
   },
 });

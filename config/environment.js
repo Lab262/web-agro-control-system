@@ -11,6 +11,8 @@ module.exports = function (environment) {
       }
     },
     APP: {
+      usingCors: false,
+		corsWithCreds: false,
       applicationId: 'myAppId'
     },    
     browserify: {
@@ -29,7 +31,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'test') {
-    ENV.APP.HOST = 'https://web-agro-control-system-api.herokuapp.com'
+    ENV.APP.HOST = 'https://web-agro-api.herokuapp.com'
     // Testem prefers this...
     ENV.rootURL = '/';
     ENV.locationType = 'none';
@@ -41,10 +43,12 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.HOST = 'https://web-agro-control-system-api.herokuapp.com'
+    ENV.APP.HOST = 'https://web-agro-api.herokuapp.com'
     ENV.rootURL = null;
     ENV.locationType = 'hash';
   }
+  ENV.APP.HOST = 'http://localhost:1337'
+
   return ENV;
 };
 

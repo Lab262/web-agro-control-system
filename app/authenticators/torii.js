@@ -6,7 +6,7 @@ const { service } = Ember.inject;
 
 export default Torii.extend({
   store: Ember.inject.service(),
-  tokenEndpoint: ENV.APP.HOST+"/authenticate-social-network",
+  tokenEndpoint: ENV.APP.HOST+"/parse/login",
   torii: service('torii'),
 
   restore: function(data) {
@@ -19,22 +19,19 @@ export default Torii.extend({
       });
   },
 
-  authenticate: function(options) {
+  authenticate: function(credentials) {
     var self = this;
-    return this._super(options).then(function (data) {
       return new Ember.RSVP.Promise(function (resolve, reject) {
-        Ember.$.ajax({
-          method: "POST",
-          url: self.tokenEndpoint,
-          data: {
-            authorizationCode: data.authorizationCode,
-            provider: data.provider
-          }
+        $.ajax({
+          method: "GET",
+          beforeSend: function(request) {
+            request.setRequestHeader("X-Parse-Application-Id", ENV.APP.applicationId);
+          },
+          url: self.tokenEndpoint + "?username="+credentials.username+"&password="+credentials.password,
         }).then(function(response) {
             Ember.run(function() {
                 resolve({
-                  currentUser: response.currentUser,
-                  // token: response.authToken
+                  currentUser: response,
                 });
             });
         }, function(xhr, status, error) {
@@ -44,7 +41,6 @@ export default Torii.extend({
             });
         });
       });
-    });
   },
 
   invalidate: function() {

@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-    loginRaised: true,
-
+    loginRaised: true, 
     actions: {
         showLogin() {
             this.set('loginRaised', true);
