@@ -9,8 +9,8 @@ export default Component.extend({
                 username: this.get('username'),
                 password: this.get('password')
             };
-            this.get('session').authenticate('authenticator:torii', data).catch(error => {
-                alert(error)
+            this.get('session').authenticate('authenticator:torii', data).catch(() => {
+                    alert("Usuário ou senha inválido!")
             }).then(() => {
                 if (this.get('session.isAuthenticated')) {
                     this.get('router').transitionTo('dashboard-overview');

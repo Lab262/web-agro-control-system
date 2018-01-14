@@ -50,7 +50,6 @@ module.exports = function (environment) {
     ENV.locationType = 'hash';
     ENV.APP.applicationId = '3Ws@VWp&Kqo[P4Xqn6eZTsDVsHQh8ABJ9i78rQoqWQg#wC$iZV=Ki86^ug/wp3@&'
   }
-  ENV.APP.HOST = 'http://localhost:1337'
 
   return ENV;
 };

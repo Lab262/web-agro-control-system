@@ -18,13 +18,14 @@ export default Torii.extend({
   },
 
   authenticate: function (credentials) {
-    let ParseUser = this.get('store').modelFor('parse-user')
-
-    // debugger;
-    return ParseUser.login(this.get('store'), credentials).catch(error => {
-      alert(error)
-    }).then(user => {
-      return {currentUser: user};
+    let store = this.get('store');
+    let ParseUser =  store.modelFor('parse-user');
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      ParseUser.login(store, credentials).catch(error => {  
+        return reject(error);
+      }).then(user => {
+        return resolve({currentUser: user});
+      })
     });
   },
 
