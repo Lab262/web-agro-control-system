@@ -5,45 +5,31 @@ import ENV from "../config/environment";
 const { service } = Ember.inject;
 
 export default Torii.extend({
-  store: Ember.inject.service(),
-  tokenEndpoint: ENV.APP.HOST+"/parse/login",
+  store: Ember.inject.service('store'),
   torii: service('torii'),
 
-  restore: function(data) {
-      return new Ember.RSVP.Promise(function(resolve, reject) {
-          if (!Ember.isEmpty(data.currentUser)) {
-            resolve(data);
-          } else {
-            reject();
-          }
-      });
+  restore: function (data) {
+    return new Ember.RSVP.Promise(function (resolve, reject) {
+      if (!Ember.isEmpty(data.currentUser)) {
+        resolve(data);
+      } else {
+        reject();
+      }
+    });
   },
 
-  authenticate: function(credentials) {
-    var self = this;
-      return new Ember.RSVP.Promise(function (resolve, reject) {
-        $.ajax({
-          method: "GET",
-          beforeSend: function(request) {
-            request.setRequestHeader("X-Parse-Application-Id", ENV.APP.applicationId);
-          },
-          url: self.tokenEndpoint + "?username="+credentials.username+"&password="+credentials.password,
-        }).then(function(response) {
-            Ember.run(function() {
-                resolve({
-                  currentUser: response,
-                });
-            });
-        }, function(xhr, status, error) {
-            var response = xhr.responseText;
-            Ember.run(function() {
-                reject(response);
-            });
-        });
-      });
+  authenticate: function (credentials) {
+    let ParseUser = this.get('store').modelFor('parse-user')
+
+    // debugger;
+    return ParseUser.login(this.get('store'), credentials).catch(error => {
+      alert(error)
+    }).then(user => {
+      return {currentUser: user};
+    });
   },
 
-  invalidate: function() {
-      return Ember.RSVP.resolve();
+  invalidate: function () {
+    return Ember.RSVP.resolve();
   }
 });

@@ -5,8 +5,5 @@ import Config from '../config/environment';
 export default adapter.extend({
   namespace: '',
   host: Config.APP.HOST+"/parse",
-  applicationId:  Config.APP.applicationId,
-  headers: {
-    'X-Parse-Application-Id': 'myAppId'
-  }
+  applicationId:  Config.APP.applicationId  
 });

@@ -3,12 +3,16 @@ import Component from '@ember/component';
 
 export default Component.extend({
     session: Ember.inject.service('session'),
+    store: Ember.inject.service('store'),
 
     actions: {
         login() {
-            let credentials = {username: this.get('username'), password:this.get('password') }
-            this.get('session').authenticate('authenticator:torii',credentials).catch((message) => {
-                alert(message);
+            let data = {
+                username: this.get('username'),
+                password: this.get('password')
+            };
+            this.get('session').authenticate('authenticator:torii', data).catch(error => {
+                alert(error)
             }).then(() => {
                 if (this.get('session.isAuthenticated')) {
                     this.get('router').transitionTo('dashboard-overview');
