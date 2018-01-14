@@ -3,8 +3,6 @@ import Component from '@ember/component';
 
 export default Component.extend({
     session: Ember.inject.service('session'),
-    store: Ember.inject.service('store'),
-
     actions: {
         login() {
             let data = {
