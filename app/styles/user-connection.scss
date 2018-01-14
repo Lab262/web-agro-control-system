@@ -113,7 +113,16 @@
                 h1 {
                     font-family: 'Montserrat-SemiBold', sans-serif;
                     font-size: 25px;
-                }
+                    &.longspace {
+                        margin-top: 50px;
+                    }
+                }          
+                p {
+                    margin-top: 5px;
+                    font-family: 'Montserrat-Regular', sans-serif;
+                    font-size: 14px;
+                }     
+                 
                 .md-input {
                     width: 400px;
                     color: white;
@@ -127,6 +136,11 @@
                     color: #2EA664;
                     font-family: 'Montserrat-SemiBold', sans-serif;
                     font-size: 18px;
+                    &.instructions {
+                        margin-top: 30px;
+                        margin-bottom: 30px;
+                        width: 400px;
+                    }
                 }
                 a {
                     font-size: 14px;
