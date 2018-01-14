@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Torii from 'ember-simple-auth/authenticators/torii';
-import ENV from "../config/environment";
 
 const { service } = Ember.inject;
 

@@ -32,6 +32,8 @@ module.exports = function (environment) {
 
   if (environment === 'test') {
     ENV.APP.HOST = 'https://web-agro-api.herokuapp.com'
+    ENV.APP.applicationId = '3Ws@VWp&Kqo[P4Xqn6eZTsDVsHQh8ABJ9i78rQoqWQg#wC$iZV=Ki86^ug/wp3@&'
+
     // Testem prefers this...
     ENV.rootURL = '/';
     ENV.locationType = 'none';
@@ -46,6 +48,7 @@ module.exports = function (environment) {
     ENV.APP.HOST = 'https://web-agro-api.herokuapp.com'
     ENV.rootURL = null;
     ENV.locationType = 'hash';
+    ENV.APP.applicationId = '3Ws@VWp&Kqo[P4Xqn6eZTsDVsHQh8ABJ9i78rQoqWQg#wC$iZV=Ki86^ug/wp3@&'
   }
   ENV.APP.HOST = 'http://localhost:1337'
 
