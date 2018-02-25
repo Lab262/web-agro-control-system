@@ -206,3 +206,65 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
       border-color: darken($accent-color, 5);
     }
   }
+
+
+  .top-bar {
+      display:flex;
+      flex-wrap: none;
+      justify-content: flex-start;
+      align-items: center;
+      background: white;
+      width: calc(100% - 240px); 
+      height: 45px;
+      margin-left: 240px;
+     
+      .divider {
+          border-left: 1px solid #979797;
+          width: 1px;
+          height: 75%;
+        //   margin-top: 7.5px;
+        //   margin-bottom: 7.5px;
+          margin-left: -10px;
+      }
+
+      .md-input {
+        width: 400px;
+        color: white;
+        .md-input-focused {
+            border-color: black;
+        }
+    }
+     .search {
+         margin-left: 25px;
+         width: 70%;
+         margin-top: 10px;
+         .md-input {
+             margin-top: 2.5px;
+            border-color: transparent;
+            .md-input-focused {
+                border-color: transparent;
+            }
+        }
+     }
+
+      .image-container {
+          height: 18px;
+          width: 18px;
+          margin-left: 45px;
+          margin-right: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .logo{
+                    height: 18px;
+                    width: 18px;
+                    object-fit: contain;
+                }
+      }
+
+
+  }
+
+  .content{ 
+      margin-left: 280px;
+  }

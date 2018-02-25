@@ -45,6 +45,15 @@ as |burger| }}
     {{/burger.menu}} 
 
     {{#burger.outlet}}
-       {{component optionSelected.componentName}}
+        <div class="top-bar">
+            <div class="image-container" >
+                <img class="logo" src="./images/ic_config.png">
+            </div>
+            <div class="divider"></div>
+            {{paper-input class="search" placeholder="Pesquisar" value=name onChange=(action (mut name)) icon="search"}}
+        </div>
+        <div class="content">
+        {{component optionSelected.componentName}}
+        </div>
     {{/burger.outlet}} 
 {{/burger-menu}}
