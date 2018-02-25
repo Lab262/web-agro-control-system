@@ -1,0 +1,37 @@
+{{#burger-menu locked=false width=240 dismissOnClick=false dismissOnEsc=false gesturesEnabled=false translucentOverlay=false class='is-open'
+as |burger| }} 
+    {{#burger.menu itemTagName="li" dismissOnItemClick=true as |menu|}}
+        <div class="project-info-header">   
+            <div class="image-container">
+            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Amil-logo.png">
+            </div>
+                <h5> Cooperativa Amil </h5>
+               {{#paper-button href="https://web-agro-control-system.herokuapp.com/index.html" target="_blank"}}Editar dados{{/paper-button}}
+        </div>
+        
+        <ul>
+        {{#each menuOptions as |option|}}
+            {{#menu.item }}
+                  {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option) onMouseEnter=(action 'mouseEnter') onMouseLeave=(action 'mouseLeave') }}                     
+                         <div class="image-container" >
+                              {{#if (is-equal option.name optionSelected.name)}}
+                                        <img class="logo" src="./images/{{option.iconName}}_selected.png">
+                               {{else}} 
+                                        <img class="logo" src="./images/{{option.iconName}}.png">
+                               {{/if}}  
+                        </div>
+
+                        <span> {{option.name}} </span>
+                   {{/paper-button}}
+                {{!-- {{#link-to option.routeLinkName class=(get-class-for-selected-and-divider option optionSelected)}}
+                    {{mdl-icon icon=option.iconName}} <span>{{option.name}}</span> 
+                {{/link-to}} --}}
+            {{/menu.item}} 
+        {{/each}}        
+        </ul>
+    {{/burger.menu}} 
+
+    {{#burger.outlet}}
+       {{component optionSelected.componentName}}
+    {{/burger.outlet}} 
+{{/burger-menu}}
