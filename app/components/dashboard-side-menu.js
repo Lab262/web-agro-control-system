@@ -6,14 +6,14 @@ export default Component.extend({
     session: Ember.inject.service('session'),
     route: null,
     menuOptions: [
-        {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'user-signin', hasDivider: true},
-        {name: 'Produtores', iconName: 'ic_produtores', componentName: 'user-signin'},
-        {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'user-signin'},
-        {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'user-signin'},
-        {name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'user-signin'},
-        {name: 'Relatório', iconName: 'ic_relatorio', componentName: 'user-signin'},
+        {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail', hasDivider: true},
+        {name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail'},
+        {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions'},
+        {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions'},
+        {name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control'},
+        {name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container'},
     ],
-    optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'user-signin'},
+    optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail'},
 
 
     didInsertElement() {

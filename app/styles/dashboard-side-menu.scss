@@ -54,7 +54,7 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
           font-family: 'Montserrat-Bold', sans-serif;
 
         }
-          a {
+          button {
               margin-top: 0px;
             font-size: 14px;
             color: white;
@@ -235,9 +235,9 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
         }
     }
      .search {
-         margin-left: 25px;
+         margin-left: 35px;
          width: 70%;
-         margin-top: 10px;
+         margin-top: 12.5px;
          .md-input {
              margin-top: 2.5px;
             border-color: transparent;
