@@ -23,12 +23,25 @@ as |burger| }}
 
                         <span> {{option.name}} </span>
                    {{/paper-button}}
-                {{!-- {{#link-to option.routeLinkName class=(get-class-for-selected-and-divider option optionSelected)}}
-                    {{mdl-icon icon=option.iconName}} <span>{{option.name}}</span> 
-                {{/link-to}} --}}
             {{/menu.item}} 
-        {{/each}}        
+        {{/each}}     
+        </ul>   
+
+        <ul> 
+             <li>
+                {{#paper-button class="logout" onClick=(action "logout")}}                     
+                    <div class="image-container" >
+                         <img class="logo" src="./images/ic_logout_selected.png">
+                      </div>
+
+                     <span>  Sair </span>
+                {{/paper-button}}
+             </li>   
+
         </ul>
+
+                
+                
     {{/burger.menu}} 
 
     {{#burger.outlet}}

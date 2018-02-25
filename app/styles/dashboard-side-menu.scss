@@ -64,8 +64,9 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
             font-size: 12px;
         }
       }
-
+      
       background: $accent-color;
+
       h2 {
         margin: 0;
         padding: 1em;
@@ -87,7 +88,7 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
         padding: 0;
   
         li {
-
+          
           .md-button {
             height: 50px;
 
@@ -109,6 +110,23 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
             text-transform: capitalize;
             font-size: 14px;
 
+            &.logout {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background: #2FAF68;
+                color: $text-color;        
+                span {
+                    font-family: 'Montserrat-Regular', sans-serif;
+                }   
+                .image-container {
+                    .logo {
+                        width: 75%;
+                        height: 75%;
+                    }
+                }      
+            }
+
             > i {
               
               margin-right: 20px;
@@ -119,7 +137,7 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
             }
 
             &.divider {
-              border-top: 1px solid rgba(0,0,0,0.1);              
+              border-top: 1px solid rgba(0,0,0,0.1);   
             }
    
             &.is-selected-option {
@@ -131,6 +149,7 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
             }
 
            &:not(.is-selected-option) {
+            &:not(.logout) {
               &:hover{ 
                 color: $text-color;
                .image-container {
@@ -138,10 +157,7 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
                 }
               }             
             }
-            
-
-           
-
+            }
             .image-container {
                 height: 20px;
                 width: 20px;

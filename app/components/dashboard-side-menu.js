@@ -1,6 +1,10 @@
+import Ember from 'ember';
 import Component from '@ember/component';
 
 export default Component.extend({
+
+    session: Ember.inject.service('session'),
+    route: null,
     menuOptions: [
         {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'user-signin', hasDivider: true},
         {name: 'Produtores', iconName: 'ic_produtores', componentName: 'user-signin'},
@@ -19,6 +23,14 @@ export default Component.extend({
     actions: {
         selectOption(option) {
             this.set('optionSelected', option);
+        },
+
+        logout() {
+            this.get('session').invalidate().then(() => {
+                if (!this.get('session.isAuthenticated')) {
+                    this.get('route').transitionToRoute('user-connection');
+                }
+            });
         },
 
         mouseEnter(event) {
