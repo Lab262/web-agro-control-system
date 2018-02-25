@@ -1,0 +1,34 @@
+.supply-control {
+    height: 100%; // overflow-y:auto; 
+    display: flex;
+    margin-top: 64px;
+    margin-left: 74px;
+    margin-right: 74px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    h1 {
+        font-family: 'Montserrat-Bold', sans-serif;
+        font-size: 22.5px;
+        width: 40%;
+        margin-bottom: 40px;
+    }
+    span {
+        font-family: 'Montserrat-Regular', sans-serif;
+        font-size: 12.5px;
+        width: 30%;
+        text-align: right;
+    }
+    .box-full {
+        width: 100%;
+        height: 289px;
+        margin-top: 20px;
+    }
+    .box-medium {
+        width: 45%;
+        height: 289px;
+        margin-top: 20px;
+    }
+
+}
