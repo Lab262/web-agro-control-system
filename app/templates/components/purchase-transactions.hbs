@@ -1,7 +1,47 @@
 <div class="purchase-transaction">
     <h1>Transação de compra</h1>
 
-             {{#paper-card class="box-full" as |card|}}                
+             {{#paper-card class="box-full" as |card|}}
+            <p>Nova transação compra</p>
+            <div class="inputs">
+                <div class="flex-20">
+                    {{#power-select placeholder="Produtor" options=producers onchange=(action (mut selecTedProducer)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>
+                
+                <div class="flex-20">
+                    {{#power-select placeholder="ID do Produto" options=productsIds onchange=(action (mut selecTedProductId)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>                
+                {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                <div class="flex-20">
+                    {{#power-select placeholder="Produto" options=productsNames onchange=(action (mut selecTedProductId)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>           
+                {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                <div class="flex-20">
+                    {{#power-select placeholder="Unidade de Medida" options=scales onchange=(action (mut selecTedProductId)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>                  {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                {{paper-input class="flex-20" label="Name" value=name onChange=(action (mut name))}}
+                <div class="radio-buttons">
+                    <p>Pagamento</p>
+                        {{#paper-radio-group
+                            groupValue=(readonly selectedFruit)
+                            onChange=(action (mut selectedFruit)) as |group|}}
+                            {{#group.radio value="Apple" primary=true}} A vista {{/group.radio}}
+                            {{#group.radio value="Banana" warn=true}} A prazo {{/group.radio}}
+                        {{/paper-radio-group}}
+                </div>
+  {{#paper-button raised=true primary=true}}Salvar Compra{{/paper-button}}
+
+            </div>
             {{/paper-card}}
             
             {{#paper-card class="box-big" as |card|}}            
