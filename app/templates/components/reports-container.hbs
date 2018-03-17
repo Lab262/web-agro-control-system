@@ -5,14 +5,33 @@
             {{graph-money-amount-simple model=grossSales}}
          
             {{#paper-card class="box-big" as |card|}}
-                        <p>ICMS</p>                     
+                        <p>ICMS</p> 
+                        <div class="graph-container">
+                        <div class="graph-item">
+                            <div class='circle'><div class="circle-content">300</div></div>
+                            <div class='circle-subtitle'>Retorno sobreo o Patrimônio Líquido</div>
+                        </div>  
+                         <div class="graph-item">
+                            <div class='circle'><div class="circle-content">105</div></div>
+                            <div class='circle-subtitle'>Capital Circulante Líquido(Capital de Giro)</div>
+                        </div>   
+                        </div>                 
             {{/paper-card}}
             
             {{graph-money-amount-simple model=purchases}}
 
             {{#paper-card class="box-big" as |card|}}  
                         <p>IPI</p>         
-          
+                        <div class="graph-container">
+                            <div class="graph-item">
+                                <div class='circle'><div class="circle-content">330</div></div>
+                                <div class='circle-subtitle'>Margem Operacional</div>
+                            </div>  
+                            <div class="graph-item">
+                                <div class='circle'><div class="circle-content">105</div></div>
+                                <div class='circle-subtitle'>Capital de Giro Próprio</div>
+                            </div>   
+                        </div>  
             {{/paper-card}}
 
             {{#paper-card class="box-small-double" as |card|}}   

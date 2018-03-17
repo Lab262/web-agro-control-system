@@ -51,7 +51,43 @@
             font-size: 12px;
             color: #858585;
         }
+        .graph-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            .graph-item {
+                .circle {
+                  display: block;
+                  border: solid 8px #36cc79;
+                  border-radius: 100%;
+                  width: 115px;
+                  height: 115px;
+                  .circle-content {
+                    width: 100%;
+                    height: 100%;
+                    padding-top: 30%;
+                    font-family: 'Montserrat-SemiBold', sans-serif;
+                    letter-spacing: 0.8px;
+                    font-size: 250%;
+                    text-align: center;
+          
+                  }
+                }
+                .circle-subtitle {
+                  display: inline-block;
+                  font-family: 'Montserrat-Light', sans-serif;
+                  width: 115px;
+                  padding-left: 5px;
+                  text-align: center;
+                  margin-top: 5px;
+                  margin-bottom: 10%;
+                  font-size: 12px;
+                }
+              }
+        }
+        
     }
+      
     .box-small {
         width: 270px;
         height: 240px;
