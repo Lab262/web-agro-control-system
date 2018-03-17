@@ -1,7 +1,48 @@
 <div class="purchase-transaction">
     <h1>Transação de Venda</h1>
 
-             {{#paper-card class="box-full" as |card|}}                
+             {{#paper-card class="box-full" as |card|}}
+            <p>Nova Venda</p>
+            <div class="inputs">
+                <div class="flex-20">
+                    {{#power-select selected=selectedProducer placeholder="Produtor" options=producers onchange=(action (mut selectedProducer)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>
+                
+                <div class="flex-20">
+                    {{#power-select selected=selectedProductId placeholder="ID do Produto" options=productsIds onchange=(action (mut selectedProductId)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>                
+                {{paper-input class="flex-20" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
+                <div class="flex-20">
+                    {{#power-select selected=selectedProductName placeholder="Produto" options=productsNames onchange=(action (mut selectedProductName)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>           
+                {{paper-input class="flex-20" label="Quantidate" value=amount onChange=(action (mut amount))}}
+                <div class="flex-20">
+                    {{#power-select selected=selectScale placeholder="Unidade de Medida" options=scales onchange=(action (mut selectScale)) as |name|}}
+                        {{name}}
+                    {{/power-select}}
+                </div>                  
+                {{paper-input class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
+                {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=(action (mut productCost))}}
+                {{paper-input class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
+                {{paper-input class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
+                <div class="radio-buttons">
+                    <p>Pagamento</p>
+                        {{#paper-radio-group
+                            groupValue=(readonly selectedFruit)
+                            onChange=(action (mut selectedFruit)) as |group|}}
+                            {{#group.radio value="Apple" primary=true}} A vista {{/group.radio}}
+                            {{#group.radio value="Banana" primary=true}} A prazo {{/group.radio}}
+                        {{/paper-radio-group}}
+                </div>
+            {{#paper-button class="green-white" raised=true primary=true}}Salvar Venda{{/paper-button}}
+
+            </div>
             {{/paper-card}}
             
             {{#paper-card class="box-big" as |card|}}            
