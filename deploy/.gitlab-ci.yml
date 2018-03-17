@@ -1,4 +1,4 @@
-image: node:6.5.0
+image: kahwee/node-ruby-dpl
 cache:
   paths:
   # - node_modules/
@@ -6,10 +6,6 @@ cache:
 production:
   type: deploy
   script:
-  - apt-get update -qy
-  - echo "Y" |apt-get install libssl-dev
-  - apt-get install -y rubygems
-  - gem install dpl
   - dpl --provider=heroku --app=web-agro-control-system  --api-key=$HEROKU_PRODUCTION_API_KEY
 
   only:
