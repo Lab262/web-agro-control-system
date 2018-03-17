@@ -2,19 +2,36 @@
     <h1>Relatórios</h1>
         <span>{{#paper-button href="" }}Imprimir Relatório{{/paper-button}}</span>
               
-            {{#paper-card class="box-small" as |card|}}            
-            {{/paper-card}}
-            {{#paper-card class="box-big" as |card|}}            
+            {{graph-money-amount-simple model=grossSales}}
+         
+            {{#paper-card class="box-big" as |card|}}
+                        <p>ICMS</p>                     
             {{/paper-card}}
             
-            {{#paper-card class="box-small" as |card|}}            
-            {{/paper-card}}
-            {{#paper-card class="box-big" as |card|}}            
+            {{graph-money-amount-simple model=purchases}}
+
+            {{#paper-card class="box-big" as |card|}}  
+                        <p>IPI</p>         
+          
             {{/paper-card}}
 
-            {{#paper-card class="box-small" as |card|}}            
+            {{#paper-card class="box-small-double" as |card|}}   
+            <p>Margem de Contribuição</p> 
+            {{graph-money-amount-hightlighted model=contributionMargin.unitary}}
+            {{graph-money-amount-hightlighted model=contributionMargin.total}}
+            {{#paper-button raised=false primary=false}}Ver histórico{{/paper-button}}
+
             {{/paper-card}}
-            {{#paper-card class="box-big" as |card|}}            
+            {{#paper-card class="box-big-double" as |card|}} 
+            <p>
+                Movimentação do Estoque
+            </p>      
+            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.output}}
+            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.input}}
+            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.initialStock}}
+            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.finalStock}}
+            {{#paper-button class="flex-100" raised=false primary=false}}Ver histórico{{/paper-button}}
+
             {{/paper-card}}
 
             {{#paper-card class="box-full" as |card|}}            
