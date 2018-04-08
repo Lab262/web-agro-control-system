@@ -6,7 +6,31 @@
                          {{paper-input class="search" placeholder="Pesquisar Produtor" value=name onChange=(action (mut name))}}
             {{/paper-card}}
             
-            {{#paper-card class="box-full" as |card|}}            
+            {{#paper-card class="box-full" as |card|}}       
+
+            <table>
+                    <tr class="header">
+                        <th>Identificação</th>
+                        <th class="name">Nome</th>
+                        <th>CPF</th>
+                        <th>CNPJ</th>
+                        <th>Última Transação</th>
+                        <th class="button"> </th>
+                    </tr>
+                        {{#each producers as |producer|}}
+                            <tr>
+                                <th>{{producer.identification}}</th>
+                                <th class="name">{{producer.name}}</th>
+                                <th>{{producer.cpf}}</th>
+                                <th>{{producer.cnpj}}</th>
+                                <th>{{producer.lastTransaction}}</th>
+                                <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
+                            </tr>
+                        {{else}}
+                            None user has answered the survey yet
+                        {{/each}}
+        </table>
+
             {{/paper-card}}
 
 
