@@ -15,7 +15,7 @@
                         {{name}}
                     {{/power-select}}
                 </div>                
-                {{paper-input class="flex-20" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
+                {{paper-input-mask mask='date' class="flex-20" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
                 <div class="flex-20">
                     {{#power-select selected=selectedProductName placeholder="Produto" options=productsNames onchange=(action (mut selectedProductName)) as |name|}}
                         {{name}}
@@ -27,25 +27,36 @@
                         {{name}}
                     {{/power-select}}
                 </div>                  
-                {{paper-input class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
-                {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=(action (mut productCost))}}
+                {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
+                {{paper-input-mask mask='currency' disabled=true class="flex-20" label="Custo dos produtos" value=productCost onChange=(action (mut productCost))}}
                 {{paper-input class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
-                {{paper-input class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
-                <div class="radio-buttons">
-                    <p>Pagamento</p>
-                        {{#paper-radio-group
-                            groupValue=(readonly selectedFruit)
-                            onChange=(action (mut selectedFruit)) as |group|}}
-                            {{#group.radio value="Apple" primary=true}} A vista {{/group.radio}}
-                            {{#group.radio value="Banana" primary=true}} A prazo {{/group.radio}}
-                        {{/paper-radio-group}}
-                </div>
+                {{paper-input class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}                
             {{#paper-button class="green-white" raised=true primary=true}}Salvar Venda{{/paper-button}}
 
             </div>
             {{/paper-card}}
             
-            {{#paper-card class="box-big" as |card|}}            
+            {{#paper-card class="box-big" as |card|}}   
+                            <p>Histórico</p>
+                <table>
+                    <tr class="header">
+                        <th>Data</th>
+                        <th class="name">Produto</th>
+                        <th>Quantidade</th>
+                        <th>Custo</th>   
+                    </tr>
+                        {{#each historic as |item|}}
+                            <tr>
+                                <th>{{item.date}}</th>
+                                <th class="name">{{item.productName}}</th>
+                                <th class="name">{{item.quantity}}</th>
+                                <th>{{item.cost}}</th>
+                            </tr>
+                        {{else}}
+                            None user has answered the survey yet
+                        {{/each}}
+                    </table>   
+                    <th class="button"><span>{{#paper-button href="" }}Ver todos{{/paper-button}}</span></th>      
             {{/paper-card}}
 
              {{#paper-card class="box-small" as |card|}}            
