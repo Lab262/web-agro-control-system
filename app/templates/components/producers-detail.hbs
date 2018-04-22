@@ -1,6 +1,11 @@
+
+{{#if showPromptDialog}}
+    {{add-producer-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+{{/if}}
+
 <div class="producers-detail">
     <h1>Produtores</h1>
-        <span>{{#paper-button href="" }}Adicionar Novo Produtor{{/paper-button}}</span>
+        <span>{{#paper-button href="" onClick=(action "openPromptDialog")}}Adicionar Novo Produtor{{/paper-button}}</span>
 
              {{#paper-card class="box-search" as |card|}}                
                          {{paper-input class="search" placeholder="Pesquisar Produtor" value=name onChange=(action (mut name))}}

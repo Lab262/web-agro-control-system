@@ -1,0 +1,35 @@
+.add-product-modal {
+    position:fixed;
+    padding:0;
+    margin:0;        
+    top:0;
+    right:0;
+    left: 240px;
+    width: calc(100% - 240px);
+    height: 100%;
+    z-index: 9999;
+    background:rgba(0,0,0,0.5);
+    .box-full {
+        width: 100%;
+        margin: 5%;
+        margin-right: 10%;
+        margin-left: 10%;
+        height: 400px;
+        .inputs {
+            margin-left: 5%;
+            margin-right: 5%;
+            justify-content: space-between;
+             .md-button.md-default-theme.gray-white {   
+                background: #D8D8D8;
+                color: #858585;
+            }
+        }
+        p {
+            margin-left: 5%;
+            margin-top: 15px;
+            margin-right: 5%;
+            font-size: 25px;
+        }
+    }
+ 
+}

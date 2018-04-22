@@ -1,8 +1,12 @@
+
+
+{{#if showPromptDialog}}
+    {{add-product-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+{{/if}}
+
 <div class="supply-control">
     <h1>Controle de Estoque</h1>
-        <span>{{#paper-button href="" }}Adicionar Produto{{/paper-button}}</span>
-        <span>{{#paper-button href="" }}Editar Produtos{{/paper-button}}</span>
-              
+        <span>{{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}</span>              
             {{#paper-card class="box-full" as |card|}}            
             {{/paper-card}}
 

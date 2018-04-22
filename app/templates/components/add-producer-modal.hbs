@@ -1,0 +1,16 @@
+<div id="add-product-modal-overlay" class="add-product-modal" onClick={{action closeModal}}>
+    <div id="add-product-modal-overlay" class="purchase-transaction" >
+        {{#paper-card class="box-full" as |card|}}
+        <p>Adicionar novo produtor</p>
+        <div class="inputs">
+            {{paper-input class="flex-40" label="Identificação do produtor" value=model.identification onChange=(action (mut model.identification))}} 
+            {{paper-input class="flex-40" label="Nome do produtor" value=model.name onChange=(action (mut model.name))}}
+            {{paper-input class="flex-40" label="CPF do produtor" value=model.cpf onChange=(action (mut model.cpf))}}
+            {{paper-input class="flex-40" label="CNPJ do produtor" value=model.cnpj onChange=(action (mut model.cnpj))}}
+            
+            {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action onClose)}}Cancelar{{/paper-button}}
+            {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Adicionar{{/paper-button}}
+        </div>
+        {{/paper-card}}
+    </div>
+</div>
