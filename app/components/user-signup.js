@@ -6,7 +6,7 @@ export default Component.extend({
 
     actions: {
         register() {
-
+            this.showLogin()
         },
         show(itemToShow) {
             this.set('viewShowing', itemToShow);

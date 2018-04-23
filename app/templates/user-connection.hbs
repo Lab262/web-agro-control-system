@@ -24,7 +24,7 @@
             {{#if loginRaised}}
                   {{user-signin}} 
             {{else}} 
-               {{user-signup}} 
+               {{user-signup showLogin=(action "showLogin")}} 
             {{/if}}
         </div>
 

@@ -1,26 +1,29 @@
 <div class="user-signup">
-<h1>Usuário</h1>
-<p>
-  {{paper-input
-    label=""
-    value=username
-    onChange=(action (mut username))
-    type="email"
-  }}
-</p>
 
-<h1 style="margin-top: 45px;">Senha</h1>
-<p>
-  {{paper-input
-    label=""
-    value=password
-    onChange=(action (mut password))
-    type="password"
-  }}
-</p>
+{{#if showingLogin}}
+    <h1>Usuário</h1>
+    <p>
+      {{paper-input
+        label=""
+        value=username
+        onChange=(action (mut username))
+        type="email"
+      }}
+    </p>
 
-{{#paper-button raised=true onClick=(action "login")}}Entrar{{/paper-button}} 
-{{#paper-button href="https://web-agro-control-system.herokuapp.com/index.html" target="_blank"}}Esqueceu a senha?{{/paper-button}}
-
+    <h1 style="margin-top: 45px;">Senha</h1>
+    <p>
+      {{paper-input
+        label=""
+        value=password
+        onChange=(action (mut password))
+        type="password"
+      }}
+    </p>
+    {{#paper-button class="login" raised=true onClick=(action "login")}}Entrar{{/paper-button}} 
+    <span>{{#paper-button class="link" onClick=(toggle 'showingLogin' this)}}Esqueceu a senha?{{/paper-button}}</span>
+{{else}}
+  {{forgot-password onAction=(toggle 'showingLogin' this)}}
+{{/if}}
 
 </div>
