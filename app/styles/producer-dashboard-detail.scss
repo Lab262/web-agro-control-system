@@ -1,0 +1,11 @@
+.producer-dashboard-detail {
+    @extend .dashboard-detail;
+    .transactions { 
+        margin: 0;
+        width: 100%;
+        @extend .purchase-transaction;
+        .box-big {
+            width: 100%;
+        }
+    }
+}

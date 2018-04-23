@@ -5,19 +5,26 @@ export default Component.extend({
 
     session: Ember.inject.service('session'),
     route: null,
-    menuOptions: [
-        {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail', hasDivider: true},
-        {name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail'},
-        {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions'},
-        {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions'},
-        {name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control'},
-        {name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container'},
-    ],
+    menuOptions: [],
     optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail'},
 
 
     didInsertElement() {
-        // this.set('optionSelected',this.get('menuOptions')[0])
+        if (this.get('userType') === "admin") {
+            this.set('menuOptions',[
+                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail', hasDivider: true},
+                {name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail'},
+                {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions'},
+                {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions'},
+                {name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control'},
+                {name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container'},
+            ]);
+        } else {
+            this.set('menuOptions',[
+                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-detail', hasDivider: true},
+            ]);
+        }
+        this.set('optionSelected', this.get('menuOptions')[0])
     },
 
     actions: {
