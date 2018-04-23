@@ -1,44 +1,49 @@
 <div class="user-signin">
 
-{{#if isShowingSigninInstructions}}
+{{#if (eq viewShowing "instructions")}}
      <h1>Cooperativas</h1>
      <p>Caso você seja um cooperativa interessada em nosso programa é necessário fazer um pequeno pré-cadastro para avaliação.</p>
-    {{#paper-button onClick=(toggle "isShowingSigninInstructions" this) raised=true class="instructions"}}Realizar Pré-cadastro{{/paper-button}}
+    {{#paper-button onClick=(action "show" "signin") raised=true class="instructions"}}Realizar Pré-cadastro{{/paper-button}}
 
     <h1 class="longspace">Produtor</h1>
     <p>Se você for um produtor, a sua cooperativa irá realizar o seu cadastro. Verifique se ela participa da nossa rede de afiliados.</p>
-    {{#paper-button raised=true class="instructions"}}Pesquisar Cooperativa{{/paper-button}} 
+    {{#paper-button onClick=(action "show" "search") raised=true class="instructions"}}Pesquisar Cooperativa{{/paper-button}} 
 
+{{else if (eq viewShowing "signin") }} 
+  <h1>Pré-cadastro</h1>
+      <p>Nosso pré-cadastro é bem simples, basta preencher os dados abaixo e verificaremos se seus dados estão válidos.</p>
+
+  <h1>Nome da Cooperativa</h1>
+  <p>
+    {{paper-input
+      label=""
+      value=cooperativeName
+      onChange=(action (mut cooperativeName))
+    }}
+  </p>
+
+  <h1 style="margin-top: 25px;">CNPJ</h1>
+  <p>
+    {{paper-input
+      label=""
+      value=cooperativeCNPJ
+      onChange=(action (mut cooperativeCNPJ))
+    }}
+  </p>
+
+  <h1 style="margin-top: 25px;">E-mail</h1>
+  <p>
+    {{paper-input
+      label=""
+      value=email
+      onChange=(action (mut email))
+      type="email"
+    }}
+  </p>
+
+  {{#paper-button raised=true onClick=(action "register") }}Concluir{{/paper-button}} 
 {{else}} 
-<h1>Nome da Cooperativa</h1>
-<p>
-  {{paper-input
-    label=""
-    value=cooperativeName
-    onChange=(action (mut cooperativeName))
-  }}
-</p>
-
-<h1 style="margin-top: 25px;">CNPJ</h1>
-<p>
-  {{paper-input
-    label=""
-    value=cooperativeCNPJ
-    onChange=(action (mut cooperativeCNPJ))
-  }}
-</p>
-
-<h1 style="margin-top: 25px;">E-mail</h1>
-<p>
-  {{paper-input
-    label=""
-    value=email
-    onChange=(action (mut email))
-    type="email"
-  }}
-</p>
-
-{{#paper-button raised=true onClick=(action "register") }}Concluir{{/paper-button}} 
+  {{search-cooperatiive-signup}}
 
 {{/if}}
 </div>
