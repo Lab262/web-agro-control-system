@@ -10,6 +10,11 @@ Router.map(function() {
   this.route('user-connection', {path: "/"});
   this.route('dashboard-overview');
   this.route('producer-dashboard-overview');
+  this.route('producers-detail');
+  this.route('purchase-transactions');
+  this.route('sales-transactions');
+  this.route('supply-control');
+  this.route('reports-container');
 });
 
 export default Router;

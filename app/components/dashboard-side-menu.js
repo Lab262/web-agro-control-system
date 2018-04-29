@@ -6,13 +6,13 @@ export default Component.extend({
     session: Ember.inject.service('session'),
     route: null,
     menuOptions: [],
-    optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail'},
+    optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview'},
 
 
     didInsertElement() {
         if (this.get('userType') === "admin") {
             this.set('menuOptions',[
-                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-detail', hasDivider: true},
+                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview', hasDivider: true},
                 {name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail'},
                 {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions'},
                 {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions'},
@@ -24,12 +24,14 @@ export default Component.extend({
                 {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-detail', hasDivider: true},
             ]);
         }
-        this.set('optionSelected', this.get('menuOptions')[0])
+        let currentOption = this.get('route').target.currentRouteName;
+        this.set('optionSelected', this.get('menuOptions').filter(item => item.componentName === currentOption)[0])
     },
 
     actions: {
         selectOption(option) {
-            this.set('optionSelected', option);
+            this.get('route').transitionToRoute(option.componentName); 
+            this.set('optionSelected', option); 
         },
 
         logout() {
@@ -45,7 +47,7 @@ export default Component.extend({
             let imagePathComponents = event.target.firstElementChild.firstElementChild.src.split("/");
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
-            event.target.firstElementChild.firstElementChild.src = 'images/' + imageCleanName + '_selected.png';
+            event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName + '_selected.png';
         },
 
         mouseLeave(event) {
@@ -53,9 +55,9 @@ export default Component.extend({
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
             if (this.get('optionSelected.iconName') != imageCleanName) {
-                event.target.firstElementChild.firstElementChild.src = 'images/' + imageCleanName +'.png';
+                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName +'.png';
             } else {
-                event.target.firstElementChild.firstElementChild.src = 'images/' + imageCleanName +'_selected.png';
+                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName +'_selected.png';
             }
         }
     }

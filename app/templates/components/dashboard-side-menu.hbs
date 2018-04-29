@@ -15,9 +15,9 @@ as |burger| }}
                   {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option) onMouseEnter=(action 'mouseEnter') onMouseLeave=(action 'mouseLeave') }}                     
                          <div class="image-container" >
                               {{#if (is-equal option.name optionSelected.name)}}
-                                        <img class="logo" src="./images/{{option.iconName}}_selected.png">
+                                        <img class="logo" src="https://storage.googleapis.com/webagro/{{option.iconName}}_selected.png">
                                {{else}} 
-                                        <img class="logo" src="./images/{{option.iconName}}.png">
+                                        <img class="logo" src="https://storage.googleapis.com/webagro/{{option.iconName}}.png">
                                {{/if}}  
                         </div>
 
