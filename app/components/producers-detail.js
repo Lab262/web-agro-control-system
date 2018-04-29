@@ -28,21 +28,31 @@ export default Component.extend({
             this.set('showPromptDialog', true);
         },
 
-        closePromptDialog(model, isToSave) {
-            if (model != undefined &&
-                model.identification != undefined
-                && model.cnpj != undefined
-                && model.cpf != undefined
-                && model.name != undefined
-                && model.identification != ""
-                && model.cnpj != ""
-                && model.cpf != ""
-                && model.name != "") {
-                if (!CPFValidator.isValid(model.cpf)) alert('CPF Inválido');
-                else if (!CNPJValidator.isValid(model.cnpj)) alert('CNPJ Inválido');
+        closePromptDialog(object, isToSave) {
+            if (object != undefined &&
+                object.identification != undefined
+                && object.cnpj != undefined
+                && object.cpf != undefined
+                && object.name != undefined
+                && object.identification != ""
+                && object.cnpj != ""
+                && object.cpf != ""
+                && object.name != "") {
+                if (!CPFValidator.isValid(object.cpf)) alert('CPF Inválido');
+                else if (!CNPJValidator.isValid(object.cnpj)) alert('CNPJ Inválido');
                 else {
-                    model.save()
-                    this.set('showPromptDialog', false);
+                    let newProducer = this.get('model.newProducer');
+                    newProducer.set('cpf', object.cpf);
+                    newProducer.set('cnpj', object.cnpj);
+                    newProducer.set('name', object.name);
+                    newProducer.set('identification',object.identification);
+                    newProducer.save().then( saved => {
+                        debugger;
+                        this.set('showPromptDialog', false);
+                    }).catch( err => {
+                        debugger
+                        console.error(err);
+                    })
                 }
 
             } else if (isToSave === true) {

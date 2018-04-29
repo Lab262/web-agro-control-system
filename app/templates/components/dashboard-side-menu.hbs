@@ -53,7 +53,7 @@ as |burger| }}
             {{paper-input class="search" placeholder="Pesquisar" value=name onChange=(action (mut name)) icon="search"}}
         </div>
         <div class="content">
-        {{component optionSelected.componentName}}
+        {{component optionSelected.componentName model=model}}
         </div>
     {{/burger.outlet}} 
 {{/burger-menu}}
