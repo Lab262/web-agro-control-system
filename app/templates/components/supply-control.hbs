@@ -10,12 +10,23 @@
             {{#paper-card class="box-full" as |card|}}            
             {{/paper-card}}
 
-            {{#paper-card class="box-medium" as |card|}}            
+             {{#each products as |product|}}
+              {{#paper-card class="box-medium" as |card|}}  
+                    {{#card.title as |title|}}
+                        {{#title.text as |text|}}
+                            {{#text.headline}}{{product.name}}{{/text.headline}}
+                        {{/title.text}}
+                    {{/card.title}}          
             {{/paper-card}}
-            {{#paper-card class="box-medium" as |card|}}            
-            {{/paper-card}}
-            {{#paper-card class="box-medium" as |card|}}            
-            {{/paper-card}}
-            {{#paper-card class="box-medium" as |card|}}            
-            {{/paper-card}}
+                            {{!-- <tr>
+                                <th>{{producer.identification}}</th>
+                                <th class="name">{{producer.name}}</th>
+                                <th>{{producer.cpf}}</th>
+                                <th>{{producer.cnpj}}</th>
+                                <th>{{producer.lastTransaction}}</th>
+                                <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
+                            </tr> --}}
+                        {{else}}
+                           Nenhum produto cadastrado
+                        {{/each}}
 </div>

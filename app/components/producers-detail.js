@@ -43,7 +43,6 @@ export default Component.extend({
                     newProducer.set('cooperative',this.get('model').cooperative);
 
                     newProducer.save().then( saved => {
-                        this.set('showPromptDialog', false);
                         window.location.reload()
                     }).catch( err => {
                         console.error(err);
