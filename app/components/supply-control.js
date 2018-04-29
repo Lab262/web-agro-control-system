@@ -20,7 +20,6 @@ export default Component.extend({
                 && model.unityPrice != ""
                 && model.selectScale != ""
                 && model.name != "") {
-                debugger;
                 console.log("save model");
                 this.set('showPromptDialog', false);
             } else if (isToSave === true) {

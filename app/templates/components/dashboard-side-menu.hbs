@@ -3,9 +3,9 @@ as |burger| }}
     {{#burger.menu itemTagName="li" dismissOnItemClick=true as |menu|}}
         <div class="project-info-header">   
             <div class="image-container">
-            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Amil-logo.png">
+            <img class="logo" src="{{model.cooperative.logo}}">
             </div>
-                <h5> Cooperativa Amil </h5>
+                <h5> {{model.cooperative.name}} </h5>
                {{#paper-button href="" }}Editar dados{{/paper-button}}
         </div>
         

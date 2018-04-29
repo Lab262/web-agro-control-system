@@ -3,6 +3,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   session: Ember.inject.service('session'),
+
   beforeModel(/* transition */) {
     if (this.get('session.isAuthenticated')) {
       if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0].userRole === "admin") {

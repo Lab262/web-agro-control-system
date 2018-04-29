@@ -3,14 +3,12 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   session: Ember.inject.service('session'),
+
   model() {
     let store = this.store;
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
-      newProducer: store.createRecord('producer'),
-      newProduct: store.createRecord('product'),
-      newSalesTransaction: store.createRecord('sales-transaction'),
-      newPurchaseTransaction: store.createRecord('purchase-transaction')
+      cooperative: this.store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0])
     });
   },
 
@@ -19,5 +17,4 @@ export default Route.extend({
       this.transitionTo('user-connection'); // Implicitly aborts the on-going transition.
     }
   },
-
 });

@@ -47,10 +47,8 @@ export default Component.extend({
                     newProducer.set('name', object.name);
                     newProducer.set('identification',object.identification);
                     newProducer.save().then( saved => {
-                        debugger;
                         this.set('showPromptDialog', false);
                     }).catch( err => {
-                        debugger
                         console.error(err);
                     })
                 }

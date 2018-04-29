@@ -5,6 +5,4 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   cpf: DS.attr('string'),
   cnpj: DS.attr('string')
-
-//   establishment: DS.belongsTo('establishment'),
 });
