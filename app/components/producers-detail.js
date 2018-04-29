@@ -3,22 +3,16 @@ import CPFValidator from 'npm:@fnando/cpf/dist/node';
 import CNPJValidator from 'npm:@fnando/cnpj/dist/node';
 
 export default Component.extend({
+    
+    producers: [],
 
-    producers: [
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" },
-        { identification: "UI00000000", name: "Nome", cpf: "000.000.000-00", cnpj: "000.000.000-00", lastTransaction: "00/00/00" }
-    ],
+    didInsertElement() {
+        let model = this.get('model');
+        model.getProducers(model.cooperative.id)
+        .then(producers => {
+            this.set('producers', producers);
+        }).catch(err => console.log(err))
+    },
 
     showPromptDialog: false,
     actions: {
@@ -42,12 +36,15 @@ export default Component.extend({
                 else if (!CNPJValidator.isValid(object.cnpj)) alert('CNPJ Inválido');
                 else {
                     let newProducer = this.get('model.newProducer');
-                    newProducer.set('cpf', object.cpf);
-                    newProducer.set('cnpj', object.cnpj);
+                    newProducer.set('cpf', CPFValidator.format(object.cpf));
+                    newProducer.set('cnpj', CNPJValidator.format(object.cnpj));
                     newProducer.set('name', object.name);
                     newProducer.set('identification',object.identification);
+                    newProducer.set('cooperative',this.get('model').cooperative);
+
                     newProducer.save().then( saved => {
                         this.set('showPromptDialog', false);
+                        window.location.reload()
                     }).catch( err => {
                         console.error(err);
                     })

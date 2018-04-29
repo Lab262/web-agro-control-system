@@ -9,4 +9,5 @@ export default DS.Model.extend({
   productAmount: DS.attr('number'),
   producer: DS.belongsTo('producer'),
   product: DS.belongsTo('product'),
+  cooperative: DS.belongsTo('cooperative'),
 });
