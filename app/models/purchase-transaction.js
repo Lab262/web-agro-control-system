@@ -6,8 +6,10 @@ export default DS.Model.extend({
   amountScale: DS.attr('string'),
   unityPrice: DS.attr('number'),
   discount: DS.attr('number'),
+  tax: DS.attr('number'),
   productAmount: DS.attr('number'),
   producer: DS.belongsTo('producer'),
   product: DS.belongsTo('product'),
   cooperative: DS.belongsTo('cooperative'),
+  transactionCost: DS.attr('number'),
 });
