@@ -29,10 +29,10 @@
                     {{/power-select}}
                 </div>                  
                 {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
-                {{paper-input-mask mask='currency' class="flex-20" label="Custo dos produtos" disabled=false value=productCost onChange=(action (mut productCost))}}
-                {{paper-input class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
-                {{paper-input class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}                
-            {{#paper-button class="green-white" raised=true primary=true}}Salvar Compra{{/paper-button}}
+                {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}}
+                {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
+                {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}                
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Compra{{/paper-button}}
 
             </div>
             {{/paper-card}}
