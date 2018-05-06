@@ -24,7 +24,7 @@
                 </div>           
                 {{paper-input class="flex-20" label="Quantidate" value=amount onChange=(action (mut amount))}}
                 <div class="flex-20">
-                    {{#power-select selected=selectScale placeholder="Unidade de Medida" options=scales onchange=(action (mut selectScale)) as |name|}}
+                    {{#power-select selected=selectScale placeholder="Unidade de Medida" options=model.cooperative.productScales onchange=(action (mut selectScale)) as |name|}}
                         {{name}}
                     {{/power-select}}
                 </div>                  

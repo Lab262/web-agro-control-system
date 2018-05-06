@@ -3,7 +3,7 @@ import Component from '@ember/component';
 export default Component.extend({
     producers: [],
     products: [],
-    scales:["cx: 19 a 22kg", "cx grande: 30 a 50kg"],
+    scales:[],
     selectedProducer: "",
     selectedProduct: null,
     selectScale: "",
