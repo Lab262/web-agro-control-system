@@ -1,12 +1,12 @@
 <div class="purchase-transaction">
-    <h1>Transação de compra</h1>
+    <h1>Transação de compra</h1> 
 
              {{#paper-card class="box-full" as |card|}}
             <p>Nova compra</p>
             <div class="inputs">
                 <div class="flex-20">
-                    {{#power-select selected=selectedProducer placeholder="Produtor" options=producers onchange=(action (mut selectedProducer)) as |name|}}
-                        {{name}}
+                    {{#power-select selected=selectedProducer searchField="name" placeholder="Produtor" options=producers onchange=(action (mut selectedProducer)) as |producer|}}
+                        {{producer.name}}
                     {{/power-select}}
                 </div>
                 

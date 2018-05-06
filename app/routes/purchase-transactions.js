@@ -8,7 +8,18 @@ export default Route.extend({
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
       cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
-      newPurchaseTransaction: store.createRecord('purchase-transaction')
+      newPurchaseTransaction: store.createRecord('purchase-transaction'),
+      getProducers: function (cooperativeId) {
+        return store.query('producer', {
+          "where": {
+            "cooperative": {
+              "__type": "Pointer",
+              "className": "Cooperative",
+              "objectId": cooperativeId,
+            }
+          }
+        })
+      }
     });
   },
 
