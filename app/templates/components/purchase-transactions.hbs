@@ -11,15 +11,15 @@
                 </div>
                 
                 <div class="flex-20">
-                    {{#power-select selected=selectedProductId placeholder="ID do Produto" options=productsIds onchange=(action (mut selectedProductId)) as |name|}}
-                        {{name}}
+                    {{#power-select selected=selectedProduct searchField="identification" placeholder="ID do Produto" options=products onchange=(action (mut selectedProduct)) as |product|}}
+                        {{product.identification}}
                     {{/power-select}}
                 </div>                
                                     
                 {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
                 <div class="flex-20">
-                    {{#power-select selected=selectedProductName placeholder="Produto" options=productsNames onchange=(action (mut selectedProductName)) as |name|}}
-                        {{name}}
+                    {{#power-select selected=selectedProduct  searchField="name"  placeholder="Produto" options=products onchange=(action (mut selectedProduct)) as |product|}}
+                        {{product.name}}
                     {{/power-select}}
                 </div>           
                 {{paper-input class="flex-20" label="Quantidate" value=amount onChange=(action (mut amount))}}

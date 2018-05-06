@@ -2,12 +2,10 @@ import Component from '@ember/component';
 
 export default Component.extend({
     producers: [],
-    productsIds: ["UC00098","UC00099"],
-    productsNames: ["Tomate Italiano", "Abaxaxi Mexicano", "Arroz Chines", "Madioca Brasileira"],
+    products: [],
     scales:["cx: 19 a 22kg", "cx grande: 30 a 50kg"],
     selectedProducer: "",
-    selectedProductId: "",
-    selectedProductName: "",
+    selectedProduct: null,
     selectScale: "",
     unityPrice: "0",
     productCost: "0",
@@ -24,7 +22,15 @@ export default Component.extend({
         .then(producers => {
             this.set('producers', producers);
         }).catch(err => console.log(err));
+
+        model.getProducts(model.cooperative.id).then(products => {
+            this.set('products', products);
+        }).catch(err => console.log(err));
+
+
     },
+
+
 
     actions: {
 

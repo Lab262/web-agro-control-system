@@ -19,7 +19,21 @@ export default Route.extend({
             }
           }
         })
+      },
+      
+      getProducts: function (cooperativeId) {
+        return store.query('product', {
+          "where": {
+            "cooperative": {
+              "__type": "Pointer",
+              "className": "Cooperative",
+              "objectId": cooperativeId,
+            }
+          }
+        })
       }
+
+
     });
   },
 
