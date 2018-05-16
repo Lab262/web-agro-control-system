@@ -6,22 +6,22 @@ export default Component.extend({
     session: Ember.inject.service('session'),
     route: null,
     menuOptions: [],
-    optionSelected: {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview'},
+    optionSelected: { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview' },
 
 
     didInsertElement() {
         if (this.get('userType') === "admin") {
-            this.set('menuOptions',[
-                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview', hasDivider: true},
-                {name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail'},
-                {name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions'},
-                {name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions'},
-                {name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control'},
-                {name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container'},
+            this.set('menuOptions', [
+                { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'dashboard-overview', hasDivider: true },
+                { name: 'Produtores', iconName: 'ic_produtores', componentName: 'producers-detail' },
+                { name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions' },
+                { name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions' },
+                { name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control' },
+                { name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container' },
             ]);
         } else {
-            this.set('menuOptions',[
-                {name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-detail', hasDivider: true},
+            this.set('menuOptions', [
+                { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-detail', hasDivider: true },
             ]);
         }
         let currentOption = this.get('route').target.currentRouteName;
@@ -30,8 +30,8 @@ export default Component.extend({
 
     actions: {
         selectOption(option) {
-            this.get('route').transitionToRoute(option.componentName); 
-            this.set('optionSelected', option); 
+            this.get('route').transitionToRoute(option.componentName);
+            this.set('optionSelected', option);
         },
 
         logout() {
@@ -47,7 +47,7 @@ export default Component.extend({
             let imagePathComponents = event.target.firstElementChild.firstElementChild.src.split("/");
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
-            event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName + '_selected.png';
+            event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
         },
 
         mouseLeave(event) {
@@ -55,9 +55,9 @@ export default Component.extend({
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
             if (this.get('optionSelected.iconName') != imageCleanName) {
-                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName +'.png';
+                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '.png';
             } else {
-                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/webagro/' + imageCleanName +'_selected.png';
+                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
             }
         }
     }

@@ -1,65 +1,66 @@
 <div class="purchase-transaction">
     <h1>Transação de Venda</h1>
-
-             {{#paper-card class="box-full" as |card|}}
-            <p>Nova Venda</p>
-            <div class="inputs">
-                <div class="flex-20">
-                    {{#power-select selected=selectedProducer placeholder="Produtor" options=producers onchange=(action (mut selectedProducer)) as |name|}}
-                        {{name}}
-                    {{/power-select}}
-                </div>
-                
-                <div class="flex-20">
-                    {{#power-select selected=selectedProductId placeholder="ID do Produto" options=productsIds onchange=(action (mut selectedProductId)) as |name|}}
-                        {{name}}
-                    {{/power-select}}
-                </div>                
-                {{paper-input-mask mask='date' class="flex-20" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
-                <div class="flex-20">
-                    {{#power-select selected=selectedProductName placeholder="Produto" options=productsNames onchange=(action (mut selectedProductName)) as |name|}}
-                        {{name}}
-                    {{/power-select}}
-                </div>           
-                {{paper-input class="flex-20" label="Quantidate" value=amount onChange=(action (mut amount))}}
-                <div class="flex-20">
-                    {{#power-select selected=selectScale placeholder="Unidade de Medida" options=scales onchange=(action (mut selectScale)) as |name|}}
-                        {{name}}
-                    {{/power-select}}
-                </div>                  
-                {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
-                {{paper-input-mask mask='currency' disabled=true class="flex-20" label="Custo dos produtos" value=productCost onChange=(action (mut productCost))}}
-                {{paper-input class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
-                {{paper-input class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}                
-            {{#paper-button class="green-white" raised=true primary=true}}Salvar Venda{{/paper-button}}
-
+    {{#paper-card class="box-full" as |card|}}
+        <p>Nova Venda</p>
+        <div class="inputs">
+            <div class="flex-20">
+                {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Produtor" options=producers onchange=(action
+                    (mut selectedProducer)) as |producer|}}
+                    {{producer.name}}
+                {{/power-selector-with-label}}
             </div>
-            {{/paper-card}}
-            
-            {{#paper-card class="box-big" as |card|}}   
-                            <p>Histórico</p>
-                <table>
-                    <tr class="header">
-                        <th>Data</th>
-                        <th class="name">Produto</th>
-                        <th>Quantidade</th>
-                        <th>Custo</th>   
-                    </tr>
-                        {{#each historic as |item|}}
-                            <tr>
-                                <th>{{item.date}}</th>
-                                <th class="name">{{item.productName}}</th>
-                                <th class="name">{{item.quantity}}</th>
-                                <th>{{item.cost}}</th>
-                            </tr>
-                        {{else}}
-                                                        Nenhuma transação
-                        {{/each}}
-                    </table>   
-                    <th class="button"><span>{{#paper-button href="" }}Ver todos{{/paper-button}}</span></th>      
-            {{/paper-card}}
-
-             {{#paper-card class="box-small" as |card|}}            
-            {{/paper-card}}
-
+            <div class="flex-20">
+                {{#power-selector-with-label selected=selectedProduct searchField="identification" placeholder="ID do Produto" options=products
+                    onchange=(action (mut selectedProduct)) as |product|}}
+                    {{product.identification}}
+                {{/power-selector-with-label}}
+            </div>
+            {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
+            <div class="flex-20">
+                {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
+                    (mut selectedProduct)) as |product|}}
+                    {{product.name}}
+                {{/power-selector-with-label}}
+            </div>
+            {{paper-input class="flex-20" type="number" label="Quantidade" value=amount onChange=(action (mut amount))}}
+            <div class="flex-20">
+                {{#power-selector-with-label selected=selectScale placeholder="Unidade de Medida" options=model.cooperative.productScales
+                    onchange=(action (mut selectScale)) as |name|}}
+                    {{name}}
+                {{/power-selector-with-label}}
+            </div>
+            {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
+            {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
+            {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Venda{{/paper-button}}
+        </div>
+    {{/paper-card}}
+    {{#paper-card class="box-big" as |card|}}
+        <p>Histórico</p>
+        <table>
+            <tr class="header">
+                <th>Data</th>
+                <th class="name">Produto</th>
+                <th>Quantidade</th>
+                <th>Custo</th>
+            </tr>
+            {{#each historic as |item|}}
+                <tr>
+                    <th>{{item.date}}</th>
+                    <th class="name">{{item.productName}}</th>
+                    <th class="name">{{item.quantity}}</th>
+                    <th>{{item.cost}}</th>
+                </tr>
+                {{else}}
+                    Nenhuma transação
+            {{/each}}
+        </table>
+        <th class="button">
+            <span>
+                {{#paper-button href="" }}Ver todos{{/paper-button}}
+            </span>
+        </th>
+    {{/paper-card}}
+    {{#paper-card class="box-small" as |card|}}
+    {{/paper-card}}
 </div>
