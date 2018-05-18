@@ -1,59 +1,51 @@
-{{#burger-menu locked=false width=240 dismissOnClick=false dismissOnEsc=false gesturesEnabled=false translucentOverlay=false class='is-open'
-as |burger| }} 
+{{#burger-menu locked=false width=240 dismissOnClick=false dismissOnEsc=false gesturesEnabled=false translucentOverlay=false
+    class='is-open' as |burger| }}
     {{#burger.menu itemTagName="li" dismissOnItemClick=true as |menu|}}
-        <div class="project-info-header">   
+        <div class="project-info-header">
             <div class="image-container">
-            <img class="logo" src="{{model.cooperative.logo}}">
+                <img class="logo" src="{{model.cooperative.logo}}">
             </div>
-                <h5> {{model.cooperative.name}} </h5>
-               {{#paper-button href="" }}Editar dados{{/paper-button}}
+            <h5> {{model.cooperative.name}} </h5>
+            {{#paper-button href="" }}Editar dados{{/paper-button}}
         </div>
-        
         <ul>
-        {{#each menuOptions as |option|}}
-            {{#menu.item }}
-                  {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option) onMouseEnter=(action 'mouseEnter') onMouseLeave=(action 'mouseLeave') }}                     
-                         <div class="image-container" >
-                              {{#if (is-equal option.name optionSelected.name)}}
-                                        <img class="logo" src="https://storage.googleapis.com/webagro/{{option.iconName}}_selected.png">
-                               {{else}} 
-                                        <img class="logo" src="https://storage.googleapis.com/webagro/{{option.iconName}}.png">
-                               {{/if}}  
+            {{#each menuOptions as |option|}}
+                {{#menu.item }}
+                    {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option)
+                        onMouseEnter=(action 'mouseEnter') onMouseLeave=(action 'mouseLeave') }}
+                        <div class="image-container">
+                            {{#if (is-equal option.name optionSelected.name)}}
+                                <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}_selected.png">
+                            {{else}}
+                                <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}.png">
+                            {{/if}}
                         </div>
-
                         <span> {{option.name}} </span>
-                   {{/paper-button}}
-            {{/menu.item}} 
-        {{/each}}     
-        </ul>   
-
-        <ul> 
-             <li>
-                {{#paper-button class="logout" onClick=(action "logout")}}                     
-                    <div class="image-container" >
-                         <img class="logo" src="./images/ic_logout_selected.png">
-                      </div>
-
-                     <span>  Sair </span>
-                {{/paper-button}}
-             </li>   
-
+                    {{/paper-button}}
+                {{/menu.item}}
+            {{/each}}
         </ul>
-
-                
-                
-    {{/burger.menu}} 
-
+        <ul>
+            <li>
+                {{#paper-button class="logout" onClick=(action "logout")}}
+                    <div class="image-container">
+                        <img class="logo" src="./images/ic_logout_selected.png">
+                    </div>
+                    <span> Sair </span>
+                {{/paper-button}}
+            </li>
+        </ul>
+    {{/burger.menu}}
     {{#burger.outlet}}
         <div class="top-bar">
-            <div class="image-container" >
+            <div class="image-container">
                 <img class="logo" src="./images/ic_config.png">
             </div>
             <div class="divider"></div>
             {{paper-input class="search" placeholder="Pesquisar" value=name onChange=(action (mut name)) icon="search"}}
         </div>
         <div class="content">
-        {{component optionSelected.componentName model=model}}
+            {{component optionSelected.componentName model=model}}
         </div>
-    {{/burger.outlet}} 
+    {{/burger.outlet}}
 {{/burger-menu}}

@@ -1,18 +1,16 @@
 @mixin font-face($name) {
-  @font-face {
-    font-family: $name;
-    src:  url("./fonts/#{$name}/#{$name}.eot?") format("eot"),
-      url("./fonts/#{$name}/#{$name}.woff") format("woff"),
-      url("./fonts/#{$name}/#{$name}.ttc") format("ttc"),
-      url("./fonts/#{$name}/#{$name}.ttf") format("ttf")
-
-  }
+    @font-face {
+        font-family: $name;
+        src: url("./fonts/#{$name}/#{$name}.eot?") format("eot"),
+        url("./fonts/#{$name}/#{$name}.woff") format("woff"),
+        url("./fonts/#{$name}/#{$name}.ttc") format("ttc"),
+        url("./fonts/#{$name}/#{$name}.ttf") format("ttf")
+    }
 }
+
 @include font-face('Montserrat');
 @include font-face('LucidaGrande');
 @include font-face('Poppins');
-
-
 @import "_color-definitions";
 $color-primary: $palette-grey-900;
 $color-accent: $palette-indigo-A700;
@@ -31,7 +29,6 @@ $warn: "red";
 @import "reports-container";
 @import "add-product-modal";
 @import "producer-dashboard-detail";
-
 html,
 body {
     height: 100%;
@@ -128,18 +125,20 @@ video {
     font-family: 'Roboto';
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 8px;
     background-color: lightgray;
     height: 8px;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background-color: black;
 }
+
 .md-input {
     font-family: 'Montserrat-Regular', sans-serif;
 }
+
 input[type="password"] {
     margin-top: -20px;
     height: 55px;
@@ -149,8 +148,24 @@ input[type="password"] {
 .md-button {
     text-transform: capitalize;
     font-family: 'Montserrat-Regular', sans-serif;
-    &.md-raised{
+    &.md-raised {
         background-color: white;
-        color:black;
-      }
+        color: black;
+    }
+}
+
+span.power-selector-with-label-label {
+    font-family: 'Poppins-Medium', sans-serif;
+    font-size: 11px;
+    color: #7B7B7B;
+    margin-top: -15px;
+    margin-bottom: 0px;
+}
+
+.power-selector-with-label-selector {
+    margin-top: -5px;
+}
+
+.power-selector-with-label {
+    margin-top: -10px;
 }

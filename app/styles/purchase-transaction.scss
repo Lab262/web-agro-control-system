@@ -17,24 +17,20 @@
     .box-full {
         width: 100%;
         height: 360px;
-        margin-top: 20px;        
+        margin-top: 20px;
         padding: 30px;
-
         .inputs {
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
-
-            md-input-container.md-default-theme .md-input  {
+            md-input-container.md-default-theme .md-input {
                 border-color: black;
             }
-
             label {
                 font-family: 'Poppins-Medium', sans-serif;
                 font-size: 15px;
                 color: #7B7B7B;
             }
-
             .md-input {
                 font-family: 'Poppins-Medium', sans-serif;
                 font-size: 13px;
@@ -43,28 +39,26 @@
                     border-color: black;
                 }
             }
-            
             .flex-20 {
                 margin-right: 5%;
             }
-
             .ember-power-select-trigger {
                 margin-top: 8px;
             }
-
-            .ember-power-select-selected-item, .ember-power-select-placeholder {
+            .ember-power-select-selected-item,
+            .ember-power-select-placeholder {
                 font-family: 'Poppins-Medium', sans-serif;
                 font-size: 13px;
             }
-            .ember-power-select-trigger--active, .ember-power-select-placeholder {
+            .ember-power-select-trigger--active,
+            .ember-power-select-placeholder {
                 font-family: 'Poppins-Medium', sans-serif;
                 font-size: 13px;
                 color: #7B7B7B;
             }
-
             .radio-buttons {
                 md-radio-group {
-                    display:flex;
+                    display: flex;
                     align-items: center;
                     width: 190px;
                     md-radio-button {
@@ -89,7 +83,6 @@
                 justify-content: flex-start;
                 margin-right: 1.5%;
             }
-
             .md-button.md-default-theme {
                 margin-top: 20px;
                 height: 50px;
@@ -99,27 +92,22 @@
                 font-family: 'Montserrat-Bold', sans-serif;
                 font-size: 13px;
                 &:hover {
-                    background:#36CC50;
+                    background: #36CC50;
                 }
             }
         }
-
         p {
             font-family: 'Montserrat-Bold', sans-serif;
             font-size: 13px;
             margin-bottom: 25px;
         }
-
     }
-
     .box-small {
         width: 300px;
         height: 300px;
         margin-top: 20px;
-  
-      }
-  
-      .box-big {
+    }
+    .box-big {
         width: 555px;
         height: 300px;
         margin-top: 20px;
@@ -133,46 +121,45 @@
             margin-top: 25px;
             margin-left: 25px;
         }
-         table {
+        table {
             //  padding-top: 20px;
-             margin: 25px;
-             margin-top: 15px;
-             tr {
-                 display: flex;
-                 justify-content: space-between;
-                 border-bottom: 1px solid rgba(216, 216, 216, 1);
-
-                 &.header {
+            margin: 25px;
+            margin-top: 15px;
+            tr {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(216, 216, 216, 1);
+                &.header {
                     border-bottom: 1px solid rgba(133, 133, 133, 0.5);
-                     th {
-                         color: rgba(133, 133, 133, 1);
-                         font-size: 10px;
-                         margin-bottom: 0px;
-                         margin-top: 0px;
-                         padding-bottom: 10px;
-                         padding-top: 0px;
-                     }
-                 }
-                 th {
-                     font-family: 'Poppins-Regular', sans-serif;
-                     color: rgba(0, 0, 0, 1);
-                     font-size: 12px;
-                     font-weight: normal;
-                     width: 20%;
-                     margin-bottom: 5px;
-                     padding-top: 15px;
-                     &.name {
+                    th {
+                        color: rgba(133, 133, 133, 1);
+                        font-size: 10px;
+                        margin-bottom: 0px;
+                        margin-top: 0px;
+                        padding-bottom: 10px;
+                        padding-top: 0px;
+                    }
+                }
+                th {
+                    font-family: 'Poppins-Regular', sans-serif;
+                    color: rgba(0, 0, 0, 1);
+                    font-size: 12px;
+                    font-weight: normal;
+                    width: 20%;
+                    margin-bottom: 5px;
+                    padding-top: 15px;
+                    &.name {
                         width: 30%;
-                     }
-                     &.button {
+                    }
+                    &.button {
                         width: 10%;
-                     }
-                     button {
-                         font-size: 12.5px;
-                         margin-top: -5px;
-                     }
-                 }
-             }
-         }
-      }
+                    }
+                    button {
+                        font-size: 12.5px;
+                        margin-top: -5px;
+                    }
+                }
+            }
+        }
+    }
 }
