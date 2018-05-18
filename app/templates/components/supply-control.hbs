@@ -1,24 +1,37 @@
-
-
 {{#if showPromptDialog}}
     {{add-product-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
 {{/if}}
-
 <div class="supply-control">
     <h1>Controle de Estoque</h1>
-        <span>{{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}</span>              
-            {{#paper-card class="box-full" as |card|}}            
+    <span>
+        {{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}
+    </span>
+    {{#paper-card class="box-full" as |card|}}
+        <div class="chart">
+            {{#paper-card}}
+                <span class="top-label"> Dinheiro Reais</span>
+                {{ember-chart type="bar" data=chartData options=chartOptions height=100}}
+                <span class="bottom-label"> Nov - Dez</span>
             {{/paper-card}}
-
-             {{#each products as |product|}}
-              {{#paper-card class="box-medium" as |card|}}  
-                    {{#card.title as |title|}}
-                        {{#title.text as |text|}}
-                            {{#text.headline}}{{product.name}}{{/text.headline}}
-                        {{/title.text}}
-                    {{/card.title}}          
-            {{/paper-card}}
-                            {{!-- <tr>
+        </div>
+        <div class="chart-legend">
+            {{#each chartData.datasets.0.data as |data| }}
+                <div class="legend-item">
+                    <div class="circle" style="background: #aaa02f"> </div>
+                    <span style="text-align: left">{{data}}</span>
+                </div>
+            {{/each}}
+        </div>
+    {{/paper-card}}
+    {{#each products as |product|}}
+        {{#paper-card class="box-medium" as |card|}}
+            {{#card.title as |title|}}
+                {{#title.text as |text|}}
+                    {{#text.headline}}{{product.name}}{{/text.headline}}
+                {{/title.text}}
+            {{/card.title}}
+        {{/paper-card}}
+        {{!-- <tr>
                                 <th>{{producer.identification}}</th>
                                 <th class="name">{{producer.name}}</th>
                                 <th>{{producer.cpf}}</th>
@@ -26,7 +39,7 @@
                                 <th>{{producer.lastTransaction}}</th>
                                 <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
                             </tr> --}}
-                        {{else}}
-                           Nenhum produto cadastrado
-                        {{/each}}
+        {{else}}
+            Nenhum produto cadastrado
+    {{/each}}
 </div>

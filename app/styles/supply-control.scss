@@ -22,13 +22,48 @@
     }
     .box-full {
         width: 100%;
-        height: 289px;
+        height: 329px;
         margin-top: 20px;
+        .chart {
+            margin: 2.5%;
+            .top-label {
+                color: grey;
+                padding: 15px;
+                width: 100%;
+                text-align: left;
+            }
+            .bottom-label {
+                color: grey;
+                margin-bottom: 15px;
+                width: 98%;
+                text-align: right;
+            }
+        }
+        .chart-legend {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            .legend-item {
+                width: 15%;
+                text-align: left;
+                margin-bottom: 1%;
+                margin-left: 2.5%;
+                margin-right: 2.5%;
+                display: flex;
+                align-items: center;
+                .circle {
+                    margin-right: 10px;
+                    background: #f00;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                }
+            }
+        }
     }
     .box-medium {
         width: 45%;
         height: 289px;
         margin-top: 20px;
     }
-
 }
