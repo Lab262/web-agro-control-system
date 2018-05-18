@@ -13,7 +13,7 @@ export default Component.extend({
             this.set('producers', producers);
         }).catch(err => console.log(err))
     },
-
+    
     showPromptDialog: false,
     actions: {
         /* Prompt dialog */
