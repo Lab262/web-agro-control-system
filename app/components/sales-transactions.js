@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import Ember from 'ember';
+import Moment from 'npm:moment';
 
 export default Component.extend({
     producers: [],
@@ -19,12 +20,12 @@ export default Component.extend({
         }
     }),
 
-    historic: [
-        { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-        { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-        { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-        { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-    ],
+    // historic: [
+    //     { cost: "R$ 1.800,00", productName: " Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
+    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
+    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
+    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
+    // ],
 
     didInsertElement() {
         let model = this.get('model');
@@ -37,6 +38,20 @@ export default Component.extend({
             this.set('products', products);
         }).catch(err => console.log(err))
 
+        model.getPurchaseTransaction(model.cooperative.id).then(historic => {
+            var historics = [];
+            for (var i = 0, len = historic.content.length; i < len; i++) {
+                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YY');
+                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
+                historics.push({
+                    cost: cost,
+                    productName: historic.content[i].__data.product.data.attributes.name,
+                    quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
+                    date: date
+                })
+            }
+            this.set('historic', historics);
+        }).catch(err => console.log(err))
     },
 
     actions: {

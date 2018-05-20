@@ -34,7 +34,6 @@ export default Component.extend({
 
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
             var historics = [];
-
             for (var i = 0, len = historic.content.length; i < len; i++) {
                 var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YY');
                 var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
