@@ -70,7 +70,6 @@ export default Component.extend({
         this.getRandomColor(),
         this.getRandomColor(),
         this.getRandomColor(), this.getRandomColor()];
-        debugger;
         let _this = this;
         let chartData = JSON.parse(JSON.stringify({
             labels: ["Limão Taití", "Tomate", "Uva", "Maxixe", "Tomate Italiano", "Melão", "Maça", "Batata Doce"],
@@ -86,32 +85,7 @@ export default Component.extend({
                 backgroundColor: colors
             }]
         }));
-        let chartOptions = {
-            tootltips: {
-                enabled: false
-            },
-            legend: {
-                display: false,
-            }, scales: {
-                xAxes: [{
-                    gridLines: {
-                        color: "#000000"
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 100
-                    },
-                    gridLines: {
-                        color: "#FFFFFF"
-                    }
-                }]
-            },
-        }
         this.set('chartData', chartData)
-        // this.set('chartOptions', chartOptions)
-
     },
 
     getTintedColor(color, v) {

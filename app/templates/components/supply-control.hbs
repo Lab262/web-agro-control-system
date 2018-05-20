@@ -17,7 +17,6 @@
         <div class="chart-legend">
             {{#each chartData.labels as |data index| }}
                 <div class="legend-item">
-                    {{debugger}}
                     <div class="circle" style="background: {{get chartData.datasets.1.backgroundColor index}}"> </div>
                     <span style="text-align: left">{{data}}</span>
                 </div>
@@ -26,20 +25,18 @@
     {{/paper-card}}
     {{#each products as |product|}}
         {{#paper-card class="box-medium" as |card|}}
-            {{#card.title as |title|}}
-                {{#title.text as |text|}}
-                    {{#text.headline}}{{product.name}}{{/text.headline}}
-                {{/title.text}}
-            {{/card.title}}
+            <div class="header">
+                <p>
+                    {{product.name}}
+                </p>
+                <span>
+                    {{#paper-button href="" onClick=(action "openPromptDialog") }}Editar{{/paper-button}}
+                </span>
+                <span>
+                    {{#paper-button href="" onClick=(action "openPromptDialog") }}Ver Histórico{{/paper-button}}
+                </span>
+            </div>
         {{/paper-card}}
-        {{!-- <tr>
-                                <th>{{producer.identification}}</th>
-                                <th class="name">{{producer.name}}</th>
-                                <th>{{producer.cpf}}</th>
-                                <th>{{producer.cnpj}}</th>
-                                <th>{{producer.lastTransaction}}</th>
-                                <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
-                            </tr> --}}
         {{else}}
             Nenhum produto cadastrado
     {{/each}}
