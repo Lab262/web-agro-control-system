@@ -29,12 +29,12 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
     }
     .box-small {
         width: 325px;
-        height: 315px;
+        height: 300px;
         margin-top: 20px;
     }
     .box-big {
         width: 550px;
-        height: 315px;
+        height: 300px;
         margin-top: 20px;
         .header {
             display: flex;
@@ -59,6 +59,15 @@ $bm-overlay-background: rgba(0, 0, 0, 0.7);
         span {
             font-family: 'Poppins-Light', sans-serif;
             font-size: 11px;
+        }
+        &.report {
+            .bar-graph-with-history {
+                .chart-legend {
+                    .legend-item {
+                        width: inherit;
+                    }
+                }
+            }
         }
         .bar-graph-with-history {
             .chart-legend {
