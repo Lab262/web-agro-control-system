@@ -13,8 +13,8 @@ export default Component.extend({
         this.getRandomColor(), this.getRandomColor()])
     },
 
-    options: Ember.computed('overallChartData', 'colors', function () {
-        let overallChartData = this.get('overallChartData');
+    options: Ember.computed('chartData', 'colors', function () {
+        let overallChartData = this.get('chartData');
         if (overallChartData != null && overallChartData != undefined) {
 
             var chartOptions = {
@@ -74,8 +74,8 @@ export default Component.extend({
         }
     }),
 
-    data: Ember.computed('overallChartData', 'colors', function () {
-        let overallChartData = this.get('overallChartData');
+    data: Ember.computed('chartData', 'colors', function () {
+        let overallChartData = this.get('chartData');
         if (overallChartData != null && overallChartData != undefined) {
             let colors = this.get('colors')
             let _this = this;
@@ -83,6 +83,7 @@ export default Component.extend({
                 labels: overallChartData.labels,
                 legends: JSON.parse(JSON.stringify(overallChartData.labels)),
                 legendStyles: colors,
+                bottomLegend: overallChartData.lastMonthLabel + " - " + overallChartData.currentMonthLabel,
                 datasets: [{
                     pointHitRadius: 25,
                     label: overallChartData.lastMonthLabel,

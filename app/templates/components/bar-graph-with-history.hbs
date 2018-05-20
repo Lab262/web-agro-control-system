@@ -4,7 +4,7 @@
             {{#paper-card}}
                 <span class="top-label"> Dinheiro Reais</span>
                 {{ember-chart type="bar" data=data options=options height=height}}
-                <span class="bottom-label"> Nov - Dez</span>
+                <span class="bottom-label"> {{data.bottomLegend}}</span>
             {{/paper-card}}
         </div>
         <div class="chart-legend">
