@@ -3,12 +3,19 @@ import Ember from 'ember';
 
 export default Component.extend({
 
+    didInsertElement() {
+        this.set('colors', [this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(), this.getRandomColor()])
+    },
 
-
-    options: Ember.computed('overallChartData', function () {
+    options: Ember.computed('overallChartData', 'colors', function () {
         let overallChartData = this.get('overallChartData');
         if (overallChartData != null && overallChartData != undefined) {
-            debugger;
 
             var chartOptions = {
                 hover: {
@@ -67,20 +74,15 @@ export default Component.extend({
         }
     }),
 
-    data: Ember.computed('overallChartData', function () {
+    data: Ember.computed('overallChartData', 'colors', function () {
         let overallChartData = this.get('overallChartData');
         if (overallChartData != null && overallChartData != undefined) {
-            let colors = [this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(), this.getRandomColor()];
+            let colors = this.get('colors')
             let _this = this;
             let chartData = JSON.parse(JSON.stringify({
                 labels: overallChartData.labels,
-                legendStyles: colors.map(item => { return new Ember.String.htmlSafe('background: ' + item) }),
+                legends: JSON.parse(JSON.stringify(overallChartData.labels)),
+                legendStyles: colors,
                 datasets: [{
                     pointHitRadius: 25,
                     label: overallChartData.lastMonthLabel,

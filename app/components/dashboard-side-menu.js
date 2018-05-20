@@ -44,20 +44,20 @@ export default Component.extend({
 
         mouseEnter(event) {
             // alert(event);
-            let imagePathComponents = event.target.firstElementChild.firstElementChild.src.split("/");
+            let imagePathComponents = event.currentTarget.firstElementChild.firstElementChild.src.split("/");
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
-            event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
+            event.currentTarget.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
         },
 
         mouseLeave(event) {
-            let imagePathComponents = event.target.firstElementChild.firstElementChild.src.split("/");
+            let imagePathComponents = event.currentTarget.firstElementChild.firstElementChild.src.split("/");
             let imageName = imagePathComponents[imagePathComponents.length - 1];
             let imageCleanName = imageName.split('.png')[0].split('_selected')[0];
             if (this.get('optionSelected.iconName') != imageCleanName) {
-                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '.png';
+                event.currentTarget.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '.png';
             } else {
-                event.target.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
+                event.currentTarget.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
             }
         }
     }
