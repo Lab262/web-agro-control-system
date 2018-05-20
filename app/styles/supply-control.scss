@@ -20,15 +20,98 @@
         width: 30%;
         text-align: right;
     }
+    .chart {
+        margin: 2.5%;
+        .top-label {
+            color: grey;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+        }
+        .bottom-label {
+            color: grey;
+            margin-bottom: 15px;
+            width: 98%;
+            text-align: right;
+        }
+    }
     .box-full {
         width: 100%;
-        height: 289px;
+        height: 329px;
         margin-top: 20px;
+        span {
+            font-family: 'Poppins-Light', sans-serif;
+            font-size: 11px;
+        }
+        .chart-legend {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            .legend-item {
+                width: 20%;
+                text-align: left;
+                margin-bottom: 1%;
+                margin-left: 2.5%;
+                margin-right: 2.5%;
+                display: flex;
+                align-items: center;
+                span {
+                    font-family: 'Montserrat-Regular', sans-serif;
+                    font-size: 13px;
+                    width: 100%;
+                    color: rgba(0, 0, 0, 0.65);
+                }
+                .circle {
+                    margin-right: 10px;
+                    background: #f00;
+                    width: 17.5px;
+                    height: 15px;
+                    border-radius: 100%;
+                }
+            }
+        }
     }
     .box-medium {
-        width: 45%;
-        height: 289px;
+        width: 400px;
+        height: 349px;
         margin-top: 20px;
+        span {
+            font-family: 'Poppins-Light', sans-serif;
+            font-size: 11px;
+        }
+        .chart {
+            margin-top: 0px;
+            margin-left: 2.5%;
+            width: 95%;
+            .legend {
+                margin-top: 40px;
+                display: flex;
+                justify-content: space-between;
+                span {
+                    transform: rotate(270deg);
+                    font-family: 'Poppins-Light', sans-serif;
+                    font-size: 11px;
+                }
+            }
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            margin-left: 15px;
+            p {
+                // margin-top: 0px;
+                text-align: left;
+                width: 250px; // font-weight: bolder;
+                font-family: 'Poppins-Medium', sans-serif;
+                font-size: 15px;
+                color: black;
+            }
+            button {
+                width: 65px; // font-weight: bolder;
+                font-size: 12px;
+                color: grey;
+            }
+        }
     }
-
 }
