@@ -1,49 +1,86 @@
-$accent-color: rgba(54,204,121,1);
+$accent-color: rgba(54, 204, 121, 1);
 $text-color: white;
-$text-color-unselected: #08783A; 
+$text-color-unselected: #08783A;
 $icon-color-unselected: #2FAF68;
 $animation-duration: $bm-transition-duration - 0.1s;
 // Burger Menu Overrides
 $bm-transition-duration: 0.3s;
 $bm-overlay-background: rgba(0, 0, 0, 0.7);
-
-
-
- .dashboard-detail {
-    height: 100%;  
-    // overflow-y:auto; 
+.dashboard-detail {
+    height: 100%; // overflow-y:auto; 
     display: flex;
     margin-top: 64px;
-    margin-left: 74px;
-    margin-right: 74px;
+    margin-left: 45px;
+    margin-right: 45px;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
+    justify-content: space-between; // align-items: baseline;
     h1 {
-      font-family: 'Montserrat-Bold', sans-serif;
-      font-size: 22.5px;
-      width: 40%;
-      margin-bottom: 40px;
+        font-family: 'Montserrat-Bold', sans-serif;
+        font-size: 22.5px;
+        width: 40%;
+        margin-bottom: 40px;
     }
-
     span {
-      font-family: 'Montserrat-Regular', sans-serif;
-      font-size: 12.5px;
-      width: 60%;
-      text-align: right;
+        font-family: 'Montserrat-Regular', sans-serif;
+        font-size: 12.5px;
+        width: 60%;
+        text-align: right;
     }
-
     .box-small {
-      width: 325px;
-      height: 217px;
-      margin-top: 20px;
-
+        width: 325px;
+        height: 300px;
+        margin-top: 20px;
     }
-
     .box-big {
-      width: 483px;
-      height: 217px;
-      margin-top: 20px;
+        width: 550px;
+        height: 300px;
+        margin-top: 20px;
+        .header {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            margin-left: 15px;
+            margin-bottom: -10px;
+            p {
+                // margin-top: 0px;
+                text-align: left;
+                width: 250px; // font-weight: bolder;
+                font-family: 'Montserrat-Bold', sans-serif;
+                font-size: 15px;
+                color: black;
+            }
+            button {
+                width: 65px; // font-weight: bolder;
+                font-size: 12px;
+                color: grey;
+            }
+        }
+        span {
+            font-family: 'Poppins-Light', sans-serif;
+            font-size: 11px;
+        }
+        &.report {
+            .bar-graph-with-history {
+                .chart-legend {
+                    .legend-item {
+                        width: inherit;
+                    }
+                }
+            }
+        }
+        .bar-graph-with-history {
+            .chart-legend {
+                .legend-item {
+                    span {
+                        font-size: 11px;
+                    }
+                    .circle {
+                        width: 12px;
+                        height: 10px;
+                    }
+                }
+            }
+        }
     }
- }
+}

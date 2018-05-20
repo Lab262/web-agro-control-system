@@ -3,12 +3,19 @@ import Ember from 'ember';
 
 export default Component.extend({
 
+    didInsertElement() {
+        this.set('colors', [this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(), this.getRandomColor()])
+    },
 
-
-    options: Ember.computed('overallChartData', function () {
-        let overallChartData = this.get('overallChartData');
+    options: Ember.computed('chartData', 'colors', function () {
+        let overallChartData = this.get('chartData');
         if (overallChartData != null && overallChartData != undefined) {
-            debugger;
 
             var chartOptions = {
                 hover: {
@@ -67,20 +74,16 @@ export default Component.extend({
         }
     }),
 
-    data: Ember.computed('overallChartData', function () {
-        let overallChartData = this.get('overallChartData');
+    data: Ember.computed('chartData', 'colors', function () {
+        let overallChartData = this.get('chartData');
         if (overallChartData != null && overallChartData != undefined) {
-            let colors = [this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(),
-            this.getRandomColor(), this.getRandomColor()];
+            let colors = this.get('colors')
             let _this = this;
             let chartData = JSON.parse(JSON.stringify({
                 labels: overallChartData.labels,
-                legendStyles: colors.map(item => { return new Ember.String.htmlSafe('background: ' + item) }),
+                legends: JSON.parse(JSON.stringify(overallChartData.labels)),
+                legendStyles: colors,
+                bottomLegend: overallChartData.lastMonthLabel + " - " + overallChartData.currentMonthLabel,
                 datasets: [{
                     pointHitRadius: 25,
                     label: overallChartData.lastMonthLabel,

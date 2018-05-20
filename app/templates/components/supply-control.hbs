@@ -7,7 +7,7 @@
         {{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}
     </span>
     {{#paper-card class="box-full" as |card|}}
-        {{bar-graph-with-history overallChartData=overallChartData height=100 }}
+        {{bar-graph-with-history chartData=overallChartData height=100 }}
     {{/paper-card}}
     {{#each products as |product index|}}
         {{#paper-card class="box-medium" as |card|}}
@@ -22,18 +22,7 @@
                     {{#paper-button href="" onClick=(action "openPromptDialog") }}Ver Histórico{{/paper-button}}
                 </span>
             </div>
-            <div class="chart">
-                {{#paper-card}}
-                    <span class="top-label"> Quantidade</span>
-                    {{ember-chart type="line" data=product.chartData options=product.chartData.options height=100}}
-                    <span class="bottom-label"> Mes do ano</span>
-                {{/paper-card}}
-                <div class="legend">
-                    {{#each product.months as |month|}}
-                        <span>{{month}}</span>
-                    {{/each}}
-                </div>
-            </div>
+            {{line-graph-with-legend chartData=product.chartData height=100}}
         {{/paper-card}}
         {{else}}
             Nenhum produto cadastrado

@@ -1,0 +1,18 @@
+<div class="line-graph-with-legend">
+    <div class="chart">
+        {{#if data}}
+            {{#paper-card}}
+                <span class="top-label"> Quantidade</span>
+                {{ember-chart type="line" data=data options=data.options height=height}}
+                <span class="bottom-label"> Mes do ano</span>
+            {{/paper-card}}
+            <div class="legend">
+                {{#each data.legends as |legend|}}
+                    <span>{{legend}}</span>
+                {{/each}}
+            </div>
+        {{else}}
+            nothing
+        {{/if}}
+    </div>
+</div>

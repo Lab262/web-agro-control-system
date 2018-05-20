@@ -1,19 +1,22 @@
 <div class="bar-graph-with-history">
-    {{#if options}}
+    {{#if data}}
         <div class="chart">
             {{#paper-card}}
                 <span class="top-label"> Dinheiro Reais</span>
                 {{ember-chart type="bar" data=data options=options height=height}}
-                <span class="bottom-label"> Nov - Dez</span>
+                <span class="bottom-label"> {{data.bottomLegend}}</span>
             {{/paper-card}}
         </div>
         <div class="chart-legend">
-            {{#each data.labels as |data index| }}
+            {{#each data.legends as |data index| }}
                 <div class="legend-item">
-                    <div class="circle" style= {{get data.legendStyles index}}> </div>
+                    {{debugger}}
+                    <div class="circle" style="background: {{get colors index}}"> </div>
                     <span style="text-align: left">{{data}}</span>
                 </div>
             {{/each}}
         </div>
+    {{else}}
+        nothing
     {{/if}}
 </div>

@@ -1,17 +1,30 @@
 <div class="dashboard-detail">
     <h1>Bem-vindo</h1>
-    <span >Resumo de  transações e operações de Cooperativa</span>
-
-             {{#paper-card class="box-small" as |card|}}                
-            {{/paper-card}}
-            
-            {{#paper-card class="box-big" as |card|}}            
-            {{/paper-card}}
-
-             {{#paper-card class="box-small" as |card|}}            
-            {{/paper-card}}
-
-            {{#paper-card class="box-big" as |card|}}            
-            {{/paper-card}}
-
+    <span>Resumo de transações e operações de Cooperativa</span>
+    {{#paper-card class="box-small" as |card|}}
+    {{/paper-card}}
+    {{#paper-card class="box-big report" as |card|}}
+        <div class="header">
+            <p>
+                Relatório
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+            </span>
+        </div>
+        {{bar-graph-with-history chartData=reportChartData height=100 }}
+    {{/paper-card}}
+    {{#paper-card class="box-small" as |card|}}
+    {{/paper-card}}
+    {{#paper-card class="box-big" as |card|}}
+        <div class="header">
+            <p>
+                Estoque
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+            </span>
+        </div>
+        {{bar-graph-with-history chartData=supplyChartData height=90 }}
+    {{/paper-card}}
 </div>

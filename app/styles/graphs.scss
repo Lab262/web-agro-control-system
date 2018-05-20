@@ -1,0 +1,78 @@
+.bar-graph-with-history {
+    .chart {
+        margin: 2.5%;
+        .top-label {
+            color: grey;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+        }
+        .bottom-label {
+            color: grey;
+            margin-bottom: 15px;
+            width: 98%;
+            text-align: right;
+        }
+    }
+    .chart-legend {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        .legend-item {
+    width: 20%;
+            text-align: left;
+            margin-bottom: 1%;
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            display: flex;
+            align-items: center;
+            span {
+                font-family: 'Montserrat-Regular', sans-serif;
+                font-size: 13px;
+                width: 100%;
+                color: rgba(0, 0, 0, 0.65);
+            }
+            .circle {
+                margin-right: 10px;
+                background: #f00;
+                width: 17.5px;
+                height: 15px;
+                border-radius: 100%;
+            }
+        }
+    }
+}
+
+.line-graph-with-legend {
+    .chart {
+        margin: 2.5%;
+        .top-label {
+            color: grey;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+        }
+        .bottom-label {
+            color: grey;
+            margin-bottom: 15px;
+            width: 98%;
+            text-align: right;
+        }
+    }
+    .chart {
+        margin-top: 0px;
+        margin-left: 2.5%;
+        width: 95%;
+        .legend {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            span {
+                transform: rotate(270deg);
+                font-family: 'Poppins-Light', sans-serif;
+                font-size: 11px;
+            }
+        }
+    }
+}
