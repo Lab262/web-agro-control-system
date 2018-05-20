@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Route from '@ember/routing/route';
+import { debug } from '@ember/debug';
 
 export default Route.extend({
   session: Ember.inject.service('session'),
@@ -31,9 +32,20 @@ export default Route.extend({
             }
           }
         })
-      }
+      },
 
-
+     getPurchaseTransaction: function(cooperativeId) {
+       return store.query('purchase-transaction', {
+         "where": {
+           "cooperative": {
+             "__type": "Pointer",
+             "className": "Cooperative",
+             "objectId": cooperativeId,
+           }
+         },
+         include: 'product'
+       })
+     }
     });
   },
 
