@@ -10,20 +10,20 @@
         <div class="chart">
             {{#paper-card}}
                 <span class="top-label"> Dinheiro Reais</span>
-                {{ember-chart type="bar" data=chartData options=chartOptions height=100}}
+                {{ember-chart type="bar" data=overallChartData options=chartOptions height=100}}
                 <span class="bottom-label"> Nov - Dez</span>
             {{/paper-card}}
         </div>
         <div class="chart-legend">
-            {{#each chartData.labels as |data index| }}
+            {{#each overallChartData.labels as |data index| }}
                 <div class="legend-item">
-                    <div class="circle" style="background: {{get chartData.datasets.1.backgroundColor index}}"> </div>
+                    <div class="circle" style="background: {{get overallChartData.datasets.1.backgroundColor index}}"> </div>
                     <span style="text-align: left">{{data}}</span>
                 </div>
             {{/each}}
         </div>
     {{/paper-card}}
-    {{#each products as |product|}}
+    {{#each products as |product index|}}
         {{#paper-card class="box-medium" as |card|}}
             <div class="header">
                 <p>
@@ -35,6 +35,13 @@
                 <span>
                     {{#paper-button href="" onClick=(action "openPromptDialog") }}Ver Histórico{{/paper-button}}
                 </span>
+            </div>
+            <div style="margin-left: 2.5%; width: 95%" class="chart">
+                {{#paper-card}}
+                    <span class="top-label"> Quantidade</span>
+                    {{ember-chart type="line" data=(get productsChartData index) options=areaChartOptions height=100}}
+                    <span class="bottom-label"> Mes do ano</span>
+                {{/paper-card}}
             </div>
         {{/paper-card}}
         {{else}}

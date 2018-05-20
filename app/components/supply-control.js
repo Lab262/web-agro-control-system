@@ -4,8 +4,12 @@ export default Component.extend({
 
     showPromptDialog: false,
     products: [],
-    chartData: [],
+    overallChartData: [],
+    productsChartData: [],
     chartOptions: {
+        hover: {
+            intersect: false
+        },
         tooltips: {
             callbacks: {
                 title: function (tooltipItem, data) {
@@ -19,11 +23,6 @@ export default Component.extend({
 
                 }
             },
-            // backgroundColor: '#FFF',
-            // titleFontSize: 16,
-            // titleFontColor: '#0066ff',
-            // bodyFontColor: '#000',
-            // bodyFontSize: 14,
             displayColors: false
         },
         scales: {
@@ -56,13 +55,97 @@ export default Component.extend({
         },
     },
 
+    areaChartOptions: {
+        hover: {
+            intersect: false
+        },
+        tooltips: {
+            mode: 'index',
+            axis: 'x',
+            displayColors: false,
+            callbacks: {
+                title: function (tooltipItem, data) {
+                    return "";
+                },
+                label: function (tooltipItem, data) {
+                    return tooltipItem.yLabel + " kg";
+                },
+            },
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                    offsetGridLines: false,
+                    drawBorder: false
+                },
+                ticks: {
+                    display: false,
+                    minRotation: 90,
+                    labelOffset: -3
+                },
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: false,
+                    offsetGridLines: false,
+                    drawBorder: false
+                },
+                ticks: {
+                    display: false,
+                    min: 0,
+                },
+            }]
+
+        },
+
+        legend: {
+            display: false,
+        }
+    },
+
     didInsertElement() {
         let model = this.get('model');
         model.getProducts(model.cooperative.id)
             .then(products => {
+                this.set('productsChartData', []);
+                products.forEach(item => {
+                    this.setupProductChart(item);
+                });
                 this.set('products', products);
             }).catch(err => console.log(err))
+        this.setupOverallChart();
+    },
 
+    setupProductChart(product) {
+        let areaGraphDataset = {
+            datasets: [{
+                data: [],
+                colors: "#5AC0F7",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#5AC0F7",
+                pointBackgroundColor: "#5AC0F7",
+                pointHitRadius: 25,
+                pointRadius: 0,
+                pointHoverRadius: 4,
+                label: "",
+                lineTension: 0
+            }],
+            labels: []
+        };
+        var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
+        productChartData.datasets[0].data = [1, 5, 4, 6, 8, 3, 5, 4];
+        productChartData.labels = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"];
+        this.get('productsChartData').pushObject(productChartData);
+
+        var productChartOptions = this.get('areaChartOptions');
+        productChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
+        this.set('areaChartOptions', productChartOptions);
+
+
+    },
+
+    setupOverallChart() {
         let colors = [this.getRandomColor(),
         this.getRandomColor(),
         this.getRandomColor(),
@@ -74,18 +157,20 @@ export default Component.extend({
         let chartData = JSON.parse(JSON.stringify({
             labels: ["Limão Taití", "Tomate", "Uva", "Maxixe", "Tomate Italiano", "Melão", "Maça", "Batata Doce"],
             datasets: [{
+                pointHitRadius: 25,
                 label: "Nov",
                 id: "satisfactionBarGraph",
                 data: [1, 2, 3, 4, 5, 6, 7, 8],
                 backgroundColor: colors.map(item => _this.getTintedColor(item, -50)),
             }, {
+                pointHitRadius: 25,
                 label: "Dez",
                 id: "satisfactionBarGraph2",
-                data: [1, 2, 3, 4, 5, 6, 7, 8],
+                data: [4, 5, 7, 2, 1, 10, 12, 4],
                 backgroundColor: colors
             }]
         }));
-        this.set('chartData', chartData)
+        this.set('overallChartData', chartData)
     },
 
     getTintedColor(color, v) {
