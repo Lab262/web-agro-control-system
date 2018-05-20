@@ -4,58 +4,7 @@ export default Component.extend({
 
     showPromptDialog: false,
     products: [],
-    overallChartData: [],
     productsChartData: [],
-    chartOptions: {
-        hover: {
-            intersect: false
-        },
-        tooltips: {
-            callbacks: {
-                title: function (tooltipItem, data) {
-                    return data['labels'][tooltipItem[0]['index']];
-                },
-                label: function (tooltipItem, data) {
-                    return "Nov - R$: " + data['datasets'][0]['data'][tooltipItem['index']];
-                },
-                afterLabel: function (tooltipItem, data) {
-                    return "Dez - R$: " + data['datasets'][1]['data'][tooltipItem['index']];
-
-                }
-            },
-            displayColors: false
-        },
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    display: false,
-                    offsetGridLines: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    display: false,
-                },
-            }],
-            yAxes: [{
-                gridLines: {
-                    display: false,
-                    offsetGridLines: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    display: false,
-                    // max: 15,
-                    min: 0,
-                },
-            }]
-
-        },
-        legend: {
-            display: false,
-        },
-    },
-
-
 
     didInsertElement() {
         let model = this.get('model');
@@ -148,30 +97,13 @@ export default Component.extend({
     },
 
     setupOverallChart() {
-        let colors = [this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(), this.getRandomColor()];
-        let _this = this;
-        let chartData = JSON.parse(JSON.stringify({
+        let chartData = {
             labels: ["Limão Taití", "Tomate", "Uva", "Maxixe", "Tomate Italiano", "Melão", "Maça", "Batata Doce"],
-            datasets: [{
-                pointHitRadius: 25,
-                label: "Nov",
-                id: "satisfactionBarGraph",
-                data: [1, 2, 3, 4, 5, 6, 7, 8],
-                backgroundColor: colors.map(item => _this.getTintedColor(item, -50)),
-            }, {
-                pointHitRadius: 25,
-                label: "Dez",
-                id: "satisfactionBarGraph2",
-                data: [4, 5, 7, 2, 1, 10, 12, 4],
-                backgroundColor: colors
-            }]
-        }));
+            lastMonthLabel: "Nov",
+            lastMonthData: [1, 2, 3, 4, 5, 6, 7, 8],
+            currentMonthLabel: "Dez",
+            currentMonthData: [4, 5, 7, 2, 1, 10, 12, 4]
+        }
         this.set('overallChartData', chartData)
     },
 

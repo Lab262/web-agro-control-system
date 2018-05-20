@@ -7,21 +7,7 @@
         {{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}
     </span>
     {{#paper-card class="box-full" as |card|}}
-        <div class="chart">
-            {{#paper-card}}
-                <span class="top-label"> Dinheiro Reais</span>
-                {{ember-chart type="bar" data=overallChartData options=chartOptions height=100}}
-                <span class="bottom-label"> Nov - Dez</span>
-            {{/paper-card}}
-        </div>
-        <div class="chart-legend">
-            {{#each overallChartData.labels as |data index| }}
-                <div class="legend-item">
-                    <div class="circle" style="background: {{get overallChartData.datasets.1.backgroundColor index}}"> </div>
-                    <span style="text-align: left">{{data}}</span>
-                </div>
-            {{/each}}
-        </div>
+        {{bar-graph-with-history overallChartData=overallChartData height=100 }}
     {{/paper-card}}
     {{#each products as |product index|}}
         {{#paper-card class="box-medium" as |card|}}

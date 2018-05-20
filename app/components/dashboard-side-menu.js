@@ -21,7 +21,7 @@ export default Component.extend({
             ]);
         } else {
             this.set('menuOptions', [
-                { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-detail', hasDivider: true },
+                { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-overview', hasDivider: true },
             ]);
         }
         let currentOption = this.get('route').target.currentRouteName;
