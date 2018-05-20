@@ -38,11 +38,12 @@ export default Component.extend({
             var historics = [];
 
             for (var i = 0, len = historic.content.length; i < len; i++) {
+                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
                 historics.push({
                     cost: historic.content[i].__data.transactionCost,
                     productName: historic.content[i].__data.product.data.attributes.name,
                     quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
-                    date: historic.content[i].__data.transactionDate
+                    date: date
                 })
             }
 
