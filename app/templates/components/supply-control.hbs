@@ -36,12 +36,17 @@
                     {{#paper-button href="" onClick=(action "openPromptDialog") }}Ver Histórico{{/paper-button}}
                 </span>
             </div>
-            <div style="margin-left: 2.5%; width: 95%" class="chart">
+            <div class="chart">
                 {{#paper-card}}
                     <span class="top-label"> Quantidade</span>
-                    {{ember-chart type="line" data=(get productsChartData index) options=areaChartOptions height=100}}
+                    {{ember-chart type="line" data=product.chartData options=product.chartData.options height=100}}
                     <span class="bottom-label"> Mes do ano</span>
                 {{/paper-card}}
+                <div class="legend">
+                    {{#each product.months as |month|}}
+                        <span>{{month}}</span>
+                    {{/each}}
+                </div>
             </div>
         {{/paper-card}}
         {{else}}

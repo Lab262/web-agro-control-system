@@ -55,54 +55,7 @@ export default Component.extend({
         },
     },
 
-    areaChartOptions: {
-        hover: {
-            intersect: false
-        },
-        tooltips: {
-            mode: 'index',
-            axis: 'x',
-            displayColors: false,
-            callbacks: {
-                title: function (tooltipItem, data) {
-                    return "";
-                },
-                label: function (tooltipItem, data) {
-                    return tooltipItem.yLabel + " kg";
-                },
-            },
-        },
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    display: false,
-                    offsetGridLines: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    display: false,
-                    minRotation: 90,
-                    labelOffset: -3
-                },
-            }],
-            yAxes: [{
-                gridLines: {
-                    display: false,
-                    offsetGridLines: false,
-                    drawBorder: false
-                },
-                ticks: {
-                    display: false,
-                    min: 0,
-                },
-            }]
 
-        },
-
-        legend: {
-            display: false,
-        }
-    },
 
     didInsertElement() {
         let model = this.get('model');
@@ -118,13 +71,62 @@ export default Component.extend({
     },
 
     setupProductChart(product) {
+        var areaChartOptions = {
+            hover: {
+                intersect: false
+            },
+            tooltips: {
+                mode: 'index',
+                axis: 'x',
+                displayColors: false,
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return "";
+                    },
+                    label: function (tooltipItem, data) {
+                        return tooltipItem.yLabel + " kg";
+                    },
+                },
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        offsetGridLines: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false,
+                        minRotation: 90,
+                        labelOffset: -3
+                    },
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                        offsetGridLines: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: false,
+                        min: 0,
+                    },
+                }]
+
+            },
+
+            legend: {
+                display: false,
+            }
+        };
+        let color = this.getRandomColor()
         let areaGraphDataset = {
             datasets: [{
                 data: [],
-                colors: "#5AC0F7",
+                colors: color,
                 backgroundColor: "#FFFFFF",
-                borderColor: "#5AC0F7",
-                pointBackgroundColor: "#5AC0F7",
+                borderColor: color,
+                pointBackgroundColor: color,
                 pointHitRadius: 25,
                 pointRadius: 0,
                 pointHoverRadius: 4,
@@ -136,12 +138,12 @@ export default Component.extend({
         var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
         productChartData.datasets[0].data = [1, 5, 4, 6, 8, 3, 5, 4];
         productChartData.labels = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"];
-        this.get('productsChartData').pushObject(productChartData);
 
-        var productChartOptions = this.get('areaChartOptions');
+        var productChartOptions = areaChartOptions;
         productChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
-        this.set('areaChartOptions', productChartOptions);
-
+        productChartData.options = productChartOptions;
+        product.set('months', productChartData.labels)
+        product.set('chartData', productChartData);
 
     },
 
