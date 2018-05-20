@@ -33,20 +33,18 @@ export default Component.extend({
         }).catch(err => console.log(err))
 
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-            debugger;
-
             var historics = [];
 
             for (var i = 0, len = historic.content.length; i < len; i++) {
-                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
+                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YY');
+                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
                 historics.push({
-                    cost: historic.content[i].__data.transactionCost,
+                    cost: cost,
                     productName: historic.content[i].__data.product.data.attributes.name,
                     quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
                     date: date
                 })
             }
-
             this.set('historic', historics);
         }).catch(err => console.log(err))
     },
