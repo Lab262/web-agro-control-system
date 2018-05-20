@@ -73,7 +73,7 @@ export default Component.extend({
         debugger;
         let _this = this;
         let chartData = JSON.parse(JSON.stringify({
-            labels: ["", "", "", "", "", "", "", ""],
+            labels: ["Limão Taití", "Tomate", "Uva", "Maxixe", "Tomate Italiano", "Melão", "Maça", "Batata Doce"],
             datasets: [{
                 label: "Nov",
                 id: "satisfactionBarGraph",

@@ -15,9 +15,10 @@
             {{/paper-card}}
         </div>
         <div class="chart-legend">
-            {{#each chartData.datasets.0.data as |data| }}
+            {{#each chartData.labels as |data index| }}
                 <div class="legend-item">
-                    <div class="circle" style="background: #aaa02f"> </div>
+                    {{debugger}}
+                    <div class="circle" style="background: {{get chartData.datasets.1.backgroundColor index}}"> </div>
                     <span style="text-align: left">{{data}}</span>
                 </div>
             {{/each}}
