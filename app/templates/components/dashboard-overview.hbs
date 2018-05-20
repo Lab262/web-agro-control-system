@@ -2,6 +2,15 @@
     <h1>Bem-vindo</h1>
     <span>Resumo de transações e operações de Cooperativa</span>
     {{#paper-card class="box-small" as |card|}}
+        <div class="header">
+            <p>
+                Compras Realizadas
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+            </span>
+        </div>
+        {{line-graph-with-legend chartData=salesChartData legendType="point" height=75 }}
     {{/paper-card}}
     {{#paper-card class="box-big report" as |card|}}
         <div class="header">
@@ -15,6 +24,15 @@
         {{bar-graph-with-history chartData=reportChartData height=100 }}
     {{/paper-card}}
     {{#paper-card class="box-small" as |card|}}
+        <div class="header">
+            <p>
+                Vendas Realizadas
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+            </span>
+        </div>
+        {{line-graph-with-legend chartData=salesChartData legendType="point" height=100 }}
     {{/paper-card}}
     {{#paper-card class="box-big" as |card|}}
         <div class="header">

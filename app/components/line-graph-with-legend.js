@@ -3,83 +3,91 @@ import Ember from 'ember';
 
 export default Component.extend({
 
+    legendType: "label",
+
     didInsertElement() {
         this.set('color', this.getRandomColor())
     },
 
     data: Ember.computed('chartData', 'color', function () {
         let chartData = this.get('chartData');
-        var areaChartOptions = {
-            hover: {
-                intersect: false
-            },
-            tooltips: {
-                mode: 'index',
-                axis: 'x',
-                displayColors: false,
-                callbacks: {
-                    title: function (tooltipItem, data) {
-                        return "";
-                    },
-                    label: function (tooltipItem, data) {
-                        return tooltipItem.yLabel + " kg";
+        if (chartData != undefined) {
+
+            var areaChartOptions = {
+                hover: {
+                    intersect: false
+                },
+                tooltips: {
+                    mode: 'index',
+                    axis: 'x',
+                    displayColors: false,
+                    callbacks: {
+                        title: function (tooltipItem, data) {
+                            return "";
+                        },
+                        label: function (tooltipItem, data) {
+                            return tooltipItem.yLabel + " kg";
+                        },
                     },
                 },
-            },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false,
-                        offsetGridLines: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        display: false,
-                        minRotation: 90,
-                        labelOffset: -3
-                    },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                            offsetGridLines: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            display: false,
+                            minRotation: 90,
+                            labelOffset: -3
+                        },
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false,
+                            offsetGridLines: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                        },
+                    }]
+
+                },
+
+                legend: {
+                    display: false,
+                }
+            };
+            let color = this.get('color');
+            let areaGraphDataset = {
+                datasets: [{
+                    data: [],
+                    colors: color,
+                    backgroundColor: "#FFFFFF",
+                    borderColor: color,
+                    pointBackgroundColor: color,
+                    pointHitRadius: 25,
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    label: "",
+                    lineTension: 0
                 }],
-                yAxes: [{
-                    gridLines: {
-                        display: false,
-                        offsetGridLines: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        display: false,
-                        min: 0,
-                    },
-                }]
+                labels: []
+            };
+            var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
+            productChartData.datasets[0].data = chartData.data;
+            productChartData.labels = chartData.labels;
+            productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
+            areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
+            productChartData.options = areaChartOptions;
+            return productChartData
 
-            },
-
-            legend: {
-                display: false,
-            }
-        };
-        let color = this.get('color');
-        let areaGraphDataset = {
-            datasets: [{
-                data: [],
-                colors: color,
-                backgroundColor: "#FFFFFF",
-                borderColor: color,
-                pointBackgroundColor: color,
-                pointHitRadius: 25,
-                pointRadius: 0,
-                pointHoverRadius: 4,
-                label: "",
-                lineTension: 0
-            }],
-            labels: []
-        };
-        var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
-        productChartData.datasets[0].data = chartData.data;
-        productChartData.labels = chartData.labels;
-        productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
-        areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
-        productChartData.options = areaChartOptions;
-        return productChartData
+        } else {
+            return undefined
+        }
     }),
 
     getTintedColor(color, v) {

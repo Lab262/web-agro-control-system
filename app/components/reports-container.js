@@ -10,11 +10,23 @@ export default Component.extend({
     stockDrive: {
         output: {
             title: "Saída(vendas)",
-            amount: "42.890", 
+            amount: "42.890",
             unity: "Kg"
         },
         input: { title: "Entrada(compras)", amount: "51.987", unity: "Kg" },
         initialStock: { title: "Estoque Inicial", amount: "53.076", unity: "Kg" },
         finalStock: { title: "Estoque Final", amount: "51.987", unity: "Kg" }
+    },
+
+    didInsertElement() {
+        this.setupAbcChartData();
+    },
+
+    setupAbcChartData() {
+        var abcChartData = {
+            data: [1, 5, 4, 6, 8, 3, 5, 4],
+            labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
+        }
+        this.set('abcChartData', abcChartData);
     }
 });

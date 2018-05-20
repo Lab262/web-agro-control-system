@@ -1,58 +1,80 @@
 <div class="reports-container">
     <h1>Relatórios</h1>
-        <span>{{#paper-button href="" }}Imprimir Relatório{{/paper-button}}</span>
-              
-            {{graph-money-amount-simple model=grossSales}}
-         
-            {{#paper-card class="box-big" as |card|}}
-                        <p>ICMS</p> 
-                        <div class="graph-container">
-                        <div class="graph-item">
-                            <div class='circle'><div class="circle-content">300</div></div>
-                            <div class='circle-subtitle'>Retorno sobreo o Patrimônio Líquido</div>
-                        </div>  
-                         <div class="graph-item">
-                            <div class='circle'><div class="circle-content">105</div></div>
-                            <div class='circle-subtitle'>Capital Circulante Líquido(Capital de Giro)</div>
-                        </div>   
-                        </div>                 
-            {{/paper-card}}
-            
-            {{graph-money-amount-simple model=purchases}}
-
-            {{#paper-card class="box-big" as |card|}}  
-                        <p>IPI</p>         
-                        <div class="graph-container">
-                            <div class="graph-item">
-                                <div class='circle'><div class="circle-content">330</div></div>
-                                <div class='circle-subtitle'>Margem Operacional</div>
-                            </div>  
-                            <div class="graph-item">
-                                <div class='circle'><div class="circle-content">105</div></div>
-                                <div class='circle-subtitle'>Capital de Giro Próprio</div>
-                            </div>   
-                        </div>  
-            {{/paper-card}}
-
-            {{#paper-card class="box-small-double" as |card|}}   
-            <p>Margem de Contribuição</p> 
-            {{graph-money-amount-hightlighted model=contributionMargin.unitary}}
-            {{graph-money-amount-hightlighted model=contributionMargin.total}}
-            {{#paper-button raised=false primary=false}}Ver histórico{{/paper-button}}
-
-            {{/paper-card}}
-            {{#paper-card class="box-big-double" as |card|}} 
+    <span>
+        {{#paper-button href="" }}Imprimir Relatório{{/paper-button}}
+    </span>
+    {{#paper-card class="box-small-double" as |card|}}
+        <p>Margem de Contribuição</p>
+        {{graph-money-amount-hightlighted model=contributionMargin.unitary}} {{graph-money-amount-hightlighted model=contributionMargin.total}}
+    {{/paper-card}}
+    {{#paper-card class="box-big-double" as |card|}}
+        <div class="header">
             <p>
                 Movimentação do Estoque
-            </p>      
-            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.output}}
-            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.input}}
-            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.initialStock}}
-            {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.finalStock}}
-            {{#paper-button class="flex-100" raised=false primary=false}}Ver histórico{{/paper-button}}
-
-            {{/paper-card}}
-
-            {{#paper-card class="box-full" as |card|}}            
-            {{/paper-card}}
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Histórico{{/paper-button}}
+            </span>
+        </div>
+        {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.output}} {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.input}}
+        {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.initialStock}} {{graph-money-amount-hightlighted class="flex-45" model=stockDrive.finalStock}}
+    {{/paper-card}}
+    {{graph-money-amount-simple model=grossSales}}
+    {{#paper-card class="box-big" as |card|}}
+        <div class="header">
+            <p>
+                ICMS
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Histórico{{/paper-button}}
+            </span>
+        </div>
+        <div class="graph-container">
+            <div class="graph-item">
+                <div class='circle'>
+                    <div class="circle-content">300</div>
+                </div>
+                <div class='circle-subtitle'>Retorno sobreo o Patrimônio Líquido</div>
+            </div>
+            <div class="graph-item">
+                <div class='circle'>
+                    <div class="circle-content">105</div>
+                </div>
+                <div class='circle-subtitle'>Capital Circulante Líquido(Capital de Giro)</div>
+            </div>
+        </div>
+    {{/paper-card}}
+    {{graph-money-amount-simple model=purchases}}
+    {{#paper-card class="box-big" as |card|}}
+        <div class="header">
+            <p>
+                IPI
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Histórico{{/paper-button}}
+            </span>
+        </div>
+        <div class="graph-container">
+            <div class="graph-item">
+                <div class='circle'>
+                    <div class="circle-content">330</div>
+                </div>
+                <div class='circle-subtitle'>Margem Operacional</div>
+            </div>
+            <div class="graph-item">
+                <div class='circle'>
+                    <div class="circle-content">105</div>
+                </div>
+                <div class='circle-subtitle'>Capital de Giro Próprio</div>
+            </div>
+        </div>
+    {{/paper-card}}
+    {{#paper-card class="box-full" as |card|}}
+        <div class="header">
+            <p>
+                Curva ABC
+            </p>
+        </div>
+        {{line-graph-with-legend chartData=abcChartData legendType="" height=70 }}
+    {{/paper-card}}
 </div>

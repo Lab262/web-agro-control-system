@@ -20,13 +20,6 @@ export default Component.extend({
         }
     }),
 
-    // historic: [
-    //     { cost: "R$ 1.800,00", productName: " Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-    //     { cost: "R$ 1.800,00", productName: "Tomate Italiano", quantity: "40 cx (19 a 22 kg)", date: "00/00/00" },
-    // ],
-
     didInsertElement() {
         let model = this.get('model');
         model.getProducers(model.cooperative.id)
@@ -52,6 +45,15 @@ export default Component.extend({
             }
             this.set('historic', historics);
         }).catch(err => console.log(err))
+        this.setupSalesChart()
+    },
+
+    setupSalesChart() {
+        var salesChartData = {
+            data: [1, 5, 4, 6, 8, 3, 5, 4],
+            labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
+        }
+        this.set('salesChartData', salesChartData);
     },
 
     actions: {

@@ -62,5 +62,20 @@
         </th>
     {{/paper-card}}
     {{#paper-card class="box-small" as |card|}}
+        <div class="header">
+            <p>
+                Vendas Realizadas
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+            </span>
+        </div>
+        {{line-graph-with-legend chartData=salesChartData height=75 legendType="" }}
+        <div style="margin-top: 10px; display: flex; justify-content: center;">
+            {{#power-selector-with-label class="flex-80" selected=selectedProduct searchField="name" placeholder="Produto" options=products
+                onchange=(action (mut selectedProduct)) as |product|}}
+                {{product.name}}
+            {{/power-selector-with-label}}
+        </div>
     {{/paper-card}}
 </div>

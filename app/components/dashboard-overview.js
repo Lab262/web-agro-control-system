@@ -5,6 +5,15 @@ export default Component.extend({
     didInsertElement() {
         this.setupSupplyChart()
         this.setupReportChart()
+        this.setupSalesChart()
+    },
+
+    setupSalesChart() {
+        var salesChartData = {
+            data: [1, 5, 4, 6, 8, 3, 5, 4],
+            labels: ["Limão Taití", "Tomate", "Uva", "Maxixe"]
+        }
+        this.set('salesChartData', salesChartData);
     },
 
     setupSupplyChart() {

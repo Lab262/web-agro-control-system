@@ -6,11 +6,23 @@
                 {{ember-chart type="line" data=data options=data.options height=height}}
                 <span class="bottom-label"> Mes do ano</span>
             {{/paper-card}}
-            <div class="legend">
-                {{#each data.legends as |legend|}}
-                    <span>{{legend}}</span>
-                {{/each}}
-            </div>
+            {{#if (eq legendType "point")}}
+                <div class="point-legend">
+                    {{#each data.legends as |data index| }}
+                        <div class="legend-item">
+                            <div class="circle" style="background: {{get colors index}}"> </div>
+                            <span style="text-align: left">{{data}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+                {{else if (eq legendType "label")}}
+                <div class="legend">
+                    {{#each data.legends as |legend|}}
+                        <span>{{legend}}</span>
+                    {{/each}}
+                </div>
+            {{else}}
+            {{/if}}
         {{else}}
             nothing
         {{/if}}
