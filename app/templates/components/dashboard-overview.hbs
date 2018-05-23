@@ -7,7 +7,7 @@
                 Compras Realizadas
             </p>
             <span>
-                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+                {{#paper-button href="" onClick=(action "selectRoute" 'purchase-transactions') }}Ver Mais{{/paper-button}}
             </span>
         </div>
         {{line-graph-with-legend chartData=salesChartData legendType="point" height=75 }}
@@ -18,7 +18,7 @@
                 Relatório
             </p>
             <span>
-                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+                {{#paper-button href="" onClick=(action "selectRoute" 'reports-container') }}Ver Mais{{/paper-button}}
             </span>
         </div>
         {{bar-graph-with-history chartData=reportChartData height=100 }}
@@ -29,7 +29,7 @@
                 Vendas Realizadas
             </p>
             <span>
-                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+                {{#paper-button href="" onClick=(action "selectRoute" 'sales-transactions') }}Ver Mais{{/paper-button}}
             </span>
         </div>
         {{line-graph-with-legend chartData=salesChartData legendType="point" height=100 }}
@@ -40,7 +40,7 @@
                 Estoque
             </p>
             <span>
-                {{#paper-button href="" onClick=null }}Ver Mais{{/paper-button}}
+                {{#paper-button href="" onClick=(action "selectRoute" 'supply-control') }}Ver Mais{{/paper-button}}
             </span>
         </div>
         {{bar-graph-with-history chartData=supplyChartData height=90 }}

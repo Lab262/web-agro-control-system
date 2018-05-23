@@ -45,7 +45,7 @@
             {{paper-input class="search" placeholder="Pesquisar" value=name onChange=(action (mut name)) icon="search"}}
         </div>
         <div class="content">
-            {{component optionSelected.componentName model=model}}
+            {{component optionSelected.componentName model=model route=route }}
         </div>
     {{/burger.outlet}}
 {{/burger-menu}}

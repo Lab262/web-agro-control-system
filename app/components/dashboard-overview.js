@@ -38,4 +38,9 @@ export default Component.extend({
         this.set('reportChartData', chartData)
     },
 
+    actions: {
+        selectRoute(routeName) {
+            this.get('route').transitionToRoute(routeName);
+        },
+    }
 });
