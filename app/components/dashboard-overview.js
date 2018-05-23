@@ -29,11 +29,11 @@ export default Component.extend({
 
     setupReportChart() {
         let chartData = {
-            labels: ["Faturamento Bruto", "Mão de obra", "Despesas(gerais)"],
+            labels: ["Faturamento Bruto", "Despesas(gerais)"],
             lastMonthLabel: "Nov",
-            lastMonthData: [50, 20, 30],
+            lastMonthData: [50, 30],
             currentMonthLabel: "Dez",
-            currentMonthData: [156, 123, 97]
+            currentMonthData: [156, 97]
         }
         this.set('reportChartData', chartData)
     },
