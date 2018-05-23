@@ -4,13 +4,13 @@ import Ember from 'ember';
 export default Component.extend({
 
     didInsertElement() {
-        this.set('colors', [this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(),
-        this.getRandomColor(), this.getRandomColor()])
+        this.set('colors', [this.getColor(0),
+        this.getColor(1),
+        this.getColor(2),
+        this.getColor(3),
+        this.getColor(4),
+        this.getColor(5),
+        this.getColor(6), this.getColor(7)])
     },
 
     options: Ember.computed('chartData', 'colors', function () {
@@ -88,7 +88,7 @@ export default Component.extend({
                     pointHitRadius: 25,
                     label: overallChartData.lastMonthLabel,
                     data: overallChartData.lastMonthData,
-                    backgroundColor: colors.map(item => _this.getTintedColor(item, -50)),
+                    backgroundColor: colors.map((item, index) => _this.getDarkColor(index)),
                 }, {
                     pointHitRadius: 25,
                     label: overallChartData.currentMonthLabel,
@@ -103,27 +103,21 @@ export default Component.extend({
 
     }),
 
-    getTintedColor(color, v) {
-        if (color.length > 6) { color = color.substring(1, color.length) }
-        var rgb = parseInt(color, 16);
-        var r = Math.abs(((rgb >> 16) & 0xFF) + v); if (r > 255) r = r - (r - 255);
-        var g = Math.abs(((rgb >> 8) & 0xFF) + v); if (g > 255) g = g - (g - 255);
-        var b = Math.abs((rgb & 0xFF) + v); if (b > 255) b = b - (b - 255);
-        r = Number(r < 0 || isNaN(r)) ? 0 : ((r > 255) ? 255 : r).toString(16);
-        if (r.length == 1) r = '0' + r;
-        g = Number(g < 0 || isNaN(g)) ? 0 : ((g > 255) ? 255 : g).toString(16);
-        if (g.length == 1) g = '0' + g;
-        b = Number(b < 0 || isNaN(b)) ? 0 : ((b > 255) ? 255 : b).toString(16);
-        if (b.length == 1) b = '0' + b;
-        return "#" + r + g + b;
+    getDarkColor(index) {
+        var darkColors = ["#6D457D", "#CD771D", "#0FA28A", "#626E21", "#007085"];
+        if (index === 0) {
+            index = darkColors.length;
+        }
+        var darkColor = darkColors[index % darkColors.length];
+        return darkColor;
     },
 
-    getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
+    getColor(index) {
+        var colors = ["#BB77D6", "#FFA947", "#00D5B2", "#ACC03D", "#00ADCE"];
+        if (index === 0) {
+            index = colors.length;
         }
+        var color = colors[index % colors.length];
         return color;
     },
 
