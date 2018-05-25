@@ -1,0 +1,19 @@
+<div class="line-graph-with-filter">
+    {{#paper-card class="box-small" as |card|}}
+        <div class="header">
+            <p>
+                {{title}}
+            </p>
+            <span>
+                {{#paper-button href="" onClick=null }}{{button-title}}{{/paper-button}}
+            </span>
+        </div>
+        {{line-graph-with-legend chartData=chartData legendType="" height=75 }}
+        <div style="margin-top: 10px; display: flex; justify-content: center;">
+            {{#power-selector-with-label class="flex-80" selected=selectedOption placeholder="Filter" options=options onchange=(action
+                (mut selectedOption)) as |option|}}
+                {{option}}
+            {{/power-selector-with-label}}
+        </div>
+    {{/paper-card}}
+</div>
