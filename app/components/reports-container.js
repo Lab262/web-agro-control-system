@@ -29,6 +29,7 @@ export default Component.extend({
 
     setupAbcChartData() {
         var abcChartData = {
+            isNotRandomColors: true,
             data: [[1, 2, 10, 4, 5, 6, 10, 12], [4, 3, 7, 6, 5, 14, 4, 5], [10, 9, 11, 12, 13, 15, 10, 9]],
             labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
         }

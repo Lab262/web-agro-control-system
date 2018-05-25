@@ -10,7 +10,7 @@
                 {{#paper-button href="" onClick=(action "selectRoute" 'purchase-transactions') }}Ver Mais{{/paper-button}}
             </span>
         </div>
-        {{line-graph-with-legend chartData=salesChartData legendType="point" height=75 }}
+        {{!-- {{line-graph-with-legend chartData=salesChartData legendType="point" height=75 }} --}}
     {{/paper-card}}
     {{#paper-card class="box-big report" as |card|}}
         <div class="header">
@@ -32,7 +32,7 @@
                 {{#paper-button href="" onClick=(action "selectRoute" 'sales-transactions') }}Ver Mais{{/paper-button}}
             </span>
         </div>
-        {{line-graph-with-legend chartData=salesChartData legendType="point" height=100 }}
+        {{!-- {{line-graph-with-legend chartData=salesChartData legendType="point" height=100 }} --}}
     {{/paper-card}}
     {{#paper-card class="box-big" as |card|}}
         <div class="header">

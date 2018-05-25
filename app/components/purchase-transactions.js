@@ -51,7 +51,7 @@ export default Component.extend({
 
     setupPurchasesChart() {
         var purchasesChartData = {
-            data: [1, 5, 4, 6, 8, 3, 5, 4],
+            data: [[1, 5, 4, 6, 8, 3, 5, 4]],
             labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
         }
         this.set('purchasesChartData', purchasesChartData);

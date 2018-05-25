@@ -20,7 +20,7 @@ export default Component.extend({
 
     setupProductChart(product) {
         var productChartData = {
-            data: [1, 5, 4, 6, 8, 3, 5, 4],
+            data: [[1, 5, 4, 6, 8, 3, 5, 4]],
             labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
         }
         product.set('chartData', productChartData);
