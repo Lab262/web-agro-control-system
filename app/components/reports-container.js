@@ -17,6 +17,15 @@ export default Component.extend({
         initialStock: { title: "Estoque Inicial", amount: "53.076", unity: "Kg" },
         finalStock: { title: "Estoque Final", amount: "51.987", unity: "Kg" }
     },
+    abcData: {
+
+        a: ["Maxixe", "Tomate Italiano", "Beterraba"],
+
+        b: ["Jiló", "Batata Doce", "Cebola"],
+
+        c: ["Cenora", "Abacate", "Abacaxi"]
+
+    },
 
     didInsertElement() {
         this.setupAbcChartData();

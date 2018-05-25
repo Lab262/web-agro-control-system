@@ -76,5 +76,37 @@
             </p>
         </div>
         {{line-graph-with-legend chartData=abcChartData legendType="" height=70 }}
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-item-title" style="background: #BB77D6;">
+                    A
+                </div>
+                <div class="legend-item-content">
+                    {{#each abcData.a as |item|}}
+                        <span>{{item}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-item-title" style="background: #FFA94F;">
+                    B
+                </div>
+                <div class="legend-item-content">
+                    {{#each abcData.b as |item|}}
+                        <span>{{item}}</span>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-item-title" style="background: #00ACCD;">
+                    C
+                </div>
+                <div class="legend-item-content">
+                    {{#each abcData.c as |item|}}
+                        <span>{{item}}</span>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
     {{/paper-card}}
 </div>
