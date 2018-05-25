@@ -5,10 +5,6 @@ export default Component.extend({
 
     legendType: "label",
 
-    didInsertElement() {
-        this.set('color', this.getRandomColor())
-    },
-
     data: Ember.computed('chartData', 'color', function () {
         let chartData = this.get('chartData');
         if (chartData != undefined) {
@@ -61,12 +57,18 @@ export default Component.extend({
                     display: false,
                 }
             };
-            let color = this.get('color');
             let areaGraphDataset = {
-                datasets: [{
-                    data: [],
+                datasets: [],
+                labels: []
+            };
+            var _this = this;
+            var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
+            chartData.data.forEach((data, index) => {
+                let color = _this.getRandomColor(index);
+                productChartData.datasets.push({
+                    data: data,
                     colors: color,
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: "transparent",
                     borderColor: color,
                     pointBackgroundColor: color,
                     pointHitRadius: 25,
@@ -74,14 +76,14 @@ export default Component.extend({
                     pointHoverRadius: 4,
                     label: "",
                     lineTension: 0
-                }],
-                labels: []
-            };
-            var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
-            productChartData.datasets[0].data = chartData.data;
+                });
+
+            });
             productChartData.labels = chartData.labels;
             productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
-            areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
+            let maxValue = Math.max(...[].concat.apply([], chartData.data))
+
+            areaChartOptions.scales.yAxes[0].ticks.max = maxValue + 3
             productChartData.options = areaChartOptions;
             return productChartData
 
@@ -90,8 +92,7 @@ export default Component.extend({
         }
     }),
 
-    getRandomColor() {
-        var index = Math.floor(Math.random() * 5)
+    getRandomColor(index) {
         var colors = ["#BB77D6", "#FFA947", "#00D5B2", "#ACC03D", "#00ADCE"];
         if (index === 0) {
             index = colors.length;

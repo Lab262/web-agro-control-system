@@ -22,7 +22,7 @@
     }
     .box-full {
         width: 93%;
-        height: 340px;
+        height: 360px;
         margin-top: 20px;
         .header {
             margin-top: 20px;
@@ -31,6 +31,7 @@
         .legend {
             display: flex;
             width: 96%;
+            margin-top: -15px;
             justify-content: space-around;
             margin-left: 15px;
             margin-right: 15px;
