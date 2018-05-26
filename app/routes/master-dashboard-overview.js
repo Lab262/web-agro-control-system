@@ -6,7 +6,6 @@ export default Route.extend({
     model() {
         let store = this.store;
         return new Ember.RSVP.hash({
-            currentUser: this.get('session.data.authenticated.currentUser'),
             newCooperative: store.createRecord('cooperative'),
             cooperatives: store.query('cooperative', {})
         });

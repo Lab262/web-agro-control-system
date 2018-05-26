@@ -7,6 +7,7 @@ export default Component.extend({
     cooperatives: [],
 
     didInsertElement() {
+        debugger;
         let model = this.get('model').cooperatives;
         this.set('cooperatives', model);
     },
@@ -19,24 +20,21 @@ export default Component.extend({
         },
 
         closePromptDialog(object, isToSave) {
-            if (object != undefined &&
-                object.identification != undefined
+            if (object != undefined
                 && object.cnpj != undefined
-                && object.cpf != undefined
+                && object.email != undefined
                 && object.name != undefined
-                && object.identification != ""
                 && object.cnpj != ""
-                && object.cpf != ""
+                && object.email != ""
                 && object.name != "") {
-                if (!CPFValidator.isValid(object.cpf)) alert('CPF Inválido');
-                else if (!CNPJValidator.isValid(object.cnpj)) alert('CNPJ Inválido');
+                if (!CNPJValidator.isValid(object.cnpj)) alert('CNPJ Inválido');
                 else {
                     let newCooperative = this.get('model.newCooperative');
-                    newCooperative.set('cpf', CPFValidator.format(object.cpf));
+                    newCooperative.set('email', object.email);
                     newCooperative.set('cnpj', CNPJValidator.format(object.cnpj));
                     newCooperative.set('name', object.name);
-                    newCooperative.set('identification', object.identification);
-                    newCooperative.set('cooperative', this.get('model').cooperative);
+                    newCooperative.set('logo', "");
+                    newCooperative.set('productScales', []);
 
                     newCooperative.save().then(saved => {
                         window.location.reload()

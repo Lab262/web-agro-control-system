@@ -1,0 +1,13 @@
+<div id="add-product-modal-overlay" class="add-product-modal" onClick= {{action closeModal}}>
+    <div id="add-product-modal-overlay" class="purchase-transaction">
+        {{#paper-card class="box-full" as |card|}}
+            <p>Adicionar nova cooperativa</p>
+            <div class="inputs">
+                {{paper-input class="flex-100" label="Nome da cooperativa" value=model.name onChange=(action (mut model.name))}} {{paper-input class="flex-40" label="Email da cooperativa" value=model.email onChange=(action (mut model.email))}}
+                {{paper-input class="flex-40" label="CNPJ da cooperativa" value=model.cnpj onChange=(action 'maskCNPJ')}}
+                {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action onClose)}}Cancelar{{/paper-button}}
+                {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Adicionar{{/paper-button}}
+            </div>
+        {{/paper-card}}
+    </div>
+</div>
