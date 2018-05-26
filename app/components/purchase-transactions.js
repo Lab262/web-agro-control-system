@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import Ember from 'ember';
-import { debug } from '@ember/debug';
-import Moment from 'npm:moment';
 
 export default Component.extend({
     producers: [],
@@ -47,7 +45,7 @@ export default Component.extend({
             this.set('historic', historics);
         }).catch(err => console.log(err))
         this.setupPurchasesChart()
-        },
+    },
 
     setupPurchasesChart() {
         var purchasesChartData = {
@@ -60,7 +58,6 @@ export default Component.extend({
     actions: {
 
         saveTransaction() {
-            debugger;
             if (this.get('selectedProducer') != undefined &&
                 this.get('transactionDate') != undefined &&
                 this.get('selectedProduct') != undefined
@@ -75,7 +72,6 @@ export default Component.extend({
                 && this.get('unityPrice') != ""
                 && this.get('amount') != ""
                 && this.get('productCost') != "") {
-                debugger;
 
                 let newPurchaseTransaction = this.get('model.newPurchaseTransaction');
                 var transactionDate = this.get('transactionDate');

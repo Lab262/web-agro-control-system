@@ -5,7 +5,6 @@ export default Component.extend({
         let model = this.get('model');
         model.getPurchaseTransaction(model.producer.id).then(historic => {
             var historics = [];
-            debugger;
             for (var i = 0, len = historic.content.length; i < len; i++) {
                 var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YY');
                 var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');

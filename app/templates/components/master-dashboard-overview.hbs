@@ -1,0 +1,41 @@
+<div class="producer-dashboard-detail">
+    {{#if showPromptDialog}}
+        {{add-producer-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+    {{/if}}
+    <div class="producers-detail">
+        <h1>Cooperativas</h1>
+        <span>
+            {{#paper-button href="" onClick=(action "openPromptDialog")}}Aprovar Cooperativa{{/paper-button}}
+            {{#paper-button href="" onClick=(action "openPromptDialog")}}Adicionar Cooperativa{{/paper-button}}
+        </span>
+        {{#paper-card class="box-search" as |card|}}
+            {{paper-input class="search" placeholder="Pesquisar Cooperativas" value=name onChange=(action (mut name))}}
+        {{/paper-card}}
+        {{#paper-card class="box-full" as |card|}}
+            <table>
+                <tr class="header">
+                    <th>Identificação</th>
+                    <th class="name">Nome</th>
+                    <th style="width: 25%;">Email</th>
+                    <th>CNPJ</th>
+                    <th class="button">Ver Mais </th>
+                </tr>
+                {{#each cooperatives as |cooperative|}}
+                    <tr>
+                        <th>{{cooperative.id}}</th>
+                        <th class="name">{{cooperative.name}}</th>
+                        <th style="width: 25%;">{{cooperative.email}}</th>
+                        <th>{{cooperative.cnpj}}</th>
+                        <th style="padding-right: 25px;" class="button">
+                            <span>
+                                {{#paper-button href="" }}Ver mais{{/paper-button}}
+                            </span>
+                        </th>
+                    </tr>
+                    {{else}}
+                        Nenhuma cooperativa cadastrada.
+                {{/each}}
+            </table>
+        {{/paper-card}}
+    </div>
+</div>

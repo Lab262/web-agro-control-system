@@ -19,6 +19,10 @@ export default Component.extend({
                 { name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control' },
                 { name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container' },
             ]);
+        } else if (this.get('userType') === "master") {
+            this.set('menuOptions', [
+                { name: 'Cooperativas', iconName: 'ic_produtores', componentName: 'master-dashboard-overview', hasDivider: true },
+            ]);
         } else {
             this.set('menuOptions', [
                 { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-overview', hasDivider: true },

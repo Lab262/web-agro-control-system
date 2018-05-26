@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('sales-transactions');
   this.route('supply-control');
   this.route('reports-container');
+  this.route('master-dashboard-overview');
 });
 
 export default Router;
