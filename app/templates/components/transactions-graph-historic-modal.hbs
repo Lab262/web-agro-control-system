@@ -1,0 +1,15 @@
+<div id="add-product-modal-overlay" class="add-product-modal" onClick= {{action closeModal}}>
+    <div id="add-product-modal-overlay" class="purchase-transaction">
+        {{#paper-card class="box-full expanded" as |card|}}
+            <p class="title">
+                {{title}}
+            </p>
+            {{#paper-button class="close-button" iconButton=true onClick=(action 'closeModal')}}{{paper-icon "close"}}{{/paper-button}}
+            <div class="products-graphs-list">
+                {{#each graphsData as |graphData| }}
+                    {{line-graph-with-filter onClick=onClick  title="Title" button-title="" legendType="" chartData=graphData }}
+                {{/each}}
+            </div>
+        {{/paper-card}}
+    </div>
+</div>

@@ -1,3 +1,6 @@
+{{#if showHistoricModal}}
+    {{transactions-graph-historic-modal title='Compras Realizadas - por produto' onClose=(toggle "showHistoricModal" this) chartData=chartData }}
+{{/if}}
 <div class="purchase-transaction">
     <h1>Transação de compra</h1>
     {{#paper-card class="box-full" as |card|}}
@@ -61,5 +64,5 @@
             </span>
         </th>
     {{/paper-card}}
-    {{line-graph-with-filter title="Compras Realizadas" button-title="Ver Mais" chartData=purchasesChartData options=products}}
+    {{line-graph-with-filter title="Compras Realizadas" button-title="Ver Mais" chartData=purchasesChartData options=products onClick=(toggle "showHistoricModal" this)}}
 </div>

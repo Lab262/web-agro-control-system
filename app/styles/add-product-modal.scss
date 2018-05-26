@@ -15,6 +15,20 @@
         margin-right: 10%;
         margin-left: 10%;
         height: 400px;
+        &.expanded {
+            margin-right: -1%;
+            margin-left: 1%;
+            margin-top: -50px;
+            height: 95vh;
+            .close-button {
+                margin-left: 85%;
+                margin-top: 0px;
+            }
+            .title {
+                margin-top: 0px;
+                margin: 0px;
+            }
+        }
         .close-button {
             position: absolute;
             margin-top: 50px;
@@ -28,6 +42,10 @@
                 background: #D8D8D8;
                 color: #858585;
             }
+        }
+        .title {
+            position: absolute;
+            margin-top: 55px;
         }
         p {
             margin-left: 5%;
