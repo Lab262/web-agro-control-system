@@ -1,6 +1,9 @@
 {{#if showPromptDialog}}
     {{add-product-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
 {{/if}}
+{{#if showHistoricModal}}
+    {{line-graph-with-filter-modal title=(concat 'Histórico -' selectedProduct.name) onClose=(toggle "showHistoricModal" this) chartData=selectedProduct.chartData }}
+{{/if}}
 <div class="supply-control">
     <h1>Controle de Estoque</h1>
     <span>
@@ -19,7 +22,7 @@
                     {{#paper-button href="" onClick=(action "openPromptDialog") }}Editar{{/paper-button}}
                 </span>
                 <span>
-                    {{#paper-button href="" onClick=(action "openPromptDialog") }}Ver Histórico{{/paper-button}}
+                    {{#paper-button href="" onClick=(action "openHistoricModal" product) }}Ver Histórico{{/paper-button}}
                 </span>
             </div>
             {{line-graph-with-legend chartData=product.chartData height=100}}

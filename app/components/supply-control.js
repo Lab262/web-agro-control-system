@@ -4,6 +4,7 @@ export default Component.extend({
 
     showPromptDialog: false,
     products: [],
+    showHistoricModal: false,
 
     didInsertElement() {
         let model = this.get('model');
@@ -42,6 +43,10 @@ export default Component.extend({
         openPromptDialog(/* param, event */) {
             this.set('dialogOrigin', null);
             this.set('showPromptDialog', true);
+        },
+        openHistoricModal(product) {
+            this.set('selectedProduct', product);
+            this.set('showHistoricModal', true);
         },
 
         closePromptDialog(model, isToSave) {

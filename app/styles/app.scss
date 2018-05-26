@@ -30,6 +30,7 @@ $warn: "red";
 @import "add-product-modal";
 @import "producer-dashboard-detail";
 @import 'graphs';
+@import 'line-graph-with-filter';
 html,
 body {
     height: 100%;
