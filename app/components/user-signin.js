@@ -10,10 +10,12 @@ export default Component.extend({
                 username: this.get('username'),
                 password: this.get('password')
             };
+            debugger;
             this.get('session').authenticate('authenticator:torii', data).catch(() => {
                 alert("Usuário ou senha inválido!")
             }).then(() => {
                 if (this.get('session.isAuthenticated')) {
+                    debugger;
                     if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0] === "master") {
                         this.get('router').transitionTo('master-dashboard-overview');
                     }

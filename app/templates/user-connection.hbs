@@ -1,5 +1,4 @@
 <div class="user-connection">
-
     <div class="left-container">
         <div class="background"></div>
         <div class="brand-container">
@@ -11,23 +10,18 @@
         <div class="simple-carousel">
             {{simple-carousel}}
         </div>
-
     </div>
-
     <div class="right-container">
         <div class="connection-mode-switch">
-            {{#paper-button raised=loginRaised onClick=(action "showLogin")}}Log In{{/paper-button}} 
+            {{#paper-button raised=loginRaised onClick=(action "showLogin")}}Log In{{/paper-button}}
             {{#paper-button raised=(not loginRaised) onClick=(action "showRegister")}}Cadastro{{/paper-button}}
         </div>
-
         <div class="content-container">
             {{#if loginRaised}}
-                  {{user-signin}} 
-            {{else}} 
-               {{user-signup showLogin=(action "showLogin")}} 
+                {{user-signin}}
+            {{else}}
+                {{user-signup showLogin=(action "showLogin") model=model}}
             {{/if}}
         </div>
-
     </div>
-
 </div>

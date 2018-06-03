@@ -10,6 +10,7 @@ export default Torii.extend({
   restore: function (data) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!Ember.isEmpty(data.currentUser)) {
+        debugger;
         data.currentUser.data = data.currentUser;
         resolve(data);
       } else {
@@ -20,13 +21,13 @@ export default Torii.extend({
 
   authenticate: function (credentials) {
     let store = this.get('store');
-    let ParseUser =  store.modelFor('parse-user');
+    let ParseUser = store.modelFor('parse-user');
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      ParseUser.login(store, credentials).catch(error => {  
+      ParseUser.login(store, credentials).catch(error => {
         return reject(error);
       }).then(user => {
 
-        return resolve({currentUser: user});
+        return resolve({ currentUser: user });
       })
     });
   },

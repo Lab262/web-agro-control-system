@@ -5,11 +5,12 @@ export default Route.extend({
   session: Ember.inject.service('session'),
   model() {
     let store = this.store;
+    debugger;
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
       cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
       producer: store.findRecord('producer', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.producerId)[0]),
-      getPurchaseTransaction: function(producerId) {
+      getPurchaseTransaction: function (producerId) {
         return store.query('purchase-transaction', {
           "where": {
             "producer": {

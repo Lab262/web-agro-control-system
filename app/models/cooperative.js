@@ -5,5 +5,6 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   email: DS.attr('string'),
   cnpj: DS.attr('string'),
+  isActive: DS.attr('boolean'),
   productScales: DS.attr()
 });

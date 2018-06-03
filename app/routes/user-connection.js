@@ -3,9 +3,23 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   session: Ember.inject.service('session'),
+  model() {
+    let store = this.store;
+    return new Ember.RSVP.hash({
+      getCooperativeByCNPJ: function (cnpj) {
+        return store.query('cooperative', {
+          "where": {
+            'cnpj': cnpj
+          }
+        });
+      },
+      newCooperative: store.createRecord('cooperative')
+    })
+  },
 
   beforeModel(/* transition */) {
     if (this.get('session.isAuthenticated')) {
+      debugger;
       if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0] === "master") {
         this.get('router').transitionTo('master-dashboard-overview');
       } else if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0].userRole === "admin") {
