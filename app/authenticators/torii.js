@@ -10,7 +10,7 @@ export default Torii.extend({
   restore: function (data) {
     return new Ember.RSVP.Promise(function (resolve, reject) {
       if (!Ember.isEmpty(data.currentUser)) {
-        debugger;
+         ;
         data.currentUser.data = data.currentUser;
         resolve(data);
       } else {

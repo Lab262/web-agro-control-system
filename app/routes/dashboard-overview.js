@@ -6,7 +6,7 @@ export default Route.extend({
 
   model() {
     let store = this.store;
-    debugger;
+    ;
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
       cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0])

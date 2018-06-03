@@ -19,7 +19,7 @@ export default Route.extend({
 
   beforeModel(/* transition */) {
     if (this.get('session.isAuthenticated')) {
-      debugger;
+       ;
       if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0] === "master") {
         this.get('router').transitionTo('master-dashboard-overview');
       } else if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0].userRole === "admin") {
