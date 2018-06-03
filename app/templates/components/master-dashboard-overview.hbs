@@ -2,10 +2,15 @@
     {{#if showPromptDialog}}
         {{add-cooperative-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
     {{/if}}
+    {{#if showApproveModal}}
+        {{approve-cooperative-modal cooperatives=cooperatives closeModal=(toggle "showApproveModal" this)}}
+    {{/if}}
     <div class="producers-detail">
         <h1>Cooperativas</h1>
         <span>
-            {{#paper-button href="" onClick=(action "openPromptDialog")}}Aprovar Cooperativa{{/paper-button}}
+            {{#paper-button href="" onClick=(toggle "showApproveModal" this)}}Aprovar Cooperativa
+                <span style="padding: 7.5px 5px; border-radius: 15%; background:#36CC79; color: white; font-weight: bolder;">+10</span>
+            {{/paper-button}}
             {{#paper-button href="" onClick=(action "openPromptDialog")}}Adicionar Cooperativa{{/paper-button}}
         </span>
         {{#paper-card class="box-search" as |card|}}

@@ -1,0 +1,40 @@
+<div id="add-product-modal-overlay" class="add-product-modal">
+    <div id="add-product-modal-overlay" class="purchase-transaction">
+        {{#paper-card class="box-full expanded table" as |card|}}
+            <p class="title">
+                Aprovar Cooperativas
+            </p>
+            {{#paper-button class="close-button" iconButton=true onClick=closeModal}}{{paper-icon "close"}}{{/paper-button}}
+            <div class="products-graphs-list">
+                <table>
+                    <tr class="header">
+                        <th class="name">Nome</th>
+                        <th style="width: 25%;">Email</th>
+                        <th>CNPJ</th>
+                        <th class="button"> </th>
+                        <th class="button"> </th>
+                    </tr>
+                    {{#each cooperatives as |cooperative|}}
+                        <tr>
+                            <th class="name">{{cooperative.name}}</th>
+                            <th style="width: 25%;">{{cooperative.email}}</th>
+                            <th>{{cooperative.cnpj}}</th>
+                            <th style="padding-right: 25px;" class="button">
+                                <span>
+                                    {{#paper-button raised=true primary=true href="" }}Aprovar{{/paper-button}}
+                                </span>
+                            </th>
+                            <th style="padding-right: 25px;" class="button">
+                                <span>
+                                    {{#paper-button href="" }}Excluir{{/paper-button}}
+                                </span>
+                            </th>
+                        </tr>
+                        {{else}}
+                            Nenhuma cooperativa a aprovar.
+                    {{/each}}
+                </table>
+            </div>
+        {{/paper-card}}
+    </div>
+</div>

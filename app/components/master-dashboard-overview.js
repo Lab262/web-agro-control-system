@@ -7,7 +7,6 @@ export default Component.extend({
     cooperatives: [],
 
     didInsertElement() {
-        debugger;
         let model = this.get('model').cooperatives;
         this.set('cooperatives', model);
     },
