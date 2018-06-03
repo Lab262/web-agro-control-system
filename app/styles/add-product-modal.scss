@@ -92,11 +92,9 @@
                         &.button {
                             width: 10%;
                         }
-                        button.md-default-theme.md-button.md-primary.md-raised.md-ink-ripple {
-                            background-color: "#36CC79";
-                            font-weight: bolder;
-                        }
                         button {
+                            color: gray;
+                            font-weight: bolder;
                             font-size: 12.5px;
                             margin-top: -10px;
                         }
