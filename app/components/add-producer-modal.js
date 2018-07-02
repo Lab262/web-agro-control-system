@@ -3,7 +3,7 @@ import CPFValidator from 'npm:@fnando/cpf/dist/node';
 import CNPJValidator from 'npm:@fnando/cnpj/dist/node';
 
 export default Component.extend({
-    model: { name: "", identification: "", cpnj: "", cpf: "" },
+    model: { name: "", email: "", identification: "", cpnj: "", cpf: "" },
     closeModal(e) {
         var currEl = e.path[0].id;
         if (currEl === 'add-product-modal-overlay') {
@@ -11,8 +11,7 @@ export default Component.extend({
         }
     },
     didInsertElement() {
-        this.set('model', { name: "", identification: "", cpnj: "", cpf: "" });
-
+        this.set('model', { name: "", email: "", identification: "", cpnj: "", cpf: "" });
     },
 
     actions: {
