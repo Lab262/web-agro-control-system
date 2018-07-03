@@ -16,6 +16,7 @@ Router.map(function() {
   this.route('supply-control');
   this.route('reports-container');
   this.route('master-dashboard-overview');
+  this.route('cooperative-edit');
 });
 
 export default Router;

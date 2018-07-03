@@ -63,7 +63,11 @@ export default Component.extend({
             } else {
                 event.currentTarget.firstElementChild.firstElementChild.src = 'https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/' + imageCleanName + '_selected.png';
             }
-        }
+        },
+
+        editCooperative() {
+            this.get('route').transitionToRoute('cooperative-edit');
+        },
     }
 
 });

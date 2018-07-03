@@ -6,7 +6,7 @@
                 <img class="logo" src="{{model.cooperative.logo}}">
             </div>
             <h5> {{model.cooperative.name}} </h5>
-            {{#paper-button href="" }}Editar dados{{/paper-button}}
+            {{#paper-button href="" onClick=(action "editCooperative")}}Editar dados{{/paper-button}}
         </div>
         <ul>
             {{#each menuOptions as |option|}}
