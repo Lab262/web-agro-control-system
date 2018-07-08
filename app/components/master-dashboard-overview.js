@@ -33,6 +33,7 @@ export default Component.extend({
                     newCooperative.set('cnpj', CNPJValidator.format(object.cnpj));
                     newCooperative.set('name', object.name);
                     newCooperative.set('logo', "");
+                    newCooperative.set('isActive', true);
                     newCooperative.set('productScales', []);
 
                     newCooperative.save().then(saved => {
