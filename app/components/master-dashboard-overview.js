@@ -8,7 +8,7 @@ export default Component.extend({
     didInsertElement() {
         let model = this.get('model').cooperatives;
         this.set('cooperatives', model);
-        let cooperativesToApprove = model.content.filter(item => item.__data.isActive).map(item => item.getRecord());
+        let cooperativesToApprove = model.content.filter(item => !item.__data.isActive).map(item => item.getRecord());
         this.set('cooperativesToApproveAmount', cooperativesToApprove.length);
         this.set('cooperativesToApprove', cooperativesToApprove);
     },

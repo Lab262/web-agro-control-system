@@ -21,12 +21,12 @@
                             <th>{{cooperative.cnpj}}</th>
                             <th style="padding-right: 25px;" class="button">
                                 <span>
-                                    {{#paper-button raised=true primary=true href="" }}Aprovar{{/paper-button}}
+                                    {{#paper-button raised=true primary=true href="" onClick=(action 'approveCooperative' cooperative)}}Aprovar{{/paper-button}}
                                 </span>
                             </th>
                             <th style="padding-right: 25px;" class="button">
                                 <span>
-                                    {{#paper-button href="" }}Excluir{{/paper-button}}
+                                    {{#paper-button href="" onClick=(action 'deleteCooperative' cooperative)}}Excluir{{/paper-button}}
                                 </span>
                             </th>
                         </tr>
