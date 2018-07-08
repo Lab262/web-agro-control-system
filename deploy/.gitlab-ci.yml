@@ -1,10 +1,7 @@
 image: kahwee/node-ruby-dpl
 cache:
   paths:
-  - node_modules/
-
-before_script:
-  - npm install
+  # - node_modules/
 
 production:
   type: deploy
