@@ -35,7 +35,11 @@ export default Component.extend({
                             newCooperative.set('email', email);
                             newCooperative.set('cnpj', cooperativeCNPJ);
                             newCooperative.set('name', cooperativeName);
+                            newCooperative.set('logo', "");
+                            newCooperative.set('isActive', false);
+                            newCooperative.set('productScales', []);
                             newCooperative.save()
+
                             alert('Cooperativa cadastrada com sucesso.\nVocê receberá instruções de acesso por email após a aprovação do administrador do sistema.\n Obrigado!');
                             _this.showLogin()
                         }

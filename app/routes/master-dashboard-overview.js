@@ -16,5 +16,4 @@ export default Route.extend({
             this.transitionTo('user-connection'); // Implicitly aborts the on-going transition.
         }
     },
-
 });

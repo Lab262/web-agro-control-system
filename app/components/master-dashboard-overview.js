@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import CPFValidator from 'npm:@fnando/cpf/dist/node';
 import CNPJValidator from 'npm:@fnando/cnpj/dist/node';
 
 export default Component.extend({
@@ -9,6 +8,9 @@ export default Component.extend({
     didInsertElement() {
         let model = this.get('model').cooperatives;
         this.set('cooperatives', model);
+        let cooperativesToApprove = model.content.filter(item => item.__data.isActive).map(item => item.getRecord());
+        this.set('cooperativesToApproveAmount', cooperativesToApprove.length);
+        this.set('cooperativesToApprove', cooperativesToApprove);
     },
 
     actions: {
