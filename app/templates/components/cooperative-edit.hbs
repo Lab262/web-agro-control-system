@@ -1,0 +1,17 @@
+<div class="cooperative-edit-container">
+    <h1>{{model.cooperative.name}}</h1>
+
+    <div class="inputs">
+    {{paper-input class="flex-50" label="Capital Social" value=model.cooperative.socialCapital onChange=(action (mut model.cooperative.socialCapital))}}
+    {{paper-input class="flex-50" label="Natureza Jurídica'" value=model.cooperative.legalNature onChange=(action (mut model.cooperative.legalNature))}}
+    {{paper-input class="flex-50" label="Porte" value=model.cooperative.size onChange=(action (mut model.cooperative.size))}}
+    {{paper-input class="flex-50" label="Atividades" value=model.cooperative.activities onChange=(action (mut model.cooperative.activities))}}
+    {{paper-input class="flex-50" label="CNPJ" value=model.cooperative.cnpj onChange=(action (mut model.cooperative.cnpj))}}
+    {{paper-input class="flex-50" label="Razão Social" value=model.cooperative.socialReason onChange=(action (mut model.cooperative.socialReason))}}
+    {{paper-input class="flex-50" label="Telefone" value=model.cooperative.phoneNumber onChange=(action (mut model.cooperative.phoneNumber))}}
+    {{paper-input class="flex-50" label="CEP" value=model.cooperative.cep onChange=(action (mut model.cooperative.cep))}}
+    {{paper-input class="flex-50" label="Endereço" value=model.cooperative.address onChange=(action (mut model.cooperative.address))}}
+    {{paper-input class="flex-50" label="Bairro" value=model.cooperative.neighborhood onChange=(action (mut model.cooperative.neighborhood))}}
+    {{paper-input class="flex-50" label="Email" value=model.cooperative.email onChange=(action (mut model.cooperative.email))}}
+    </div>
+</div>
