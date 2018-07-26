@@ -50,19 +50,13 @@ export default Component.extend({
         },
 
         closePromptDialog(model, isToSave) {
-            if (model != undefined &&
-                model.identification != undefined
-                && model.unityPrice != undefined
+            if (model != undefined
                 && model.selectScale != undefined
                 && model.name != undefined
-                && model.identification != ""
-                && model.unityPrice != ""
                 && model.selectScale != ""
                 && model.name != "") {
 
                 let newProduct = this.get('model.newProduct');
-                newProduct.set('identification', model.identification);
-                newProduct.set('unityPrice', model.unityPrice);
                 newProduct.set('amountScale', model.selectScale);
                 newProduct.set('name', model.name);
                 newProduct.set('cooperative', this.get('model').cooperative);
