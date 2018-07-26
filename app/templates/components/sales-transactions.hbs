@@ -12,12 +12,6 @@
                     {{producer.name}}
                 {{/power-selector-with-label}}
             </div>
-            <div class="flex-20">
-                {{#power-selector-with-label selected=selectedProduct searchField="identification" placeholder="ID do Produto" options=products
-                    onchange=(action (mut selectedProduct)) as |product|}}
-                    {{product.identification}}
-                {{/power-selector-with-label}}
-            </div>
             {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
@@ -26,12 +20,7 @@
                 {{/power-selector-with-label}}
             </div>
             {{paper-input class="flex-20" type="number" label="Quantidade" value=amount onChange=(action (mut amount))}}
-            <div class="flex-20">
-                {{#power-selector-with-label selected=selectScale placeholder="Unidade de Medida" options=model.cooperative.productScales
-                    onchange=(action (mut selectScale)) as |name|}}
-                    {{name}}
-                {{/power-selector-with-label}}
-            </div>
+            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.amountScale onChange=(action (mut selectScale))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
             {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
