@@ -8,7 +8,7 @@
         <span>{{#paper-button href="" onClick=(action "openPromptDialog")}}Adicionar Novo Produtor{{/paper-button}}</span>
 
              {{#paper-card class="box-search" as |card|}}                
-                         {{paper-input class="search" placeholder="Pesquisar Produtor" value=name onChange=(action (mut name))}}
+                         {{paper-input class="search" id='search-box'placeholder="Pesquisar Produtor" value=name onChange=(action 'search')}}
             {{/paper-card}}
             
             {{#paper-card class="box-full" as |card|}}       
@@ -22,7 +22,7 @@
                         <th>Última Transação</th>
                         <th class="button"> </th> 
                     </tr>
-                        {{#each producers as |producer|}}
+                        {{#each filteredProducers as |producer|}}
                             <tr>
                                 <th>{{producer.identification}}</th>
                                 <th class="name">{{producer.name}}</th>
