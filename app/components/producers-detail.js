@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import CPFValidator from 'npm:@fnando/cpf/dist/node';
 import CNPJValidator from 'npm:@fnando/cnpj/dist/node';
+import Ember from 'ember';
 
 export default Component.extend({
     name: '',
@@ -78,6 +79,8 @@ export default Component.extend({
                     || searchIncludes(producer.get('identification'))
             }))
         }
+    },
+    getFormatDate(date) {
+        return moment(date).format('DD/MM/YYYY');
     }
-
 });

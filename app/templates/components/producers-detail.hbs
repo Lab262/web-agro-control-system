@@ -28,7 +28,7 @@
                                 <th class="name">{{producer.name}}</th>
                                 <th>{{producer.cpf}}</th>
                                 <th>{{producer.cnpj}}</th>
-                                <th>{{producer.lastTransaction}}</th>
+                                <th>{{moment-format producer.lastTransaction "DD/MM/YYYY"}}</th>
                                 <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
                             </tr>
                         {{else}}
@@ -37,6 +37,5 @@
         </table>
 
             {{/paper-card}}
-
 
 </div>
