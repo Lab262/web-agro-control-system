@@ -33,7 +33,7 @@ export default Route.extend({
         })
       },
       getPurchaseTransaction: function(cooperativeId) {
-        return store.query('purchase-transaction', {
+        return store.query('sales-transaction', {
           "where": {
             "cooperative": {
               "__type": "Pointer",

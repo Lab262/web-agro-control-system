@@ -6,5 +6,6 @@ export default DS.Model.extend({
   email: DS.attr('string'),
   cpf: DS.attr('string'),
   cnpj: DS.attr('string'),
+  lastTransaction: DS.attr('date'),
   cooperative: DS.belongsTo('cooperative'),
 });
