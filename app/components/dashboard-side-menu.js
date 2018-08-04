@@ -18,7 +18,6 @@ export default Component.extend({
                 { name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions' },
                 { name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control' },
                 { name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container' },
-                //TODO: Remove item to only call when click on edit data.
                 { name: 'Cooperativa', iconName: 'ic_relatorio', componentName: 'cooperative-edit' }
             ]);
         } else if (this.get('userType') === "master") {
@@ -70,6 +69,14 @@ export default Component.extend({
         editCooperative() {
            this.get('route').transitionToRoute('cooperative-edit');
         },
+        saveCooperative(){
+            let cooperative = this.get('model.cooperative');
+            cooperative.save().then(saved => {
+                this.get('route').transitionToRoute('dashboard-overview');
+            }).catch(err => {
+                console.error(err);
+            })
+        }
     }
 
 });

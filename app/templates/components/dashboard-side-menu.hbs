@@ -6,23 +6,31 @@
                 <img class="logo" src="{{model.cooperative.logo}}">
             </div>
             <h5> {{model.cooperative.name}} </h5>
-            {{#paper-button href="" onClick=(action "editCooperative")}}Editar dados{{/paper-button}}
+            {{#if (eq userType "admin")}}
+                {{#if (eq optionSelected.name "Cooperativa")}}
+                    {{#paper-button href="" onClick=(action "saveCooperative")}}Fechar{{/paper-button}}
+                {{else}}
+                    {{#paper-button href="" onClick=(action "editCooperative")}}Editar dados{{/paper-button}}
+                {{/if}}
+            {{/if}}
         </div>
         <ul>
             {{#each menuOptions as |option|}}
-                {{#menu.item }}
-                    {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option)
+                {{#unless (eq option.name "Cooperativa")}}
+                    {{#menu.item }}
+                        {{#paper-button class=(get-class-for-selected-and-divider option optionSelected.name) onClick=(action "selectOption" option)
                         onMouseEnter=(action 'mouseEnter') onMouseLeave=(action 'mouseLeave') }}
-                        <div class="image-container">
-                            {{#if (is-equal option.name optionSelected.name)}}
-                                <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}_selected.png">
-                            {{else}}
-                                <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}.png">
-                            {{/if}}
-                        </div>
-                        <span> {{option.name}} </span>
-                    {{/paper-button}}
-                {{/menu.item}}
+                            <div class="image-container">
+                                {{#if (is-equal option.name optionSelected.name)}}
+                                    <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}_selected.png">
+                                {{else}}
+                                    <img class="logo" src="https://storage.googleapis.com/amplified-torch-4662/apps_assets/menu/{{option.iconName}}.png">
+                                {{/if}}
+                            </div>
+                            <span> {{option.name}} </span>
+                        {{/paper-button}}
+                    {{/menu.item}}
+                {{/unless}}
             {{/each}}
         </ul>
         <ul>
