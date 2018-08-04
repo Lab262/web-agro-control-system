@@ -1,13 +1,21 @@
 <div id="add-product-modal-overlay" class="add-product-modal" onClick= {{action closeModal}}>
     <div id="add-product-modal-overlay" class="purchase-transaction">
         {{#paper-card class="box-full" as |card|}}
+        {{#if editMode}}
+            <p>Editar produto</p>
+        {{else}}
             <p>Adicionar novo produto</p>
-            <div class="inputs">
-                {{paper-input class="flex-40" label="Nome do produto" value=model.name onChange=(action (mut model.name))}}
-                {{paper-input class="flex-40" type="number" label="Unidade de Medida (em Kg)" value=model.selectScale onChange=(action (mut model.selectScale))}}
-                {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action onClose)}}Cancelar{{/paper-button}}
+        {{/if}}
+        <div class="inputs">
+            {{paper-input class="flex-40" label="Nome do produto" value=model.name onChange=(action (mut model.name))}}
+            {{paper-input class="flex-40" type="number" label="Unidade de Medida (em Kg)" value=model.amountScale onChange=(action (mut model.amountScale))}}
+            {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action onClose)}}Cancelar{{/paper-button}}
+            {{#if editMode}}
+                {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Salvar{{/paper-button}}
+            {{else}}
                 {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Adicionar{{/paper-button}}
-            </div>
+            {{/if}}
+        </div>
         {{/paper-card}}
     </div>
 </div>

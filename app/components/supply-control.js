@@ -40,7 +40,15 @@ export default Component.extend({
 
     actions: {
         /* Prompt dialog */
-        openPromptDialog(/* param, event */) {
+        openPromptDialog(product) {
+            if (product.data) {
+                this.set('editMode', true);
+                this.set('editableProduct', product);
+            }else {
+                let newProduct = this.get('model.newProduct');
+                this.set('editableProduct', newProduct);
+                this.set('editMode', false);
+            }
             this.set('dialogOrigin', null);
             this.set('showPromptDialog', true);
         },
@@ -51,17 +59,14 @@ export default Component.extend({
 
         closePromptDialog(model, isToSave) {
             if (model != undefined
-                && model.selectScale != undefined
-                && model.name != undefined
-                && model.selectScale != ""
-                && model.name != "") {
+                && model.get('amountScale') != undefined
+                && model.get('name') != undefined
+                && model.get('amountScale') != 0
+                && model.get('name') != "") {
 
-                let newProduct = this.get('model.newProduct');
-                newProduct.set('amountScale', model.selectScale);
-                newProduct.set('name', model.name);
-                newProduct.set('cooperative', this.get('model').cooperative);
+                model.set('cooperative', this.get('model').cooperative);
 
-                newProduct.save().then(saved => {
+                model.save().then(saved => {
                     window.location.reload()
                 }).catch(err => {
                     console.error(err);
