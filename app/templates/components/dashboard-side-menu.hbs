@@ -2,17 +2,17 @@
     class='is-open' as |burger| }}
     {{#burger.menu itemTagName="li" dismissOnItemClick=true as |menu|}}
         <div class="project-info-header">
-            <div class="image-container">
-                <img class="logo" src="{{model.cooperative.logo}}">
-            </div>
-            <h5> {{model.cooperative.name}} </h5>
-            {{#if (eq userType "admin")}}
+            {{#unless (eq userType "master")}}
+                <div class="image-container">
+                    <img class="logo" src="{{model.cooperative.logo}}">
+                </div>
+                <h5> {{model.cooperative.name}} </h5>
                 {{#if (eq optionSelected.name "Cooperativa")}}
                     {{#paper-button href="" onClick=(action "saveCooperative")}}Fechar{{/paper-button}}
                 {{else}}
                     {{#paper-button href="" onClick=(action "editCooperative")}}Editar dados{{/paper-button}}
                 {{/if}}
-            {{/if}}
+            {{/unless}}
         </div>
         <ul>
             {{#each menuOptions as |option|}}

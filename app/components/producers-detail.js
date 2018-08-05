@@ -26,18 +26,21 @@ export default Component.extend({
         },
 
         closePromptDialog(object, isToSave) {
-            if (object != undefined &&
-                object.identification != undefined
-                && object.cpf != undefined
+            if (object != undefined
                 && object.name != undefined
                 && object.email != undefined
-                && object.identification != ""
-                && object.cpf != ""
                 && object.name != ""
-                && object.email != "") {
-                if (!CPFValidator.isValid(object.cpf)) alert('CPF Inválido');
-                //else if (!CNPJValidator.isValid(object.cnpj)) alert('CNPJ Inválido');
-                else {
+                && object.email != "" 
+                && ((object.cpf != undefined && object.cpf != "") ||
+                (object.cnpj != undefined && object.cnpj != ""))) {
+                var isValid = true
+                if (object.cpf != undefined && object.cpf != ""){
+                    if (!CPFValidator.isValid(object.cpf)) isValid = false; alert('CPF Inválido');
+                }
+                if (object.cnpj != undefined && object.cnpj != ""){
+                    if (!CNPJValidator.isValid(object.cnpj)) isValid = false; alert('CNPJ Inválido');
+                }
+                if (isValid) {
                     let newProducer = this.get('model.newProducer');
                     newProducer.set('cpf', CPFValidator.format(object.cpf));
                     newProducer.set('cnpj', CNPJValidator.format(object.cnpj));
@@ -54,7 +57,7 @@ export default Component.extend({
                 }
 
             } else if (isToSave === true) {
-                alert('Entre todos os campos');
+                alert('Entre com os campos obrigatórios');
             } else {
                 this.set('showPromptDialog', false);
             }

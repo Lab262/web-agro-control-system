@@ -8,4 +8,11 @@ export default DS.Model.extend({
   cnpj: DS.attr('string'),
   lastTransaction: DS.attr('date'),
   cooperative: DS.belongsTo('cooperative'),
+  size: DS.attr('string'),
+  activities: DS.attr('string'),
+  cep: DS.attr('string'),
+  state: DS.attr('string'),
+  city: DS.attr('string'),
+  address: DS.attr('string'),
+  neighborhood: DS.attr('string')
 });

@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('reports-container');
   this.route('master-dashboard-overview');
   this.route('cooperative-edit');
+  this.route('producer-edit');
 });
 
 export default Router;

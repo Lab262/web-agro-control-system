@@ -1,0 +1,15 @@
+<div class="cooperative-edit-container">
+    <div class="inputs">
+    {{paper-input class="flex-50" label="Nome" value=model.producer.name onChange=(action (mut model.producer.name))}}
+    {{paper-input class="flex-50" label="Email" value=model.producer.email onChange=(action (mut model.producer.email))}}
+    {{paper-input class="flex-50" disabled=true label="CPF" value=model.producer.cpf onChange=null}}
+    {{paper-input class="flex-50" disabled=true label="CNPJ" value=model.producer.cnpj onChange=null}}
+    {{paper-input class="flex-50" label="Porte" value=model.producer.size onChange=(action (mut model.producer.size))}}
+    {{paper-input class="flex-50" label="Atividades" value=model.producer.activities onChange=(action (mut model.producer.activities))}}
+    {{paper-input class="flex-50" label="CEP" value=model.producer.cep onChange=(action (mut model.producer.cep))}}
+    {{paper-input class="flex-50" label="Estado" value=model.producer.state onChange=(action (mut model.producer.state))}}
+    {{paper-input class="flex-50" label="Cidade" value=model.producer.city onChange=(action (mut model.producer.city))}}
+    {{paper-input class="flex-50" label="Bairro" value=model.producer.neighborhood onChange=(action (mut model.producer.neighborhood))}}
+    {{paper-input class="flex-50" label="Endereço" value=model.producer.address onChange=(action (mut model.producer.address))}}
+    </div>
+</div>
