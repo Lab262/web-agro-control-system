@@ -9,6 +9,7 @@ export default Route.extend({
             currentUser: this.get('session.data.authenticated.currentUser'),
             cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
             newProduct: store.createRecord('product'),
+            newWaste: store.createRecord('waste-transaction'),
             getProducts: function (cooperativeId) {
                 return store.query('product', {
                     "where": {

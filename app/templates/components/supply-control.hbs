@@ -1,11 +1,17 @@
 {{#if showPromptDialog}}
     {{add-product-modal editMode=editMode model=editableProduct onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
 {{/if}}
+{{#if showWasteDialog}}
+    {{add-waste-modal products=products model=wasteTransaction onClose=(action "closeWasteDialog") onSave=(action "closeWasteDialog")}}
+{{/if}}
 {{#if showHistoricModal}}
     {{line-graph-with-filter-modal title=(concat 'Histórico -' selectedProduct.name) onClose=(toggle "showHistoricModal" this) chartData=selectedProduct.chartData }}
 {{/if}}
 <div class="supply-control">
     <h1>Controle de Estoque</h1>
+    <span>
+        {{#paper-button href="" onClick=(action "openWasteDialog") }}Adicionar perda{{/paper-button}}
+    </span>
     <span>
         {{#paper-button href="" onClick=(action "openPromptDialog") }}Adicionar novo produto{{/paper-button}}
     </span>
