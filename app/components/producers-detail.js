@@ -83,7 +83,4 @@ export default Component.extend({
             }))
         }
     },
-    getFormatDate(date) {
-        return moment(date).format('DD/MM/YYYY');
-    }
 });

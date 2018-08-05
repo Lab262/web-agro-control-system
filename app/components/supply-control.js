@@ -44,7 +44,7 @@ export default Component.extend({
             if (product.data) {
                 this.set('editMode', true);
                 this.set('editableProduct', product);
-            }else {
+            } else {
                 let newProduct = this.get('model.newProduct');
                 this.set('editableProduct', newProduct);
                 this.set('editMode', false);
@@ -56,7 +56,11 @@ export default Component.extend({
             this.set('selectedProduct', product);
             this.set('showHistoricModal', true);
         },
-
+        openWasteDialog() {
+            let newWaste = this.get('model.newWaste');
+            this.set('wasteTransaction', newWaste);
+            this.set('showWasteDialog', true);
+        },
         closePromptDialog(model, isToSave) {
             if (model != undefined
                 && model.get('amountScale') != undefined
@@ -78,5 +82,26 @@ export default Component.extend({
                 this.set('showPromptDialog', false);
             }
         },
+        closeWasteDialog(model, isToSave, selectedProduct) {
+
+            if (isToSave != true) {
+                this.set('showWasteDialog', false);
+            } else if (model != undefined
+                && model.get('amount') != undefined
+                && model.get('amount') != 0
+                && selectedProduct != undefined) {
+
+                model.set('cooperative', this.get('model').cooperative);
+                model.set('product', selectedProduct);
+                model.save().then(saved => {
+                    window.location.reload()
+                }).catch(err => {
+                    console.error(err);
+                })
+
+            } else if (isToSave === true) {
+                alert('Entre todos os campos');
+            }
+        }
     }
 });
