@@ -7,7 +7,6 @@ export default Component.extend({
     scales: [],
     selectedProducer: null,
     selectedProduct: null,
-    selectScale: "",
     impost: "0",
     discount: "0",
     unityPrice: "0",
@@ -61,13 +60,11 @@ export default Component.extend({
             if (this.get('selectedProducer') != undefined &&
                 this.get('transactionDate') != undefined &&
                 this.get('selectedProduct') != undefined
-                && this.get('selectScale') != undefined
                 && this.get('unityPrice') != undefined
                 && this.get('amount') != undefined
                 && this.get('productCost') != undefined &&
                 this.get('selectedProducer') != null
                 && this.get('selectedProduct') != null
-                && this.get('selectScale') != ""
                 && this.get('transactionDate') != ""
                 && this.get('unityPrice') != ""
                 && this.get('amount') != ""
@@ -80,7 +77,7 @@ export default Component.extend({
                 let year = transactionDate.substr(4, 4);
                 transactionDate = new Date(year, month, day, 0, 0, 0, 0);
                 newPurchaseTransaction.set('transactionDate', transactionDate);
-                newPurchaseTransaction.set('amountScale', this.get('selectScale'));
+                newPurchaseTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
                 newPurchaseTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
                 if (this.get('discount') != undefined && this.get('discount') != "") {
                     newPurchaseTransaction.set('discount', Number(this.get('discount').replace(',', '.')));
