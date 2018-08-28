@@ -14,5 +14,6 @@ export default DS.Model.extend({
   state: DS.attr('string'),
   city: DS.attr('string'),
   address: DS.attr('string'),
-  neighborhood: DS.attr('string')
+  neighborhood: DS.attr('string'),
+  isRetailer: DS.attr('boolean')
 });

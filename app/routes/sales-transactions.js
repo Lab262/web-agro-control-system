@@ -9,14 +9,16 @@ export default Route.extend({
       currentUser: this.get('session.data.authenticated.currentUser'),
       cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
       newSaleTransaction: store.createRecord('sales-transaction'),
-      getProducers: function (cooperativeId) {
+      
+      getRetailers: function (cooperativeId) {
         return store.query('producer', {
           "where": {
             "cooperative": {
               "__type": "Pointer",
               "className": "Cooperative",
               "objectId": cooperativeId,
-            }
+            },
+            isRetailer: true,
           }
         })
       },

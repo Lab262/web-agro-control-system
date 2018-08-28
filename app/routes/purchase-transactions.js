@@ -17,7 +17,8 @@ export default Route.extend({
               "__type": "Pointer",
               "className": "Cooperative",
               "objectId": cooperativeId,
-            }
+            },
+            isRetailer: false,
           }
         })
       },

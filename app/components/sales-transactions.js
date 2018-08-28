@@ -23,9 +23,9 @@ export default Component.extend({
 
     didInsertElement() {
         let model = this.get('model');
-        model.getProducers(model.cooperative.id)
-            .then(producers => {
-                this.set('producers', producers);
+        model.getRetailers(model.cooperative.id)
+            .then(retailers => {
+                this.set('producers', retailers);
             }).catch(err => console.log(err));
 
         model.getProducts(model.cooperative.id).then(products => {
