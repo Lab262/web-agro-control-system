@@ -172,3 +172,23 @@ span.power-selector-with-label-label {
 .power-selector-with-label {
     margin-top: -10px;
 }
+
+.ember-power-select-option {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ember-power-select-selected-item,
+.ember-power-select-placeholder {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.ember-power-select-trigger--active,
+.ember-power-select-placeholder {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
