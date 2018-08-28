@@ -5,6 +5,8 @@ export default Component.extend({
         let model = this.get('model');
         model.getPurchaseTransaction(model.producer.id).then(historic => {
             var historics = [];
+            var productsIds = [];
+            var products = [];
             for (var i = 0, len = historic.content.length; i < len; i++) {
                 var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YY');
                 var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
@@ -14,7 +16,31 @@ export default Component.extend({
                     quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
                     date: date
                 })
+                var objectId = historic.content[i].__data.product.data.id
+                var indexProduct = productsIds.indexOf(objectId)
+                if (indexProduct < 0) {
+                    productsIds.push(objectId)
+                    products.push({
+                        name: historic.content[i].__data.product.data.attributes.name,
+                        totalQuantity: historic.content[i].__data.productAmount,
+                        averagePrice: historic.content[i].__data.unityPrice,
+                        totalValue: historic.content[i].__data.transactionCost,
+                        transactionCost: historic.content[i].__data.transactionCost,
+                    })
+                }else {
+                    products[indexProduct].totalQuantity += historic.content[i].__data.productAmount
+                    var newTransactionCost = (products[indexProduct].transactionCost+historic.content[i].__data.transactionCost)
+                    console.log(newTransactionCost)
+
+                    products[indexProduct].averagePrice = newTransactionCost/products[indexProduct].totalQuantity
+                    console.log(products[indexProduct].totalQuantity)
+                    products[indexProduct].transactionCost = newTransactionCost,
+                    console.log(newTransactionCost)
+                    products[indexProduct].totalValue = products[indexProduct].totalQuantity*products[indexProduct].averagePrice
+                }
             }
+            console.log(products)
+            this.set('products', products);
             this.set('historic', historics);
         }).catch(err => console.log(err))
     },
