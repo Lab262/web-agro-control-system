@@ -20,7 +20,7 @@
                 {{/power-selector-with-label}}
             </div>
             {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}}
-            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=(concat selectedProduct.amountScale " Kg") onChange=null}}
+            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=(concat selectedProduct.amountScale " Kg") onChange=(action (mut selectScale))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
             {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
