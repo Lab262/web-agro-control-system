@@ -22,20 +22,22 @@ export default Component.extend({
                     productsIds.push(objectId)
                     products.push({
                         name: historic.content[i].__data.product.data.attributes.name,
-                        totalQuantity: historic.content[i].__data.productAmount,
+                        totalQuantity: historic.content[i].__data.productAmount*historic.content[i].__data.product.data.attributes.amountScale,
                         averagePrice: historic.content[i].__data.unityPrice,
                         totalValue: historic.content[i].__data.transactionCost,
                         transactionCost: historic.content[i].__data.transactionCost,
                     })
                 }else {
-                    products[indexProduct].totalQuantity += historic.content[i].__data.productAmount
+                    var quantityAmount = historic.content[i].__data.productAmount*historic.content[i].__data.product.data.attributes.amountScale
+                    products[indexProduct].totalQuantity += quantityAmount
                     var newTransactionCost = (products[indexProduct].transactionCost+historic.content[i].__data.transactionCost)
                     products[indexProduct].averagePrice = newTransactionCost/products[indexProduct].totalQuantity
                     products[indexProduct].transactionCost = newTransactionCost,
                     products[indexProduct].totalValue = products[indexProduct].totalQuantity*products[indexProduct].averagePrice
                 }
             }
-            formatArrayToPresent(products);
+            //formatArrayToPresent(products);
+            this.set('products', products);
             this.set('historic', historics);
         }).catch(err => console.log(err))
     },
