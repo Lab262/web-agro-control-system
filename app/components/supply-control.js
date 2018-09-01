@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import ParseCloudRequest from '../utils/parse-cloud-request';
 
 export default Component.extend({
 
@@ -56,10 +57,8 @@ export default Component.extend({
             this.set('selectedProduct', product);
             this.set('showHistoricModal', true);
         },
-        openWasteDialog() {
-            let newWaste = this.get('model.newWaste');
-            this.set('wasteTransaction', newWaste);
-            this.set('showWasteDialog', true);
+        openMeasuredSupplyDialog() {
+            this.set('showMeasuredSupplyDialog', true);
         },
         closePromptDialog(model, isToSave) {
             if (model != undefined
@@ -82,18 +81,18 @@ export default Component.extend({
                 this.set('showPromptDialog', false);
             }
         },
-        closeWasteDialog(model, isToSave, selectedProduct) {
+        closeMeasuredSupplyDialog(measuredSupply, isToSave, selectedProduct) {
 
             if (isToSave != true) {
-                this.set('showWasteDialog', false);
-            } else if (model != undefined
-                && model.get('amount') != undefined
-                && model.get('amount') != 0
+                this.set('showMeasuredSupplyDialog', false);
+            } else if (measuredSupply != undefined
                 && selectedProduct != undefined) {
 
-                model.set('cooperative', this.get('model').cooperative);
-                model.set('product', selectedProduct);
-                model.save().then(saved => {
+                ParseCloudRequest('updateMeasuredSupply', { 
+                    productId: selectedProduct.id, 
+                    cooperativeId: this.get('model.cooperative.id'),
+                    measuredSupply: measuredSupply
+                }).then(saved => {
                     window.location.reload()
                 }).catch(err => {
                     console.error(err);

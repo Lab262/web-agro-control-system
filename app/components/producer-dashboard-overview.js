@@ -30,18 +30,20 @@ export default Component.extend({
                 }else {
                     products[indexProduct].totalQuantity += historic.content[i].__data.productAmount
                     var newTransactionCost = (products[indexProduct].transactionCost+historic.content[i].__data.transactionCost)
-                    console.log(newTransactionCost)
-
                     products[indexProduct].averagePrice = newTransactionCost/products[indexProduct].totalQuantity
-                    console.log(products[indexProduct].totalQuantity)
                     products[indexProduct].transactionCost = newTransactionCost,
-                    console.log(newTransactionCost)
                     products[indexProduct].totalValue = products[indexProduct].totalQuantity*products[indexProduct].averagePrice
                 }
             }
-            console.log(products)
-            this.set('products', products);
+            formatArrayToPresent(products);
             this.set('historic', historics);
         }).catch(err => console.log(err))
+    },
+    formatArrayToPresent(products){
+        products.array.forEach(function(element) {
+            element.averagePrice = "R$ " + element.averagePrice.toFixed(2).toString().replace('.', ',');
+            element.totalValue = "R$ " + element.totalValue.toFixed(2).toString().replace('.', ',');
+        }, this);
+        this.set('products', products);
     },
 });

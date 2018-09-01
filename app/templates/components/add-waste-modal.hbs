@@ -2,7 +2,7 @@
     <div id="add-product-modal-overlay" class="purchase-transaction">
         {{#paper-card class="box-full" as |card|}}
         
-        <p>Adicionar perda</p>
+        <p>Registrar estoque medido</p>
     
         <div class="inputs">
             <div class="flex-40">
@@ -11,9 +11,9 @@
                     {{product.name}}
                 {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-40" type="number" label="Unidade de Medida (em Kg)" value=model.amount onChange=(action (mut model.amount))}}
+            {{paper-input class="flex-40" type="number" label="Unidade de Medida (em Kg)" value=measuredSupply onChange=(action (mut measuredSupply))}}
             {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action onClose)}}Cancelar{{/paper-button}}
-            {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedProduct)}}Adicionar{{/paper-button}}
+            {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave measuredSupply true selectedProduct)}}Registrar{{/paper-button}}
         </div>
         {{/paper-card}}
     </div>
