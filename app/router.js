@@ -18,6 +18,7 @@ Router.map(function() {
   this.route('master-dashboard-overview');
   this.route('cooperative-edit');
   this.route('producer-edit');
+  this.route('producer-extract');
 });
 
 export default Router;
