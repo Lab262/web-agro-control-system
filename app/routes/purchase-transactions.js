@@ -21,7 +21,7 @@ export default AuthenticatedRoute.extend({
           }
         })
       },
-      
+
       getProducts: function (cooperativeId) {
         return store.query('product', {
           "where": {
@@ -34,19 +34,19 @@ export default AuthenticatedRoute.extend({
         })
       },
 
-     getPurchaseTransaction: function(cooperativeId) {
-       return store.query('purchase-transaction', {
-         "where": {
-           "cooperative": {
-             "__type": "Pointer",
-             "className": "Cooperative",
-             "objectId": cooperativeId,
-           }
-         },
-         limit: 4,
-         include: 'product'
-       })
-     }
+      getPurchaseTransaction: function (cooperativeId) {
+        return store.query('purchase-transaction', {
+          "where": {
+            "cooperative": {
+              "__type": "Pointer",
+              "className": "Cooperative",
+              "objectId": cooperativeId,
+            }
+          },
+          limit: 4,
+          include: 'product'
+        })
+      }
     });
   },
 

@@ -19,31 +19,45 @@ export default Component.extend({
     }),
 
     didInsertElement() {
-        let model = this.get('model');
-        model.getProducers(model.cooperative.id)
-            .then(producers => {
-                this.set('producers', producers);
-            }).catch(err => console.log(err));
+        this.loadData()            
+    },
 
-        model.getProducts(model.cooperative.id).then(products => {
-            this.set('products', products);
-        }).catch(err => console.log(err))
-
-        model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-            var historics = [];
-            for (var i = 0, len = historic.content.length; i < len; i++) {
-                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
-                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
-                historics.push({
-                    cost: cost,
-                    productName: historic.content[i].__data.product.data.attributes.name,
-                    quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
-                    date: date
-                })
-            }
-            this.set('historic', historics);
-        }).catch(err => console.log(err))
-        this.setupPurchasesChart()
+    loadData() {
+        var _this = this;
+        let model = _this.get('model');
+            model.getProducers(model.cooperative.id)
+                .then(producers => {
+                    _this.set('producers', producers);
+                }).catch(err => {
+                    console.log(err);
+                    _this.loadData()
+                });
+    
+            model.getProducts(model.cooperative.id).then(products => {
+                _this.set('products', products);
+            }).catch(err => {
+                console.log(err);
+                _this.loadData()
+            })
+    
+            model.getPurchaseTransaction(model.cooperative.id).then(historic => {
+                var historics = [];
+                for (var i = 0, len = historic.content.length; i < len; i++) {
+                    var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
+                    var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
+                    historics.push({
+                        cost: cost,
+                        productName: historic.content[i].__data.product.data.attributes.name,
+                        quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
+                        date: date
+                    })
+                }
+                _this.set('historic', historics);
+            }).catch(err => {
+                console.log(err);
+                _this.loadData()
+            })
+            _this.setupPurchasesChart()
     },
 
     setupPurchasesChart() {

@@ -21,15 +21,26 @@ export default Component.extend({
 
 
     didInsertElement() {
-        let model = this.get('model');
+        this.loadData()
+    },
+
+    loadData() {
+        var _this = this;
+        let model = _this.get('model');
         model.getRetailers(model.cooperative.id)
             .then(retailers => {
-                this.set('producers', retailers);
-            }).catch(err => console.log(err));
+                _this.set('producers', retailers);
+            }).catch(err => {
+                console.log(err);
+                _this.loadData()
+            })
 
         model.getProducts(model.cooperative.id).then(products => {
-            this.set('products', products);
-        }).catch(err => console.log(err))
+            _this.set('products', products);
+        }).catch(err => {
+            console.log(err);
+            _this.loadData()
+        })
 
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
             var historics = [];
@@ -43,9 +54,12 @@ export default Component.extend({
                     date: date
                 })
             }
-            this.set('historic', historics);
-        }).catch(err => console.log(err))
-        this.setupSalesChart()
+            _this.set('historic', historics);
+        }).catch(err => {
+            console.log(err);
+            _this.loadData()
+        })
+        _this.setupSalesChart()
     },
 
     setupSalesChart() {
