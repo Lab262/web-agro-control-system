@@ -22,27 +22,26 @@ export default Component.extend({
                     productsIds.push(objectId)
                     products.push({
                         name: historic.content[i].__data.product.data.attributes.name,
-                        totalQuantity: historic.content[i].__data.productAmount*historic.content[i].__data.product.data.attributes.amountScale,
+                        totalQuantity: historic.content[i].__data.productAmount * historic.content[i].__data.product.data.attributes.amountScale,
                         averagePrice: historic.content[i].__data.unityPrice,
                         totalValue: historic.content[i].__data.transactionCost,
                         transactionCost: historic.content[i].__data.transactionCost,
                     })
-                }else {
-                    var quantityAmount = historic.content[i].__data.productAmount*historic.content[i].__data.product.data.attributes.amountScale
+                } else {
+                    var quantityAmount = historic.content[i].__data.productAmount * historic.content[i].__data.product.data.attributes.amountScale
                     products[indexProduct].totalQuantity += quantityAmount
-                    var newTransactionCost = (products[indexProduct].transactionCost+historic.content[i].__data.transactionCost)
-                    products[indexProduct].averagePrice = newTransactionCost/products[indexProduct].totalQuantity
+                    var newTransactionCost = (products[indexProduct].transactionCost + historic.content[i].__data.transactionCost)
+                    products[indexProduct].averagePrice = newTransactionCost / products[indexProduct].totalQuantity
                     products[indexProduct].transactionCost = newTransactionCost,
-                    products[indexProduct].totalValue = products[indexProduct].totalQuantity*products[indexProduct].averagePrice
+                        products[indexProduct].totalValue = products[indexProduct].totalQuantity * products[indexProduct].averagePrice
                 }
             }
-            //formatArrayToPresent(products);
-            this.set('products', products);
+            this.formatArrayToPresent(products);
             this.set('historic', historics);
         }).catch(err => console.log(err))
     },
-    formatArrayToPresent(products){
-        products.array.forEach(function(element) {
+    formatArrayToPresent(products) {
+        products.forEach(function (element) {
             element.averagePrice = "R$ " + element.averagePrice.toFixed(2).toString().replace('.', ',');
             element.totalValue = "R$ " + element.totalValue.toFixed(2).toString().replace('.', ',');
         }, this);
