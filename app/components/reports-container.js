@@ -11,9 +11,9 @@ export default Component.extend({
         output: {
             title: "Saída(vendas)",
             amount: "42.890",
-            unity: "Kg"
+            unity: "R$"
         },
-        input: { title: "Entrada(compras)", amount: "51.987", unity: "Kg" },
+        input: { title: "Entrada(compras)", amount: "51.987", unity: "R$" },
         initialStock: { title: "Estoque Inicial", amount: "53.076", unity: "Kg" },
         finalStock: { title: "Estoque Final", amount: "51.987", unity: "Kg" }
     },
@@ -24,6 +24,26 @@ export default Component.extend({
     },
 
     didInsertElement() {
+        let model = this.get('model');
+        debugger;
+        model.getPurchaseTransaction(model.cooperative.id).then(historic => {
+            var totalCost = 0;
+            for (var i = 0, len = historic.content.length; i < len; i++) {
+                var cost = historic.content[i].__data.transactionCost
+                totalCost += cost
+            }
+            console.log(totalCost);
+            this.set('stockDrive.input.amount', totalCost.toFixed(2).toString().replace('.', ','));
+        }).catch(err => console.log(err))
+        model.getSaleTransaction(model.cooperative.id).then(historic => {
+            var totalCost = 0;
+            for (var i = 0, len = historic.content.length; i < len; i++) {
+                var cost = historic.content[i].__data.transactionCost
+                totalCost += cost
+            }
+            console.log(totalCost);
+            this.set('stockDrive.output.amount', totalCost.toFixed(2).toString().replace('.', ','));
+        }).catch(err => console.log(err))
         this.setupAbcChartData();
     },
 
