@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import Route from '@ember/routing/route';
+import AuthenticatedRoute from '../routes/authenticated-route';
 
-export default Route.extend({
+export default AuthenticatedRoute.extend({
   session: Ember.inject.service('session'),
 
   model() {

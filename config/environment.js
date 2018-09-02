@@ -12,9 +12,9 @@ module.exports = function (environment) {
     },
     APP: {
       usingCors: false,
-		corsWithCreds: false,
+      corsWithCreds: false,
       applicationId: 'myAppId'
-    },    
+    },
     browserify: {
       extensions: ['.js'],
       transform: [
@@ -27,7 +27,7 @@ module.exports = function (environment) {
   if (environment === 'development') {
     ENV.APP.HOST = 'http://localhost:1337'
     ENV.rootURL = null;
-    ENV.locationType = 'hash';    
+    ENV.locationType = 'hash';
   }
 
   if (environment === 'test') {
@@ -49,6 +49,10 @@ module.exports = function (environment) {
     ENV.rootURL = null;
     ENV.locationType = 'hash';
     ENV.APP.applicationId = '3Ws@VWp&Kqo[P4Xqn6eZTsDVsHQh8ABJ9i78rQoqWQg#wC$iZV=Ki86^ug/wp3@&'
+  }
+
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'user-connection',
   }
 
   return ENV;
