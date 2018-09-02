@@ -27,7 +27,9 @@ export default Component.extend({
         } else {
             this.set('menuOptions', [
                 { name: 'Dashboard', iconName: 'ic_dashboard', componentName: 'producer-dashboard-overview', hasDivider: true },
-                { name: 'Cooperativa', iconName: 'ic_relatorio', componentName: 'producer-edit' }
+                { name: 'Cooperativa', iconName: 'ic_relatorio', componentName: 'producer-edit' },
+                { name: 'Extrato', iconName: 'ic_relatorio', componentName: 'producer-extract' }
+
             ]);
         }
         let currentOption = this.get('route').target.currentRouteName;
@@ -70,11 +72,11 @@ export default Component.extend({
         editCooperative() {
             if (this.get('userType') === "admin") {
                 this.get('route').transitionToRoute('cooperative-edit');
-            }else {
+            } else {
                 this.get('route').transitionToRoute('producer-edit');
             }
         },
-        saveCooperative(){
+        saveCooperative() {
             if (this.get('userType') === "admin") {
                 let cooperative = this.get('model.cooperative');
                 cooperative.save().then(saved => {
@@ -82,7 +84,7 @@ export default Component.extend({
                 }).catch(err => {
                     console.error(err);
                 })
-            }else{
+            } else {
                 let producer = this.get('model.producer');
                 producer.save().then(saved => {
                     this.get('route').transitionToRoute('producer-dashboard-overview');

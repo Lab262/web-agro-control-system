@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
+
     didInsertElement() {
         let model = this.get('model');
         model.getPurchaseTransaction(model.producer.id).then(historic => {
@@ -37,9 +38,9 @@ export default Component.extend({
                 }
             }
             this.formatArrayToPresent(products);
-            this.set('historic', historics);
         }).catch(err => console.log(err))
     },
+
     formatArrayToPresent(products) {
         products.forEach(function (element) {
             element.averagePrice = "R$ " + element.averagePrice.toFixed(2).toString().replace('.', ',');

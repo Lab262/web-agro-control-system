@@ -1,27 +1,25 @@
 <div class="producer-dashboard-detail">
-    <h1>Bem-vindo</h1>
-    <span>Resumo de todas as suas transações</span>
+    <h1>Extrato por produto</h1>
     <div class="transactions">
         {{#paper-card class="box-big" as |card|}}
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                <p class="flex-50">Extrato</p>
+                <p class="flex-50"></p>
                 <span class="flex-50" style="margin-top: 40px; margin-right: 10px;">
-                    {{#paper-button href="" }}Ver todos{{/paper-button}}
                 </span>
             </div>
             <table>
                 <tr class="header">
-                    <th>Data</th>
                     <th class="name">Produto</th>
-                    <th>Quantidade</th>
-                    <th>Custo</th>
+                    <th>Quantidade total</th>
+                    <th>Preço Médio</th>
+                    <th>Valor Total</th>
                 </tr>
-                {{#each historic as |item|}}
+                {{#each products as |item|}}
                     <tr>
-                        <th>{{item.date}}</th>
-                        <th class="name">{{item.productName}}</th>
-                        <th class="name">{{item.quantity}}</th>
-                        <th>{{item.cost}}</th>
+                        <th class="name">{{item.name}}</th>
+                        <th>{{item.totalQuantity}}</th>
+                        <th>{{item.averagePrice}}</th>
+                        <th>{{item.totalValue}}</th>
                     </tr>
                     {{else}}
                         Nenhuma transação
