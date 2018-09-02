@@ -9,7 +9,7 @@ export default AuthenticatedRoute.extend({
     ;
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
-      cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0])
+      cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperativesRoles').map(item => item.cooperativeId)[0])
     });
   },
 

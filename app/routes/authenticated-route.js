@@ -9,16 +9,16 @@ export default Route.extend({
     },
 
     afterModel(model) {
-
+        debugger;
         if (model.currentUser
             && (
-                (model.currentUser.cooperatives
-                    && model.currentUser.cooperatives.length > 0
-                    && model.currentUser.cooperatives[0].userRole === "admin")
+                (model.currentUser.cooperativesRoles
+                    && model.currentUser.cooperativesRoles.length > 0
+                    && model.currentUser.cooperativesRoles[0].userRole === "admin")
                 ||
-                (model.currentUser.get('cooperatives')
-                    && model.currentUser.get('cooperatives').length > 0
-                    && model.currentUser.get('cooperatives')[0].userRole === "admin"))
+                (model.currentUser.get('cooperativesRoles')
+                    && model.currentUser.get('cooperativesRoles').length > 0
+                    && model.currentUser.get('cooperativesRoles')[0].userRole === "admin"))
         ) {
             if (model.cooperative &&
                 (!model.cooperative.get('legalNature')

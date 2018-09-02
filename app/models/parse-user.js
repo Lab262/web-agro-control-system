@@ -7,5 +7,5 @@ export default ParseUser.extend({
   username: DS.attr('string'),
   sessionToken: DS.attr('string'),
   test: DS.attr('string'),
-  cooperatives: DS.attr()
+  cooperativesRoles: DS.attr()
 });

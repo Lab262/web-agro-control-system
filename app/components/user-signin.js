@@ -6,6 +6,7 @@ export default Component.extend({
     showingLogin: true,
     actions: {
         login() {
+            debugger
             let data = {
                 username: this.get('username'),
                 password: this.get('password')
@@ -14,9 +15,9 @@ export default Component.extend({
                 alert("Usuário ou senha inválido!")
             }).then(() => {
                 if (this.get('session.isAuthenticated')) {
-                    if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0] === "master") {
+                    if (this.get('session.data.authenticated.currentUser.data.cooperativesRoles')[0] === "master") {
                         this.get('router').transitionTo('master-dashboard-overview');
-                    }else if (this.get('session.data.authenticated.currentUser.data.cooperatives')[0].userRole === "admin") {
+                    } else if (this.get('session.data.authenticated.currentUser.data.cooperativesRoles')[0].userRole === "admin") {
                         this.get('router').transitionTo('dashboard-overview');
                     } else {
                         this.get('router').transitionTo('producer-dashboard-overview');
