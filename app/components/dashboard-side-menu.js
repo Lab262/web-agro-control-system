@@ -23,6 +23,7 @@ export default Component.extend({
         } else if (this.get('userType') === "master") {
             this.set('menuOptions', [
                 { name: 'Cooperativas', iconName: 'ic_produtores', componentName: 'master-dashboard-overview', hasDivider: true },
+                { name: 'Produtores', iconName: 'ic_produtores', componentName: 'admin-producers-detail' }
             ]);
         } else {
             this.set('menuOptions', [

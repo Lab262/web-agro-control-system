@@ -1,0 +1,40 @@
+
+<div class="producers-detail">
+    <h1>Produtores</h1>
+             {{#paper-card class="box-search" as |card|}}                
+                         {{paper-input class="search" id='search-box'placeholder="Pesquisar Produtor" value=name onChange=(action 'search')}}
+            {{/paper-card}}
+            
+            {{#paper-card class="box-full" as |card|}}       
+
+            <table>
+                    <tr class="header">
+                        <th>Identificação</th>
+                        <th>Cooperativa</th>
+                        <th class="name">Nome</th>
+                        <th>CPF</th>
+                        <th>CNPJ</th>
+                        <th>Última Transação</th>
+                        <th class="button"> </th> 
+                    </tr>
+                        {{#each filteredProducers as |producer|}}
+                            <tr>
+                                <th>{{producer.identification}}</th>
+                                <th class="name">{{producer.name}}</th>
+                                <th>{{producer.cpf}}</th>
+                                <th>{{producer.cnpj}}</th>
+                                {{#if producer.lastTransaction}}
+                                    <th>{{moment-format producer.lastTransaction "DD/MM/YYYY"}}</th>
+                                {{else}}
+                                    <th></th>
+                                {{/if}}
+                                <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
+                            </tr>
+                        {{else}}
+                            Nenhum produtor cadastrado.
+                        {{/each}}
+        </table>
+
+            {{/paper-card}}
+
+</div>

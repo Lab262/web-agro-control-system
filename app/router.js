@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('dashboard-overview');
   this.route('producer-dashboard-overview');
   this.route('producers-detail');
+  this.route('admin-producers-detail');
   this.route('purchase-transactions');
   this.route('sales-transactions');
   this.route('supply-control');
