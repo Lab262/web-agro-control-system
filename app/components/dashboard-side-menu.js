@@ -17,7 +17,7 @@ export default Component.extend({
                 { name: 'Transação de Compra', iconName: 'ic_transacao_compra', componentName: 'purchase-transactions' },
                 { name: 'Transação de Venda', iconName: 'ic_transacao_venda', componentName: 'sales-transactions' },
                 { name: 'Controle de Estoque', iconName: 'ic_estoque', componentName: 'supply-control' },
-                { name: 'Relatório', iconName: 'ic_relatorio', componentName: 'reports-container' },
+                { name: 'Relatório Contábil', iconName: 'ic_relatorio', componentName: 'reports-container' },
                 { name: 'Cooperativa', iconName: 'ic_relatorio', componentName: 'cooperative-edit' }
             ]);
         } else if (this.get('userType') === "master") {

@@ -6,11 +6,20 @@ export default Component.extend({
     cooperatives: [],
 
     didInsertElement() {
-        let model = this.get('model').cooperatives;
-        this.set('cooperatives', model);
-        let cooperativesToApprove = model.content.filter(item => !item.__data.isActive).map(item => item.getRecord());
-        this.set('cooperativesToApproveAmount', cooperativesToApprove.length);
-        this.set('cooperativesToApprove', cooperativesToApprove);
+        this.loadData();
+    },
+
+    loadData() {
+        var _this = this;
+        this.get('model').getCooperatives().then(cooperativesArray => {
+            this.set('cooperatives', cooperativesArray);
+            let cooperativesToApprove = cooperativesArray.content.filter(item => !item.__data.isActive).map(item => item.getRecord());
+            this.set('cooperativesToApproveAmount', cooperativesToApprove.length);
+            this.set('cooperativesToApprove', cooperativesToApprove);
+        }).catch(error => {
+            console.log(error);
+            _this.loadData();
+        });
     },
 
     actions: {

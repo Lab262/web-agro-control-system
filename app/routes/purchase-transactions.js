@@ -1,14 +1,13 @@
 import Ember from 'ember';
-import Route from '@ember/routing/route';
-import { debug } from '@ember/debug';
+import AuthenticatedRoute from '../routes/authenticated-route';
 
-export default Route.extend({
+export default AuthenticatedRoute.extend({
   session: Ember.inject.service('session'),
   model() {
     let store = this.store;
     return new Ember.RSVP.hash({
       currentUser: this.get('session.data.authenticated.currentUser'),
-      cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
+      cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperativesRoles').map(item => item.cooperativeId)[0]),
       newPurchaseTransaction: store.createRecord('purchase-transaction'),
       getProducers: function (cooperativeId) {
         return store.query('producer', {
@@ -22,7 +21,7 @@ export default Route.extend({
           }
         })
       },
-      
+
       getProducts: function (cooperativeId) {
         return store.query('product', {
           "where": {
@@ -35,19 +34,19 @@ export default Route.extend({
         })
       },
 
-     getPurchaseTransaction: function(cooperativeId) {
-       return store.query('purchase-transaction', {
-         "where": {
-           "cooperative": {
-             "__type": "Pointer",
-             "className": "Cooperative",
-             "objectId": cooperativeId,
-           }
-         },
-         limit: 4,
-         include: 'product'
-       })
-     }
+      getPurchaseTransaction: function (cooperativeId) {
+        return store.query('purchase-transaction', {
+          "where": {
+            "cooperative": {
+              "__type": "Pointer",
+              "className": "Cooperative",
+              "objectId": cooperativeId,
+            }
+          },
+          limit: 4,
+          include: 'product'
+        })
+      }
     });
   },
 

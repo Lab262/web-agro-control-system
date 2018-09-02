@@ -6,7 +6,9 @@ export default Route.extend({
   model() {
     let store = this.store;
     return new Ember.RSVP.hash({
-      producers: store.query('producer', {})  
+      getProducers: function() {
+        return store.query('producer', {include: 'cooperative'})
+      }     
     });
   },
 

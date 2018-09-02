@@ -1,13 +1,13 @@
 import Ember from 'ember';
-import Route from '@ember/routing/route';
+import AuthenticatedRoute from '../routes/authenticated-route';
 
-export default Route.extend({
+export default AuthenticatedRoute.extend({
     session: Ember.inject.service('session'),
     model() {
         let store = this.store;
         return new Ember.RSVP.hash({
             currentUser: this.get('session.data.authenticated.currentUser'),
-            cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperatives').map(item => item.cooperativeId)[0]),
+            cooperative: store.findRecord('cooperative', this.get('session.data.authenticated.currentUser.data.cooperativesRoles').map(item => item.cooperativeId)[0]),
             newProduct: store.createRecord('product'),
             getProducts: function (cooperativeId) {
                 return store.query('product', {

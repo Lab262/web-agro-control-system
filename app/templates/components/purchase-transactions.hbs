@@ -14,13 +14,12 @@
             </div>
             {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
-                {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products 
-                onchange=(action (mut selectedProduct)) as |product|}}
+                {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
+                    (mut selectedProduct)) as |product|}}
                     {{product.name}}
                 {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}}
-            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=(concat selectedProduct.amountScale " Kg") onChange=null}}
+            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}} {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=(concat selectedProduct.amountScale " Kg") onChange=null}}
             {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
             {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}

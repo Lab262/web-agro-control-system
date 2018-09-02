@@ -7,11 +7,14 @@ export default Route.extend({
         let store = this.store;
         return new Ember.RSVP.hash({
             newCooperative: store.createRecord('cooperative'),
-            cooperatives: store.query('cooperative', {})
+            getCooperatives: function () {
+                return store.query('cooperative', {})
+            }
         });
     },
 
     beforeModel(/* transition */) {
+        debugger;
         if (!this.get('session.isAuthenticated')) {
             this.transitionTo('user-connection'); // Implicitly aborts the on-going transition.
         }
