@@ -25,7 +25,6 @@ export default Component.extend({
 
     didInsertElement() {
         let model = this.get('model');
-        debugger;
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
             var totalCost = 0;
             for (var i = 0, len = historic.content.length; i < len; i++) {

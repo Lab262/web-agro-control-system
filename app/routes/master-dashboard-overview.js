@@ -14,7 +14,6 @@ export default Route.extend({
     },
 
     beforeModel(/* transition */) {
-        debugger;
         if (!this.get('session.isAuthenticated')) {
             this.transitionTo('user-connection'); // Implicitly aborts the on-going transition.
         }

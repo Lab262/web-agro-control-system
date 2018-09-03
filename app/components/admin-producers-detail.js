@@ -14,14 +14,13 @@ export default Component.extend({
     loadData() {
         let model = this.get('model');
         model.getProducers()
-        .then(producers => {
-            debugger;
-            this.set('producers', producers);
-            this.updateFilteredProducers();
-        }).catch(err => { 
-            console.log(err)
-            this.loadData()
-        })
+            .then(producers => {
+                this.set('producers', producers);
+                this.updateFilteredProducers();
+            }).catch(err => {
+                console.log(err)
+                this.loadData()
+            })
     },
     actions: {
         search(text) {
@@ -35,7 +34,7 @@ export default Component.extend({
             return str.toUpperCase().includes(this.name.toUpperCase())
         }
         if (this.get('name').length == 0) {
-            this.set('filteredProducers', this.producers)    
+            this.set('filteredProducers', this.producers)
         } else {
             this.set('filteredProducers', this.producers.filter(producer => {
                 return searchIncludes(producer.get('name'))

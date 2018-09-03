@@ -6,7 +6,6 @@ export default Component.extend({
     showingLogin: true,
     actions: {
         login() {
-            debugger
             let data = {
                 username: this.get('username'),
                 password: this.get('password')

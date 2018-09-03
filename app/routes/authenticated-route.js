@@ -9,7 +9,6 @@ export default Route.extend({
     },
 
     afterModel(model) {
-        debugger;
         if (model.currentUser
             && (
                 (model.currentUser.cooperativesRoles

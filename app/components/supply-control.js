@@ -11,17 +11,14 @@ export default Component.extend({
         let model = this.get('model');
         model.getProducts(model.cooperative.id)
             .then(products => {
-                this.setupOverallChart(products);
                 this.set('productsChartData', []);
+                this.setupOverallChart(products);
                 products.forEach(item => {
                     this.setupProductChart(item);
                 });
                 this.set('products', products);
             }).catch(err => console.log(err))
-            
-        model.getSupplyStatistics(model.cooperative.id).then(supplyStatistics => {
-            console.log(supplyStatistics);
-        }).catch(err => console.log(err))
+
     },
 
     setupProductChart(product) {
@@ -33,18 +30,22 @@ export default Component.extend({
     },
 
     setupOverallChart(products) {
-        var names = []
-        products.forEach(item => {
-            names.push(item._internalModel.__data.name);
-        });
-        let chartData = {
-            labels: names,
-            lastMonthLabel: "Nov",
-            lastMonthData: [1, 2, 3, 4, 5, 6, 7, 8],
-            currentMonthLabel: "Dez",
-            currentMonthData: [4, 5, 7, 2, 1, 10, 12, 4]
-        }
-        this.set('overallChartData', chartData)
+        var productsIds = products.map(item => item.id);
+        this.get('model').getSupplyStatistics(productsIds).then(supplyStatistics => {
+            supplyStatistics = supplyStatistics.filter(item => item.statistic && item.statistic.estimatedSupply != 0)
+            var chartData = supplyStatistics.map(item => {
+                var currentProductName = products.filter(product => product.id === item.product)[0].get('name');
+                var currentProductNameStatistics = item.statistic ? item.statistic.estimatedSupply : 0;
+                return { currentProductName, currentProductNameStatistics }
+            })
+            chartData = {
+                labels: chartData.map(item => item.currentProductName),
+                currentMonthLabel: "",
+                currentMonthData: chartData.map(item => item.currentProductNameStatistics)
+            }
+            this.set('overallChartData', chartData)
+        })
+
     },
 
     actions: {
@@ -96,8 +97,8 @@ export default Component.extend({
             } else if (measuredSupply != undefined
                 && selectedProduct != undefined) {
 
-                ParseCloudRequest('updateMeasuredSupply', { 
-                    productId: selectedProduct.id, 
+                ParseCloudRequest('updateMeasuredSupply', {
+                    productId: selectedProduct.id,
                     cooperativeId: this.get('model.cooperative.id'),
                     measuredSupply: measuredSupply
                 }).then(saved => {

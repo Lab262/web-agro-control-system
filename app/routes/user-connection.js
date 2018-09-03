@@ -18,7 +18,6 @@ export default Route.extend({
   },
 
   beforeModel(/* transition */) {
-    debugger
     if (this.get('session.isAuthenticated')) {
       if (this.get('session.data.authenticated.currentUser.data.cooperativesRoles')[0] === "master") {
         this.get('router').transitionTo('master-dashboard-overview');
