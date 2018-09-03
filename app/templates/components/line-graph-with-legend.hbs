@@ -2,7 +2,7 @@
     <div class="chart">
         {{#if data}}
             {{#paper-card}}
-                <span class="top-label"> Quantidade</span>
+                <span class="top-label"> Quantidade {{graphInterpretationTitleYAxe}}</span>
                 {{ember-chart type="line" data=data options=data.options height=height}}
                 <span class="bottom-label"> Mes do ano</span>
             {{/paper-card}}
