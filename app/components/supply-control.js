@@ -13,20 +13,9 @@ export default Component.extend({
             .then(products => {
                 this.set('productsChartData', []);
                 this.setupOverallChart(products);
-                products.forEach(item => {
-                    this.setupProductChart(item);
-                });
                 this.set('products', products);
             }).catch(err => console.log(err))
 
-    },
-
-    setupProductChart(product) {
-        var productChartData = {
-            data: [[1, 5, 4, 6, 8, 3, 5, 4]],
-            labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
-        }
-        product.set('chartData', productChartData);
     },
 
     setupOverallChart(products) {

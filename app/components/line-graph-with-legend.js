@@ -85,6 +85,8 @@ export default Component.extend({
             productChartData.labels = chartData.labels;
             productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
             areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
+            areaChartOptions.scales.yAxes[0].ticks.min = Math.min(...productChartData.datasets[0].data) - 3
+
             productChartData.options = areaChartOptions;
             return productChartData
 

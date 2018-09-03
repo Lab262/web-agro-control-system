@@ -19,20 +19,7 @@
         {{bar-graph-with-history chartData=overallChartData height=100 }}
     {{/paper-card}}
     {{#each products as |product index|}}
-        {{#paper-card class="box-medium" as |card|}}
-            <div class="header">
-                <p>
-                    {{product.name}}
-                </p>
-                <span>
-                    {{#paper-button href="" onClick=(action "openPromptDialog" product) }}Editar{{/paper-button}}
-                </span>
-                <span>
-                    {{#paper-button href="" onClick=(action "openHistoricModal" product) }}Ver Histórico{{/paper-button}}
-                </span>
-            </div>
-            {{line-graph-with-legend chartData=product.chartData height=100}}
-        {{/paper-card}}
+        {{supply-control-product-card product=product openPromptDialog=(action "openPromptDialog" product) }}
         {{else}}
             Nenhum produto cadastrado
     {{/each}}

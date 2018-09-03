@@ -1,0 +1,13 @@
+{{#paper-card class="box-medium" as |card|}}
+    <div class="header">
+        <p>
+            {{product.name}}
+        </p>
+        <span>
+            {{#paper-button href="" onClick=openPromptDialog }}Editar{{/paper-button}}
+        </span>
+    </div>
+    {{#if chartData}}
+        {{line-graph-with-legend chartData=chartData height=100}}
+    {{/if}}
+{{/paper-card}}
