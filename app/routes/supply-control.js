@@ -19,7 +19,18 @@ export default AuthenticatedRoute.extend({
                         }
                     }
                 });
-            }
+            },
+            getSupplyStatistics: function (cooperativeId) {
+                return store.query('supply-statistics', {
+                    "where": {
+                        "cooperative": {
+                            "__type": "Pointer",
+                            "className": "Cooperative",
+                            "objectId": cooperativeId,
+                        }
+                    }
+                });
+            },
         });
     },
 

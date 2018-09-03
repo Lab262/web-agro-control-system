@@ -11,13 +11,17 @@ export default Component.extend({
         let model = this.get('model');
         model.getProducts(model.cooperative.id)
             .then(products => {
+                this.setupOverallChart(products);
                 this.set('productsChartData', []);
                 products.forEach(item => {
                     this.setupProductChart(item);
                 });
                 this.set('products', products);
             }).catch(err => console.log(err))
-        this.setupOverallChart();
+            
+        model.getSupplyStatistics(model.cooperative.id).then(supplyStatistics => {
+            console.log(supplyStatistics);
+        }).catch(err => console.log(err))
     },
 
     setupProductChart(product) {
@@ -28,9 +32,13 @@ export default Component.extend({
         product.set('chartData', productChartData);
     },
 
-    setupOverallChart() {
+    setupOverallChart(products) {
+        var names = []
+        products.forEach(item => {
+            names.push(item._internalModel.__data.name);
+        });
         let chartData = {
-            labels: ["Limão Taití", "Tomate", "Uva", "Maxixe", "Tomate Italiano", "Melão", "Maça", "Batata Doce"],
+            labels: names,
             lastMonthLabel: "Nov",
             lastMonthData: [1, 2, 3, 4, 5, 6, 7, 8],
             currentMonthLabel: "Dez",
