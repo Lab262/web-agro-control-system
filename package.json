@@ -55,6 +55,7 @@
     "ember-source": "~2.16.0",
     "ember-truth-helpers": "^2.0.0",
     "ember-welcome-page": "^3.0.0",
+    "handlebars-helper-moment": "^0.2.0",
     "loader.js": "^4.2.3",
     "paper-input-mask": "git://github.com/thiagotmb/ember-paper-input-mask.git",
     "torii": "^0.9.6"

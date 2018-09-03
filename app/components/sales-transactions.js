@@ -91,7 +91,7 @@ export default Component.extend({
                 let day = transactionDate.substr(0, 2);
                 let month = transactionDate.substr(2, 2);
                 let year = transactionDate.substr(4, 4);
-                transactionDate = new Date(year, month, day, 0, 0, 0, 0);
+                transactionDate = new Date(year, month-1, day, 0, 0, 0, 0);
                 newSaleTransaction.set('transactionDate', transactionDate);
                 newSaleTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
                 newSaleTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
