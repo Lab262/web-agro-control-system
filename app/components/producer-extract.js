@@ -2,12 +2,53 @@ import Component from '@ember/component';
 
 export default Component.extend({
 
+    monthsPortuguese: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Aug","Set","Out","Nov","Dez"],
+
     didInsertElement() {
         let model = this.get('model');
         model.getPurchaseTransaction(model.producer.id).then(historic => {
             this.set('allHistoric',historic.content);
             this.calculateExtractProduct(historic.content);
         }).catch(err => console.log(err))
+    },
+
+    getExtractYearForProduct() {
+
+        var startDate = moment(new Date()).endOf('year').toDate()
+        var endDate = moment(new Date()).startOf('year').toDate()
+        var dates = this.enumerateMonthsBetweenDates(endDate, startDate)
+       
+        var allHistoric = this.get('allHistoric');
+        //Hardcoded filter by id of Goiaba
+        allHistoric = allHistoric.filter(historic => (historic.__data.product.data.id == "W1UUpYOtEv"))
+        var names = []
+        var data = []
+        dates.forEach(date => {
+            var currDateMoment = moment(date);
+            var currentHistorics = allHistoric.filter(historic => moment(historic.__data.transactionDate).isSame(currDateMoment, 'month'))
+            var totalAmount = 0
+            if (currentHistorics.length>0){
+                currentHistorics.forEach(function (element) {
+                    var quantityAmount = element.__data.productAmount * element.__data.product.data.attributes.amountScale;
+                    totalAmount += quantityAmount
+                })
+            }
+            data.push(totalAmount);
+        })
+        names = this.get('monthsPortuguese')
+        data = [data]
+        this.set('chartData', { names, data })
+    },
+
+    enumerateMonthsBetweenDates(startDate, endDate) {
+        var dates = [];
+        var currDate = moment(startDate).startOf('month');
+        var lastDate = moment(endDate).startOf('month');
+        dates.push(startDate);
+        while (currDate.add(1, 'months').diff(lastDate) <= 0) {
+            dates.push(currDate.clone().toDate());
+        }
+        return dates;
     },
 
     setupOverallChart(products) {

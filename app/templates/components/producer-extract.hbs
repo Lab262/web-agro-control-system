@@ -26,8 +26,19 @@
                 {{/each}}
             </table>
         {{/paper-card}}
-        {{#paper-card class="box-full" as |card|}}
-            {{bar-graph-with-history chartData=overallChartData height=100 }}
-        {{/paper-card}}
+        {{#if chartData}}
+            {{#paper-card class="box-big" as |card|}}
+            <div class="header">
+                <p>
+                Goiaba
+                </p>
+            </div>
+            {{line-graph-with-legend chartData=chartData height=150 graphInterpretationTitleYAxe="Total (Kg)"}}
+            {{/paper-card}}
+        {{else}}
+            {{#paper-card class="box-full" as |card|}}
+                {{bar-graph-with-history chartData=overallChartData titleGraph="Quantidade Total (Kg)" height=100 }}
+            {{/paper-card}}
+        {{/if}}
     </div>
 </div>

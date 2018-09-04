@@ -34,8 +34,8 @@ export default Component.extend({
                             drawBorder: false
                         },
                         ticks: {
-                            display: false,
-                            minRotation: 90,
+                            display: !(chartData.labels != undefined),
+                            minRotation: (chartData.labels != undefined) ? 90:0,
                             labelOffset: -3
                         },
                     }],
@@ -82,8 +82,12 @@ export default Component.extend({
                 });
 
             });
-            productChartData.labels = chartData.labels;
-            productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
+            if (chartData.labels != undefined){
+                productChartData.labels = chartData.labels;
+                productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
+            } else {
+                productChartData.labels = chartData.names;
+            }
             areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
             areaChartOptions.scales.yAxes[0].ticks.min = Math.min(...productChartData.datasets[0].data) - 3
 

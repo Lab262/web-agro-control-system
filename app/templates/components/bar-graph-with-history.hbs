@@ -2,7 +2,7 @@
     {{#if data}}
         <div class="chart">
             {{#paper-card}}
-                <span class="top-label"> Dinheiro Reais</span>
+                <span class="top-label"> {{titleGraph}} </span>
                 {{ember-chart type="bar" data=data options=options height=height}}
                 <span class="bottom-label"> {{data.bottomLegend}}</span>
             {{/paper-card}}
