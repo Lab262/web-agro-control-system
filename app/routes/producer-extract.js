@@ -18,7 +18,6 @@ export default Route.extend({
                             "objectId": producerId,
                         }
                     },
-                    limit: 4,
                     include: 'product'
                 })
             }
