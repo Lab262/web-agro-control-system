@@ -29,7 +29,7 @@ export default Component.extend({
                 scales: {
                     xAxes: [{
                         gridLines: {
-                            display: false,
+                            display: true,
                             offsetGridLines: false,
                             drawBorder: false
                         },
@@ -41,12 +41,12 @@ export default Component.extend({
                     }],
                     yAxes: [{
                         gridLines: {
-                            display: false,
+                            display: true,
                             offsetGridLines: false,
                             drawBorder: false
                         },
                         ticks: {
-                            display: false,
+                            display: true,
                             min: 0,
                         },
                     }]
