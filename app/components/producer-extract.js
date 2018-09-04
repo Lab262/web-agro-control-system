@@ -10,6 +10,15 @@ export default Component.extend({
         }).catch(err => console.log(err))
     },
 
+    setupOverallChart(products) {
+        var chartData = {
+            labels: products.map(item => item.name),
+            currentMonthLabel: "",
+            currentMonthData: products.map(item => item.totalQuantity)
+        }
+        this.set('overallChartData', chartData)
+    },
+
     filterByMonthAndYear(year,month){
         var startDate = new Date(year, 0, 1, 0, 0, 0, 0);
         var typeFilter = 'year'
@@ -66,6 +75,7 @@ export default Component.extend({
                     products[indexProduct].totalValue = products[indexProduct].totalQuantity * products[indexProduct].averagePrice
             }
         }
+        this.setupOverallChart(products);
         this.formatArrayToPresent(products);
     },
 

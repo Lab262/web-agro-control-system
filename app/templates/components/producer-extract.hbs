@@ -26,5 +26,8 @@
                 {{/each}}
             </table>
         {{/paper-card}}
+        {{#paper-card class="box-full" as |card|}}
+            {{bar-graph-with-history chartData=overallChartData height=100 }}
+        {{/paper-card}}
     </div>
 </div>
