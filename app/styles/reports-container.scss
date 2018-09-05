@@ -24,6 +24,9 @@
         width: 93%;
         height: 360px;
         margin-top: 20px;
+        &.large {
+            height: 500px;
+        }
         .header {
             margin-top: 20px;
             margin-left: 15px;

@@ -88,8 +88,8 @@ export default Component.extend({
             } else {
                 productChartData.labels = chartData.names;
             }
-            areaChartOptions.scales.yAxes[0].ticks.max = Math.max(...productChartData.datasets[0].data) + 3
-            areaChartOptions.scales.yAxes[0].ticks.min = Math.min(...productChartData.datasets[0].data) - 3
+            areaChartOptions.scales.yAxes[0].ticks.max = (chartData.isNotRandomColors) ? 1.2 : Math.max(...productChartData.datasets[0].data) + 3
+            areaChartOptions.scales.yAxes[0].ticks.min = (chartData.isNotRandomColors) ? 0 : Math.min(...productChartData.datasets[0].data) - 3
 
             productChartData.options = areaChartOptions;
             return productChartData

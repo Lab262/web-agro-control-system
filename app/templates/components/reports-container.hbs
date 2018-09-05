@@ -68,44 +68,50 @@
             </div>
         </div>
     {{/paper-card}}
-    {{#paper-card class="box-full" as |card|}}
+    {{#paper-card class="box-full large" as |card|}}
         <div class="header">
             <p>
                 Curva ABC
             </p>
         </div>
-        {{line-graph-with-legend chartData=abcChartData legendType="" height=100 }}
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-item-title" style="background: #BB77D6;">
-                    A
+        {{#if abcChartData}}
+            {{line-graph-with-legend chartData=abcChartData legendType="" height=200 }}
+            {{#if abcData}}
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #BB77D6;">
+                            A
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.a as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #FFA947;">
+                            B
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.b as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #00D5B2;">
+                            C
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.c as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
-                <div class="legend-item-content">
-                    {{#each abcData.a as |item|}}
-                        <span>{{item}}</span>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-item-title" style="background: #FFA947;">
-                    B
-                </div>
-                <div class="legend-item-content">
-                    {{#each abcData.b as |item|}}
-                        <span>{{item}}</span>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-item-title" style="background: #00D5B2;">
-                    C
-                </div>
-                <div class="legend-item-content">
-                    {{#each abcData.c as |item|}}
-                        <span>{{item}}</span>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
+            {{/if}}
+        {{else}}
+            Carregando....
+        {{/if}}
     {{/paper-card}}
 </div>

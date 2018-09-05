@@ -17,7 +17,6 @@ export default AuthenticatedRoute.extend({
               "objectId": cooperativeId,
             }
           },
-          limit: 4,
           include: 'product'
         })
       },
@@ -30,7 +29,6 @@ export default AuthenticatedRoute.extend({
               "objectId": cooperativeId,
             }
           },
-          limit: 4,
           include: 'product'
         })
       }
