@@ -8,6 +8,64 @@ export default Component.extend({
     data: Ember.computed('chartData', 'color', function () {
         let chartData = this.get('chartData');
         if (chartData != undefined) {
+
+
+            window.Chart.plugins.register({
+                afterDatasetsDraw: function (chart) {
+
+
+                    var ctx = chart.ctx;
+                    chart.data.datasets.forEach(function (dataset, i) {
+                        if (dataset.annotations) {
+
+                            var meta = chart.getDatasetMeta(i);
+
+                            if (!meta.hidden) {
+                                meta.data.forEach(function (element, index) {
+
+                                    var indexOfLine = dataset.annotations.indexOf(index)
+                                    if (indexOfLine >= 0) {
+
+                                        var selectedIndex = index;
+                                        var xaxis = chart.scales['x-axis-0'];
+                                        var yaxis = chart.scales['y-axis-0'];
+                                        ctx.save();
+                                        ctx.beginPath();
+                                        ctx.moveTo(xaxis.getPixelForValue(undefined, selectedIndex), yaxis.top);
+                                        ctx.strokeStyle = '#5e9bcc';
+                                        ctx.lineWidth = 4;
+                                        ctx.lineTo(xaxis.getPixelForValue(undefined, selectedIndex), yaxis.bottom);
+                                        ctx.stroke();
+
+                                        ctx.fillStyle = 'rgb(0, 0, 0)';
+                                        var fontSize = 32;
+                                        var fontStyle = 'normal';
+                                        var fontFamily = 'Helvetica Neue';
+                                        ctx.font = window.Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                                        // Make sure alignment settings are correct
+                                        ctx.textAlign = 'center';
+                                        ctx.textBaseline = 'middle';
+                                        var position = element.tooltipPosition();
+                                        if (indexOfLine === 0) {
+                                            ctx.fillText("A", position.x - 55, position.y - (fontSize / 2) + 50);
+                                        } else {
+                                            ctx.fillText("B", position.x - 75, position.y - (fontSize / 2) + 50);
+                                            ctx.fillText("C", position.x + 200, position.y - (fontSize / 2) + 10);
+
+                                        }
+                                        ctx.restore();
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                }
+            });
+
+
             var areaChartOptions = {
                 hover: {
                     intersect: false
@@ -21,7 +79,7 @@ export default Component.extend({
                             return "";
                         },
                         label: function (tooltipItem, data) {
-                            return tooltipItem.yLabel + " kg"
+                            return tooltipItem.yLabel + " %";
                         },
                     },
                 },
@@ -61,13 +119,15 @@ export default Component.extend({
                 labels: []
             };
             var _this = this;
+            var annotations = chartData.annotations;
             var productChartData = JSON.parse(JSON.stringify(areaGraphDataset));
             chartData.data.forEach((data, index) => {
                 var color = _this.getRandomColor(index);
                 if (chartData.isNotRandomColors) {
-                    color = _this.getColor(index);
+                    color = '#ACC03D'
                 }
                 productChartData.datasets.push({
+                    annotations: annotations,
                     data: data,
                     colors: color,
                     backgroundColor: "transparent",

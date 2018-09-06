@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import ParseCloudRequest from '../utils/parse-cloud-request';
-import Ember from 'ember';
 
 export default Component.extend({
 

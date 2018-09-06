@@ -48,7 +48,7 @@ export default Component.extend({
         }).catch(err => console.log(err))
     },
 
-    calculatePercentageSalesByProduct(){
+    calculatePercentageSalesByProduct() {
         var sales = this.get('sales');
         var totalSalesCost = 0;
         var totalSalesQuantity = 0;
@@ -61,21 +61,21 @@ export default Component.extend({
         var cumulativePercentageCost = 0;
         var cumulativePercentageQuantity = 0;
         var classificationProduct = "A";
-        sales.forEach(function (element,index) {
-            var percentageCumulativeCost = (element.transactionCost/totalSalesCost) + cumulativePercentageCost
+        sales.forEach(function (element, index) {
+            var percentageCumulativeCost = (element.transactionCost / totalSalesCost) + cumulativePercentageCost
             cumulativePercentageCost = percentageCumulativeCost
-            var percentageCumulativeQuantity = (element.totalQuantity/totalSalesQuantity) + cumulativePercentageQuantity
+            var percentageCumulativeQuantity = (element.totalQuantity / totalSalesQuantity) + cumulativePercentageQuantity
             cumulativePercentageQuantity = percentageCumulativeQuantity
-            
+
             if (cumulativePercentageQuantity >= 0.21 && cumulativePercentageQuantity <= 0.51) {
                 classificationProduct = "B"
-            }else if (cumulativePercentageQuantity > 0.51){
+            } else if (cumulativePercentageQuantity > 0.51) {
                 classificationProduct = "C"
             }
 
             attributesABC.push({
                 name: element.name,
-                position: index+1,
+                position: index + 1,
                 transactionCost: element.transactionCost,
                 percentageSalesCost: percentageCumulativeCost,
                 percentageSalesAmount: percentageCumulativeQuantity,
@@ -86,11 +86,11 @@ export default Component.extend({
         this.setupAbcChartData(attributesABC);
     },
 
-    numberDescending(a,b) {
-        return b.transactionCost-a.transactionCost;
+    numberDescending(a, b) {
+        return b.transactionCost - a.transactionCost;
     },
 
-    calculateTotalSalesByProduct(historic){
+    calculateTotalSalesByProduct(historic) {
         var productsIds = this.get('productsIds');
         var sales = this.get('sales');
         var objectId = historic.__data.product.data.id
@@ -117,23 +117,27 @@ export default Component.extend({
             b: [],
             c: []
         }
-        attributesABC.forEach(element => {
-            if (element.classification == "A"){
-                abcData.a.push(element.name)
-            } else if (element.classification == "B"){
-                abcData.b.push(element.name)
-            } else if (element.classification == "C"){
-                abcData.c.push(element.name)
+        attributesABC.forEach( (element, index) => {
+            if (element.classification == "A") {
+                abcData.a.push(index + "-" + element.name)
+            } else if (element.classification == "B") {
+                abcData.b.push(index + "-" + element.name)
+            } else if (element.classification == "C") {
+                abcData.c.push(index + "-" + element.name)
             }
         })
-        this.set('abcData',abcData);
+        this.set('abcData', abcData);
 
         var dataABC = attributesABC.map(element => element.percentageSalesCost)
+        var dataXABC = attributesABC.map(element => element.percentageSalesAmount)
+        var annotationsA = 2
+        var annotationsB = 5
         var labelsABC = attributesABC.map(element => element.name)
         var abcChartData = {
             isNotRandomColors: true,
             data: [dataABC],
             labels: labelsABC,
+            annotations: [annotationsA, annotationsB]
         }
         this.set('abcChartData', abcChartData);
     }
