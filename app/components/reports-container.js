@@ -71,6 +71,8 @@ export default Component.extend({
                 classificationProduct = "B"
             } else if (cumulativePercentageQuantity > 0.51) {
                 classificationProduct = "C"
+            }else{
+                classificationProduct = "A"
             }
 
             attributesABC.push({

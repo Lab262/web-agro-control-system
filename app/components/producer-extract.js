@@ -3,6 +3,7 @@ import Component from '@ember/component';
 export default Component.extend({
 
     monthsPortuguese: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Aug","Set","Out","Nov","Dez"],
+    years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2015,2016,2017,2018],
 
     didInsertElement() {
         let model = this.get('model');
@@ -61,6 +62,9 @@ export default Component.extend({
     },
 
     filterByMonthAndYear(year,month){
+        if (year != undefined) {
+            return
+        }
         var startDate = new Date(year, 0, 1, 0, 0, 0, 0);
         var typeFilter = 'year'
         if (month != undefined) {
