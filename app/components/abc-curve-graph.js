@@ -84,7 +84,7 @@ export default Component.extend({
                     displayColors: true,
                     callbacks: {
                         title: function (tooltipItem, data) {
-                            return data.legends[tooltipItem[0].index - 1];
+                            return data.legends[tooltipItem[0].index];
 
                         },
                         label: function (tooltipItem) {
