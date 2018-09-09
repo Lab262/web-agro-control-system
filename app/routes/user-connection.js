@@ -13,7 +13,9 @@ export default Route.extend({
           }
         });
       },
-      newCooperative: store.createRecord('cooperative')
+      getCooperatives: function () {
+        return store.query('cooperative', {})
+      },
     })
   },
 

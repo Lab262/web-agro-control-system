@@ -3,9 +3,9 @@
     <p>Caso tenha interesse de participar da nossa plataforma, você deve estar vinculado a uma cooperativa. Veja aqui se a sua
         já é nosso parceiro.</p>
     <div class="flex-100">
-        {{#power-selector-with-label selected=selectCooperative placeholder="Nome da Cooperativa" options=cooperatives onchange=(action
-            (mut selectCooperative)) as |name|}}
-            {{name}}
+        {{#power-selector-with-label selected=selectCooperative searchField="_internalModel.__data.name" placeholder="Nome da Cooperativa" options=cooperatives onchange=(action
+            (mut selectCooperative)) as |cooperative|}}
+            {{cooperative._internalModel.__data.name}}
         {{/power-selector-with-label}}
     </div>
 </div>

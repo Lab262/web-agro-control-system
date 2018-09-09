@@ -97,7 +97,7 @@ export default Component.extend({
             historics.push({
                 cost: cost,
                 productName: historic[i].__data.product.data.attributes.name,
-                quantity: historic[i].__data.productAmount + " " + historic[i].__data.amountScale,
+                quantity: historic[i].__data.productAmount + " x " + historic[i].__data.amountScale,
                 date: date
             })
             var objectId = historic[i].__data.product.data.id
