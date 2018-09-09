@@ -49,7 +49,7 @@ export default Component.extend({
                     historics.push({
                         cost: cost,
                         productName: historic.content[i].__data.product.data.attributes.name,
-                        quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
+                        quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
                         date: date
                     })
                 }
