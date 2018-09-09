@@ -9,6 +9,22 @@ export default Component.extend({
         let chartData = this.get('chartData');
         if (chartData != undefined) {
 
+            var dataXABC = chartData.dataX
+            var annotationsA = 0, annotationsB = 0
+
+            dataXABC.forEach((item, index) => {
+                if (index + 1 < dataXABC.length) {
+                    if (item <= .2 && dataXABC[index + 1] > .2) {
+                        annotationsA = index
+                    }
+
+                    if (item <= .5 && dataXABC[index + 1] > .5) {
+                        annotationsB = index
+                    }
+                }
+            })
+            chartData.annotations = [annotationsA, annotationsB];
+
 
             window.Chart.plugins.register({
                 afterDatasetsDraw: function (chart) {
@@ -91,8 +107,8 @@ export default Component.extend({
                             drawBorder: false
                         },
                         ticks: {
-                            display: !(chartData.labels != undefined),
-                            minRotation: (chartData.labels != undefined) ? 90 : 0,
+                            display: (chartData.labels != undefined),
+                            minRotation: (chartData.labels != undefined) ? 0 : 0,
                             labelOffset: -3
                         },
                     }],
@@ -142,7 +158,7 @@ export default Component.extend({
 
             });
             if (chartData.labels != undefined) {
-                productChartData.labels = chartData.labels;
+                productChartData.labels = chartData.dataX;
                 productChartData.legends = JSON.parse(JSON.stringify(chartData.labels));
             } else {
                 productChartData.labels = chartData.names;

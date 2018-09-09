@@ -71,7 +71,7 @@ export default Component.extend({
                 classificationProduct = "B"
             } else if (cumulativePercentageQuantity > 0.51) {
                 classificationProduct = "C"
-            }else{
+            } else {
                 classificationProduct = "A"
             }
 
@@ -119,7 +119,7 @@ export default Component.extend({
             b: [],
             c: []
         }
-        attributesABC.forEach( (element, index) => {
+        attributesABC.forEach((element, index) => {
             if (element.classification == "A") {
                 abcData.a.push(index + "-" + element.name)
             } else if (element.classification == "B") {
@@ -132,14 +132,13 @@ export default Component.extend({
 
         var dataABC = attributesABC.map(element => element.percentageSalesCost)
         var dataXABC = attributesABC.map(element => element.percentageSalesAmount)
-        var annotationsA = 2
-        var annotationsB = 5
+
         var labelsABC = attributesABC.map(element => element.name)
         var abcChartData = {
             isNotRandomColors: true,
             data: [dataABC],
+            dataX: dataXABC,
             labels: labelsABC,
-            annotations: [annotationsA, annotationsB]
         }
         this.set('abcChartData', abcChartData);
     }

@@ -2,9 +2,9 @@
     <div class="chart">
         {{#if data}}
             {{#paper-card}}
-                <span class="top-label"> Quantidade {{graphInterpretationTitleYAxe}}</span>
+                <span class="top-label"> Vendas Totais (%) {{graphInterpretationTitleYAxe}}</span>
                 {{ember-chart type="line" data=data options=data.options height=height}}
-                <span class="bottom-label"> Mês do ano</span>
+                <span class="bottom-label"> Total de items (%)</span>
             {{/paper-card}}
             {{#if (eq legendType "point")}}
                 <div class="point-legend">
