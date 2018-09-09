@@ -13,6 +13,12 @@
                 {{month}}
             {{/power-selector-with-label}}
         </div>
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
+                    (mut selectedProduct)) as |product|}}
+                {{product.name}}
+            {{/power-selector-with-label}}
+        </div>
     </div>
     <div class="transactions">
         {{#paper-card class="box-big" as |card|}}

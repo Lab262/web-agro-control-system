@@ -20,46 +20,55 @@ export default Component.extend({
     }),
 
     didInsertElement() {
-        this.loadData()            
+        this.loadData()
     },
 
     loadData() {
         var _this = this;
         let model = _this.get('model');
-            model.getProducers(model.cooperative.id)
-                .then(producers => {
-                    _this.set('producers', producers);
-                }).catch(err => {
-                    console.log(err);
-                    _this.loadData()
-                });
-    
-            model.getProducts(model.cooperative.id).then(products => {
-                _this.set('products', products);
+        model.getProducers(model.cooperative.id)
+            .then(producers => {
+                _this.set('producers', producers);
             }).catch(err => {
                 console.log(err);
                 _this.loadData()
-            })
-    
-            model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-                var historics = [];
-                for (var i = 0, len = historic.content.length; i < len; i++) {
-                    var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
-                    var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
-                    historics.push({
-                        cost: cost,
-                        productName: historic.content[i].__data.product.data.attributes.name,
-                        quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
-                        date: date
-                    })
-                }
-                _this.set('historic', historics);
-            }).catch(err => {
-                console.log(err);
-                _this.loadData()
-            })
-            _this.setupPurchasesChart()
-        
+            });
+
+        model.getProducts(model.cooperative.id).then(products => {
+            _this.set('products', products);
+        }).catch(err => {
+            console.log(err);
+            _this.loadData()
+        })
+
+        model.getPurchaseTransaction(model.cooperative.id).then(historic => {
+            var historics = [];
+            for (var i = 0, len = historic.content.length; i < len; i++) {
+                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
+                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
+                historics.push({
+                    cost: cost,
+                    productName: historic.content[i].__data.product.data.attributes.name,
+                    quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
+                    date: date
+                })
+            }
+            var moments = historic.content.map(d => Moment(d.__data.transactionDate));
+            var maxDate = Moment.max(moments).year();
+            var minDate = Moment.min(moments).year();
+            var years = [];
+            for (var i = minDate; i <= maxDate; i++) {
+                years.push(i);
+            }
+            _this.set('years', years.reverse())
+
+            _this.set('historic', historics);
+        }).catch(err => {
+            console.log(err);
+            _this.loadData()
+        })
+        _this.setupPurchasesChart()
+
         var todayDate = new Date();
         var transactionDate = todayDate.getDate() + (todayDate.getMonth() + 1) + todayDate.getFullYear();
         this.set('transactionDate', transactionDate.toString());
@@ -95,7 +104,7 @@ export default Component.extend({
                 let month = transactionDate.substr(2, 2);
                 let year = transactionDate.substr(4, 4);
 
-                transactionDate = new Date(year, month-1, day, 0, 0, 0, 0);
+                transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
                 newPurchaseTransaction.set('transactionDate', transactionDate);
                 newPurchaseTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
                 newPurchaseTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
