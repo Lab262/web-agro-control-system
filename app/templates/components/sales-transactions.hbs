@@ -1,5 +1,35 @@
-{{#if showHistoricModal}}
-    {{transactions-graph-historic-modal title='Vendas Realizadas - por produto' onClose=(toggle "showHistoricModal" this) chartData=chartData }}
+{{#if isShowInfoModal}}
+    <div id="add-product-modal-overlay" class="add-product-modal" onClick={{toggle 'isShowInfoModal' this}}>
+        <div id="add-product-modal-overlay" class="puarchase-transaction" style="display: flex; justify-content: center; align-items: center;">
+            {{#paper-card class="box-small"  as |card|}}
+                <p>
+                    O que é a curva ABC
+                </p>
+                <p>A curva ABC, no caso de administração de estoques, apresenta resultados da demanda de cada item nas
+                    seguintes áreas:</p>
+                <ul>
+                    <li>giro no estoque;</li>
+                    <li>proporção sobre o faturamento no período;</li>
+                    <li>margem de lucro obtida.</li>
+                </ul>
+                <p>Os itens são classificados como (Carvalho, 2002, p.&nbsp;227): </p>
+                <ul>
+                    <li>
+                        <p>'''de Classe A''': de maior importância, valor ou quantidade, correspondendo a '''20%''' do
+                            total (podem ser itens do estoque com uma demanda de 65% num dado período); </p>
+                    </li>
+                    <li>
+                        <p>'''de Classe B''': com importância, quantidade ou valor intermediário, correspondendo a
+                            '''30%''' do total (podem ser itens do estoque com uma demanda de 25% num dado período);</p>
+                    </li>
+                    <li>
+                        <p>'''de Classe C''': de menor importância, valor ou quantidade, correspondendo a '''50%''' do
+                            total (podem ser itens do estoque com uma demanda de 10% num dado período).</p>
+                    </li>
+                </ul>
+            {{/paper-card}}
+        </div>
+    </div>
 {{/if}}
 <div class="purchase-transaction">
     <h1>Transação de Venda</h1>
@@ -14,7 +44,6 @@
             </div>
             {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
-                {{debugger}}
                 {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
                     (mut selectedProduct)) as |product|}}
                     {{product.name}}
@@ -57,10 +86,13 @@
         </th>
     {{/paper-card}}
     {{#paper-card class="box-full-large" as |card|}}
-        <div class="header">
+        <div class="header" style="display: flex; justify-content: space-between; margin-right:25px;">
             <p>
                 Curva ABC
             </p>
+            <div id="has-info-tooltip" onClick={{toggle 'isShowInfoModal' this}}>
+                <img class="logo" style=" cursor: pointer; height: 15px; width: 15px;" src="./images/info-icon.png">
+            </div>
         </div>
         {{#if abcChartData}}
             {{abc-curve-graph chartData=abcChartData legendType="" height=200 }}

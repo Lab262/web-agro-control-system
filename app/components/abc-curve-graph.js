@@ -9,21 +9,23 @@ export default Component.extend({
         let chartData = this.get('chartData');
         if (chartData != undefined) {
 
+            // chartData.dataX.unshift(0)
+            // chartData.data[0].unshift(0)
             var dataXABC = chartData.dataX
             var annotationsA = 0, annotationsB = 0
 
             dataXABC.forEach((item, index) => {
                 if (index + 1 < dataXABC.length) {
-                    if (item <= .2 && dataXABC[index + 1] > .2) {
+                    if (item <= 20 && dataXABC[index + 1] > 20) {
                         annotationsA = index
                     }
 
-                    if (item <= .5 && dataXABC[index + 1] > .5) {
+                    if (item <= 50 && dataXABC[index + 1] > 50) {
                         annotationsB = index
                     }
                 }
             })
-            chartData.annotations = [annotationsA, annotationsB];
+            chartData.annotations = [20, 50];
 
 
             window.Chart.plugins.register({
@@ -34,47 +36,38 @@ export default Component.extend({
                     chart.data.datasets.forEach(function (dataset, i) {
                         if (dataset.annotations) {
 
-                            var meta = chart.getDatasetMeta(i);
+                            dataset.annotations.forEach(function (element) {
 
-                            if (!meta.hidden) {
-                                meta.data.forEach(function (element, index) {
 
-                                    var indexOfLine = dataset.annotations.indexOf(index)
-                                    if (indexOfLine >= 0) {
+                                var xaxis = chart.scales['x-axis-0'];
+                                var yaxis = chart.scales['y-axis-0'];
+                                ctx.save();
+                                ctx.beginPath();
+                                ctx.moveTo(xaxis.getPixelForValue(element, undefined), yaxis.top);
+                                ctx.strokeStyle = '#5e9bcc';
+                                ctx.lineWidth = 4;
+                                ctx.lineTo(xaxis.getPixelForValue(element, undefined), yaxis.bottom);
+                                ctx.stroke();
 
-                                        var selectedIndex = index;
-                                        var xaxis = chart.scales['x-axis-0'];
-                                        var yaxis = chart.scales['y-axis-0'];
-                                        ctx.save();
-                                        ctx.beginPath();
-                                        ctx.moveTo(xaxis.getPixelForValue(undefined, selectedIndex), yaxis.top);
-                                        ctx.strokeStyle = '#5e9bcc';
-                                        ctx.lineWidth = 4;
-                                        ctx.lineTo(xaxis.getPixelForValue(undefined, selectedIndex), yaxis.bottom);
-                                        ctx.stroke();
+                                ctx.fillStyle = 'rgb(0, 0, 0)';
+                                var fontSize = 32;
+                                var fontStyle = 'normal';
+                                var fontFamily = 'Helvetica Neue';
+                                ctx.font = window.Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
-                                        ctx.fillStyle = 'rgb(0, 0, 0)';
-                                        var fontSize = 32;
-                                        var fontStyle = 'normal';
-                                        var fontFamily = 'Helvetica Neue';
-                                        ctx.font = window.Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+                                // Make sure alignment settings are correct
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'middle';
+                                if (element === 20) {
+                                    ctx.fillText("A", xaxis.getPixelForValue(element, undefined) - 80, yaxis.top + 120);
+                                } else {
+                                    ctx.fillText("B", xaxis.getPixelForValue(element, undefined) - 80, yaxis.top + 90);
+                                    ctx.fillText("C", xaxis.getPixelForValue(element, undefined) + 200, yaxis.top + 60);
 
-                                        // Make sure alignment settings are correct
-                                        ctx.textAlign = 'center';
-                                        ctx.textBaseline = 'middle';
-                                        var position = element.tooltipPosition();
-                                        if (indexOfLine === 0) {
-                                            ctx.fillText("A", position.x - 55, position.y - (fontSize / 2) + 50);
-                                        } else {
-                                            ctx.fillText("B", position.x - 75, position.y - (fontSize / 2) + 50);
-                                            ctx.fillText("C", position.x + 200, position.y - (fontSize / 2) + 10);
+                                }
+                                ctx.restore();
 
-                                        }
-                                        ctx.restore();
-
-                                    }
-                                });
-                            }
+                            });
                         }
                     });
 
@@ -91,15 +84,21 @@ export default Component.extend({
                     displayColors: true,
                     callbacks: {
                         title: function (tooltipItem, data) {
-                            return "";
+                            return data.legends[tooltipItem[0].index - 1];
+
                         },
-                        label: function (tooltipItem, data) {
-                            return tooltipItem.yLabel + " %";
+                        label: function (tooltipItem) {
+                            return "Vendas Totais: " + tooltipItem.yLabel + " % \n";
                         },
+                        afterLabel: function (tooltipItem) {
+                            return "Total de Items: " + tooltipItem.xLabel + " % \n";
+                        }
+                        ,
                     },
                 },
                 scales: {
                     xAxes: [{
+                        type: 'linear',
                         gridLines: {
                             display: true,
                             offsetGridLines: false,
@@ -108,10 +107,17 @@ export default Component.extend({
                         ticks: {
                             display: (chartData.labels != undefined),
                             minRotation: (chartData.labels != undefined) ? 0 : 0,
-                            labelOffset: -3
+                            maxRotation: 0,
+                            labelOffset: -3,
+                            min: 0,
+                            max: 110,
+                            beginAtZero: true,
+                            maxTicksLimit: 110,
+                            stepSize: 5
                         },
                     }],
                     yAxes: [{
+                        type: 'linear',
                         gridLines: {
                             display: true,
                             offsetGridLines: false,
@@ -120,6 +126,9 @@ export default Component.extend({
                         ticks: {
                             display: true,
                             min: 0,
+                            max: 110,
+                            stepSize: 10,
+                            beginAtZero: true
                         },
                     }]
 
@@ -149,8 +158,8 @@ export default Component.extend({
                     borderColor: color,
                     pointBackgroundColor: color,
                     pointHitRadius: 25,
-                    pointRadius: 0,
-                    pointHoverRadius: 4,
+                    pointRadius: 4,
+                    pointHoverRadius: 8,
                     label: "",
                     lineTension: 0
                 });
@@ -162,8 +171,6 @@ export default Component.extend({
             } else {
                 productChartData.labels = chartData.names;
             }
-            areaChartOptions.scales.yAxes[0].ticks.max = (chartData.isNotRandomColors) ? 1.2 : Math.max(...productChartData.datasets[0].data) + 3
-            areaChartOptions.scales.yAxes[0].ticks.min = (chartData.isNotRandomColors) ? 0 : Math.min(...productChartData.datasets[0].data) - 3
 
             productChartData.options = areaChartOptions;
             return productChartData

@@ -166,8 +166,10 @@ export default Component.extend({
         })
         this.set('abcData', abcData);
 
-        var dataABC = attributesABC.map(element => element.percentageSalesCost)
-        var dataXABC = attributesABC.map(element => element.percentageSalesAmount)
+        var dataABC = attributesABC.map(element =>  {
+            return { y: parseFloat(element.percentageSalesCost * 100).toFixed(2), x: parseFloat(element.percentageSalesAmount * 100).toFixed(2) }
+    })
+        var dataXABC = attributesABC.map(element => parseFloat(element.percentageSalesAmount * 100).toFixed(2))
 
         var labelsABC = attributesABC.map(element => element.name)
         var abcChartData = {

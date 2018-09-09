@@ -9,13 +9,17 @@ export default Component.extend({
     filteredProducers: [],
 
     didInsertElement() {
+        this.loadData()
+    },
+
+    loadData() {
         let model = this.get('model');
         model.getProducers(model.cooperative.id)
-        .then(producers => {
-            this.set('producers', producers);
-            this.updateFilteredProducers();
-        }).catch(err => console.log(err))
-    },
+            .then(producers => {
+                this.set('producers', producers);
+                this.updateFilteredProducers();
+            }).catch(err => this.loadData())
+    },  
 
     showPromptDialog: false,
     actions: {
@@ -30,14 +34,14 @@ export default Component.extend({
                 && object.name != undefined
                 && object.email != undefined
                 && object.name != ""
-                && object.email != "" 
+                && object.email != ""
                 && ((object.cpf != undefined && object.cpf != "") ||
-                (object.cnpj != undefined && object.cnpj != ""))) {
+                    (object.cnpj != undefined && object.cnpj != ""))) {
                 var isValid = true
-                if (object.cpf != undefined && object.cpf != ""){
+                if (object.cpf != undefined && object.cpf != "") {
                     if (!CPFValidator.isValid(object.cpf)) isValid = false; alert('CPF Inválido');
                 }
-                if (object.cnpj != undefined && object.cnpj != ""){
+                if (object.cnpj != undefined && object.cnpj != "") {
                     if (!CNPJValidator.isValid(object.cnpj)) isValid = false; alert('CNPJ Inválido');
                 }
                 if (isValid) {
@@ -46,12 +50,12 @@ export default Component.extend({
                     newProducer.set('cnpj', CNPJValidator.format(object.cnpj));
                     newProducer.set('name', object.name);
                     newProducer.set('email', object.email);
-                    newProducer.set('identification',object.identification);
-                    newProducer.set('cooperative',this.get('model').cooperative);
+                    newProducer.set('identification', object.identification);
+                    newProducer.set('cooperative', this.get('model').cooperative);
 
-                    newProducer.save().then( saved => {
+                    newProducer.save().then(saved => {
                         window.location.reload()
-                    }).catch( err => {
+                    }).catch(err => {
                         console.error(err);
                     })
                 }
@@ -73,7 +77,7 @@ export default Component.extend({
             return str.toUpperCase().includes(this.name.toUpperCase())
         }
         if (this.get('name').length == 0) {
-            this.set('filteredProducers', this.producers)    
+            this.set('filteredProducers', this.producers)
         } else {
             this.set('filteredProducers', this.producers.filter(producer => {
                 return searchIncludes(producer.get('name'))
