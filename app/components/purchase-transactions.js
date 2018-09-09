@@ -19,6 +19,13 @@ export default Component.extend({
         }
     }),
 
+    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', 'selectedProducer', function () {
+        var selectedYear = this.get('selectedYear');
+        var selectedMonth = this.get('selectedMonth');
+        var selectedProducer = this.get('selectedProducer');
+        //implement filter logic here
+    }),
+
     didInsertElement() {
         this.loadData()
     },
@@ -29,6 +36,9 @@ export default Component.extend({
         model.getProducers(model.cooperative.id)
             .then(producers => {
                 _this.set('producers', producers);
+                var producersFilter = this.get('producers').content.map(item => { return { id: item.id, name: item.__data.name } });
+                producersFilter.unshift({ name: "Todos" });
+                _this.set('producersFilter', producersFilter);
             }).catch(err => {
                 console.log(err);
                 _this.loadData()

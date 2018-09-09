@@ -1,9 +1,17 @@
 import Component from '@ember/component';
 import Moment from 'npm:moment'
+import Ember from 'ember';
 export default Component.extend({
 
     monthsPortuguese: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez"],
     years: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2015, 2016, 2017, 2018],
+
+    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', 'selectedProduct', function () {
+        var selectedYear = this.get('selectedYear');
+        var selectedMonth = this.get('selectedMonth');
+        var selectedProduct = this.get('selectedProduct');
+        //implement filter logic here
+    }),
 
     didInsertElement() {
         let model = this.get('model');
@@ -134,6 +142,11 @@ export default Component.extend({
 
         }, this);
         this.set('products', products);
+
+        var productsFilter = this.get('products').map(item => { return { id: item.id, name: item.name } });
+        productsFilter.unshift({ name: "Todos" });
+        this.set('productsFilter', productsFilter);
+
         var moments = products.map(d => Moment(d.transactionDate));
         var maxDate = Moment.max(moments).year();
         var minDate = Moment.min(moments).year();

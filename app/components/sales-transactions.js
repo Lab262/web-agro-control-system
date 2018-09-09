@@ -19,6 +19,12 @@ export default Component.extend({
         }
     }),
 
+    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', function () {
+        var selectedYear = this.get('selectedYear');
+        var selectedMonth = this.get('selectedMonth');
+        //implement filter logic here
+    }),
+
     didInsertElement() {
         this.loadData()
     },

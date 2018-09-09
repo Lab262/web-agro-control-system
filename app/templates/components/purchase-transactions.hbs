@@ -69,7 +69,7 @@
             {{/power-selector-with-label}}
         </div>
         <div class="flex-30">
-            {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Producers" options=producers onchange=(action
+            {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Producers" options=producersFilter onchange=(action
                     (mut selectedProducer)) as |producer|}}
                 {{producer.name}}
             {{/power-selector-with-label}}
