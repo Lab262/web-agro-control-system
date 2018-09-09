@@ -1,7 +1,7 @@
 <div class="power-selector-with-label">
     <span class="power-selector-with-label-label"> {{placeholder}} </span>
     <div class="power-selector-with-label-selector">
-        {{#power-select selected=selected placeholder=placeholder options=options onchange=onchange as |option| }}
+        {{#power-select selected=selected placeholder=placeholder searchField=searchField options=options onchange=onchange as |option| }}
             {{yield option}}
         {{/power-select}}
     </div>
