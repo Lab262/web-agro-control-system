@@ -81,7 +81,7 @@ export default Component.extend({
                 date: date
             })
         }
-        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()).slice(0, 4));
+        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()));
     },
 
     setupABCChart(historic) {
