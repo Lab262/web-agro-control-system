@@ -8,4 +8,10 @@ export default Component.extend({
             this.onClose();
         }
     },
+
+    actions: {
+        closeModalAction() {
+            this.onClose()
+        }
+    }
 });
