@@ -19,7 +19,6 @@ export default Component.extend({
         }
     }),
 
-
     didInsertElement() {
         this.loadData()
     },
@@ -43,23 +42,42 @@ export default Component.extend({
         })
 
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-            var historics = [];
-            for (var i = 0, len = historic.content.length; i < len; i++) {
-                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
-                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
-                historics.push({
-                    cost: cost,
-                    productName: historic.content[i].__data.product.data.attributes.name,
-                    quantity: historic.content[i].__data.productAmount + " " + historic.content[i].__data.amountScale,
-                    date: date
-                })
-            }
-            _this.set('historic', historics);
+            this.setupHistoricTable(historic)
+            this.setupABCChart(historic)
         }).catch(err => {
             console.log(err);
             _this.loadData()
         })
         _this.setupSalesChart()
+    },
+
+    setupHistoricTable(historic) {
+        var historics = [];
+        for (var i = 0, len = historic.content.length; i < len; i++) {
+            var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
+            var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
+            historics.push({
+                cost: cost,
+                productName: historic.content[i].__data.product.data.attributes.name,
+                quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
+                date: date
+            })
+        }
+        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()).slice(0, 4));
+    },
+
+    setupABCChart(historic) {
+        var totalCost = 0;
+        this.set('productsIds', []);
+        this.set('sales', []);
+        for (var i = 0, len = historic.content.length; i < len; i++) {
+            var cost = historic.content[i].__data.transactionCost
+            totalCost += cost
+            this.calculateTotalSalesByProduct(historic.content[i])
+        }
+        var sales = this.get('sales');
+        sales.sort((a, b) => b.transactionCost - a.transactionCost);
+        this.calculatePercentageSalesByProduct();
     },
 
     setupSalesChart() {
@@ -68,6 +86,97 @@ export default Component.extend({
             labels: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO"]
         }
         this.set('salesChartData', salesChartData);
+    },
+
+    calculatePercentageSalesByProduct() {
+        var sales = this.get('sales');
+        var totalSalesCost = 0;
+        var totalSalesQuantity = 0;
+        var attributesABC = [];
+        sales.forEach(element => {
+            totalSalesCost += element.transactionCost
+            totalSalesQuantity += element.totalQuantity
+        });
+
+        var cumulativePercentageCost = 0;
+        var cumulativePercentageQuantity = 0;
+        var classificationProduct = "A";
+        sales.forEach(function (element, index) {
+            var percentageCumulativeCost = (element.transactionCost / totalSalesCost) + cumulativePercentageCost
+            cumulativePercentageCost = percentageCumulativeCost
+            var percentageCumulativeQuantity = (element.totalQuantity / totalSalesQuantity) + cumulativePercentageQuantity
+            cumulativePercentageQuantity = percentageCumulativeQuantity
+
+            if (cumulativePercentageQuantity >= 0.21 && cumulativePercentageQuantity <= 0.51) {
+                classificationProduct = "B"
+            } else if (cumulativePercentageQuantity > 0.51) {
+                classificationProduct = "C"
+            } else {
+                classificationProduct = "A"
+            }
+
+            attributesABC.push({
+                name: element.name,
+                position: index + 1,
+                transactionCost: element.transactionCost,
+                percentageSalesCost: percentageCumulativeCost,
+                percentageSalesAmount: percentageCumulativeQuantity,
+                classification: classificationProduct
+            })
+        });
+        console.log(attributesABC)
+        this.setupAbcChartData(attributesABC);
+    },
+
+    calculateTotalSalesByProduct(historic) {
+        var productsIds = this.get('productsIds');
+        var sales = this.get('sales');
+        var objectId = historic.__data.product.data.id
+        var indexProduct = productsIds.indexOf(objectId)
+        if (indexProduct < 0) {
+            productsIds.push(objectId)
+            this.set('productsIds', productsIds);
+            sales.push({
+                name: historic.__data.product.data.attributes.name,
+                totalQuantity: historic.__data.productAmount * historic.__data.product.data.attributes.amountScale,
+                transactionCost: historic.__data.transactionCost,
+            })
+        } else {
+            var quantityAmount = historic.__data.productAmount * historic.__data.product.data.attributes.amountScale
+            sales[indexProduct].totalQuantity += quantityAmount
+            sales[indexProduct].transactionCost += historic.__data.transactionCost
+        }
+        this.set('sales', sales);
+    },
+
+    setupAbcChartData(attributesABC) {
+        var abcData = {
+            a: [],
+            b: [],
+            c: []
+        }
+        attributesABC.forEach((element, index) => {
+            if (element.classification == "A") {
+                abcData.a.push(index + "-" + element.name)
+            } else if (element.classification == "B") {
+                abcData.b.push(index + "-" + element.name)
+            } else if (element.classification == "C") {
+                abcData.c.push(index + "-" + element.name)
+            }
+        })
+        this.set('abcData', abcData);
+
+        var dataABC = attributesABC.map(element => element.percentageSalesCost)
+        var dataXABC = attributesABC.map(element => element.percentageSalesAmount)
+
+        var labelsABC = attributesABC.map(element => element.name)
+        var abcChartData = {
+            isNotRandomColors: true,
+            data: [dataABC],
+            dataX: dataXABC,
+            labels: labelsABC,
+        }
+        this.set('abcChartData', abcChartData);
     },
 
     actions: {
@@ -91,7 +200,7 @@ export default Component.extend({
                 let day = transactionDate.substr(0, 2);
                 let month = transactionDate.substr(2, 2);
                 let year = transactionDate.substr(4, 4);
-                transactionDate = new Date(year, month-1, day, 0, 0, 0, 0);
+                transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
                 newSaleTransaction.set('transactionDate', transactionDate);
                 newSaleTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
                 newSaleTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
@@ -117,5 +226,5 @@ export default Component.extend({
                 alert('Entre todos os campos');
             }
         },
-    }
+    },
 });

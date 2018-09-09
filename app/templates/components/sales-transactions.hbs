@@ -19,12 +19,14 @@
                     {{product.name}}
                 {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}} 
+            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}}
             {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=(concat selectedProduct.amountScale " Kg") onChange=null}}
             {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
-            {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
+            {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}}
+            {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
             {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
-            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Venda{{/paper-button}}
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar
+                Venda{{/paper-button}}
         </div>
     {{/paper-card}}
     {{#paper-card class="box-big" as |card|}}
@@ -53,5 +55,50 @@
             </span>
         </th>
     {{/paper-card}}
-    {{!-- {{line-graph-with-filter title="Vendas Realizadas" onClick=(toggle "showHistoricModal" this) button-title="Ver Mais" chartData=salesChartData options=products}} --}}
+    {{#paper-card class="box-full-large" as |card|}}
+        <div class="header">
+            <p>
+                Curva ABC
+            </p>
+        </div>
+        {{#if abcChartData}}
+            {{abc-curve-graph chartData=abcChartData legendType="" height=200 }}
+            {{#if abcData}}
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #BB77D6;">
+                            A
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.a as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #FFA947;">
+                            B
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.b as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-item-title" style="background: #00D5B2;">
+                            C
+                        </div>
+                        <div class="legend-item-content">
+                            {{#each abcData.c as |item|}}
+                                <span>{{item}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{else}}
+            Carregando....
+        {{/if}}
+    {{/paper-card}}
 </div>

@@ -81,7 +81,6 @@ export default Component.extend({
                 }
             });
 
-
             var areaChartOptions = {
                 hover: {
                     intersect: false
