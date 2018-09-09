@@ -24,7 +24,13 @@ export default Component.extend({
 
     actions: {
         /* Prompt dialog */
-        openPromptDialog(/* param, event */) {
+        openPromptDialog(cooperative) {
+            if (cooperative.data) {
+                this.set('displayMode', true);
+                this.set('cooperative', cooperative);
+            }else {
+                this.set('displayMode', false);
+            }
             this.set('dialogOrigin', null);
             this.set('showPromptDialog', true);
         },

@@ -27,6 +27,19 @@ export default Component.extend({
             this.set('name', text)
             this.updateFilteredProducers()
         },
+        openPromptDialog(producer) {
+            if (producer.data) {
+                this.set('displayMode', true);
+                this.set('producer', producer);
+            }else {
+                this.set('displayMode', false);
+            }
+            this.set('dialogOrigin', null);
+            this.set('showPromptDialog', true);
+        },
+        closePromptDialog() {
+            this.set('showPromptDialog', false);
+        }
     },
     updateFilteredProducers() {
         const searchIncludes = (str) => {

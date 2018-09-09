@@ -1,6 +1,6 @@
 <div class="producer-dashboard-detail">
     {{#if showPromptDialog}}
-        {{add-cooperative-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+        {{add-cooperative-modal displayMode=displayMode cooperative=cooperative onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
     {{/if}}
     {{#if showApproveModal}}
         {{approve-cooperative-modal cooperatives=cooperativesToApprove closeModal=(toggle "showApproveModal" this)}}
@@ -33,7 +33,7 @@
                         <th>{{cooperative.cnpj}}</th>
                         <th style="padding-right: 25px;" class="button">
                             <span>
-                                {{#paper-button href="" }}Ver mais{{/paper-button}}
+                                {{#paper-button onClick=(action "openPromptDialog" cooperative)}}Ver mais{{/paper-button}}
                             </span>
                         </th>
                     </tr>

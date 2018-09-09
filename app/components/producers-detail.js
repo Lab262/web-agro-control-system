@@ -20,7 +20,13 @@ export default Component.extend({
     showPromptDialog: false,
     actions: {
         /* Prompt dialog */
-        openPromptDialog(/* param, event */) {
+        openPromptDialog(producer) {
+            if (producer.data) {
+                this.set('displayMode', true);
+                this.set('producer', producer);
+            }else {
+                this.set('displayMode', false);
+            }
             this.set('dialogOrigin', null);
             this.set('showPromptDialog', true);
         },

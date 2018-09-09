@@ -1,6 +1,5 @@
-
 {{#if showPromptDialog}}
-    {{add-producer-modal onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+    {{add-producer-modal displayMode=displayMode producer=producer onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
 {{/if}}
 
 <div class="producers-detail">
@@ -33,7 +32,7 @@
                                 {{else}}
                                     <th></th>
                                 {{/if}}
-                                <th class="button"><span>{{#paper-button href="" }}Ver mais{{/paper-button}}</span></th>
+                                <th class="button"><span>{{#paper-button onClick=(action "openPromptDialog" producer)}}Ver mais{{/paper-button}}</span></th>
                             </tr>
                         {{else}}
                             Nenhum produtor cadastrado.
