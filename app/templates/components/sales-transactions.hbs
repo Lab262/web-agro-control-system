@@ -85,6 +85,26 @@
             </span>
         </th>
     {{/paper-card}}
+    <div class="filters" style="margin-top: 25px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedYear  placeholder="Ano" options=years onchange=(action
+                    (mut selectedYear)) as |year|}}
+                {{year}}
+            {{/power-selector-with-label}}
+        </div>
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=(array "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro") onchange=(action
+                    (mut selectedMonth)) as |month|}}
+                {{month}}
+            {{/power-selector-with-label}}
+        </div>
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
+                    (mut selectedProduct)) as |product|}}
+                {{product.name}}
+            {{/power-selector-with-label}}
+        </div>
+    </div>
     {{#paper-card class="box-full-large" as |card|}}
         <div class="header" style="display: flex; justify-content: space-between; margin-right:25px;">
             <p>
