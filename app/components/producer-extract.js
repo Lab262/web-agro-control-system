@@ -2,15 +2,29 @@ import Component from '@ember/component';
 import Moment from 'npm:moment'
 import Ember from 'ember';
 export default Component.extend({
-
-    monthsPortuguese: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez"],
-    years: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2015, 2016, 2017, 2018],
+    isFilterProduct: true,
+    monthsPortuguese: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    months: [],
 
     filterDidChange: Ember.observer('selectedYear', 'selectedMonth', 'selectedProduct', function () {
         var selectedYear = this.get('selectedYear');
         var selectedMonth = this.get('selectedMonth');
         var selectedProduct = this.get('selectedProduct');
-        //implement filter logic here
+        if (selectedYear != undefined){
+            if (selectedProduct != undefined && selectedProduct.name != "Todos") { //Only by year and product, ignore month
+                this.getExtractYearForProduct(selectedYear,selectedProduct)
+                console.log("Only by year and product, ignore month")
+            }else {
+                if(selectedMonth == undefined || selectedMonth == "Todos"){//Only by year
+                    this.filterByMonthAndYear(selectedYear)
+                    console.log("Only by year")
+                }else {//Only by year and month
+                    var indexMonth = this.get('months').indexOf(selectedMonth);
+                    this.filterByMonthAndYear(selectedYear, indexMonth)
+                    console.log("Only by year and month")
+                }
+            }
+        }
     }),
 
     didInsertElement() {
@@ -19,34 +33,48 @@ export default Component.extend({
             this.set('allHistoric', historic.content);
             this.calculateExtractProduct(historic.content);
         }).catch(err => console.log(err))
+        var months = this.get('monthsPortuguese').slice();
+        months.unshift("Todos");
+        this.set('months',months)
     },
 
-    getExtractYearForProduct() {
+    getExtractYearForProduct(year,selectedProduct) {
+        var date = new Date();
+        date.year = year;
 
-        var startDate = Moment(new Date()).endOf('year').toDate()
-        var endDate = Moment(new Date()).startOf('year').toDate()
+        var startDate = Moment(date).endOf('year').toDate()
+        var endDate = Moment(date).startOf('year').toDate()
+        
         var dates = this.enumerateMonthsBetweenDates(endDate, startDate)
 
         var allHistoric = this.get('allHistoric');
-        //Hardcoded filter by id of Goiaba
-        allHistoric = allHistoric.filter(historic => (historic.__data.product.data.id == "W1UUpYOtEv"))
-        var names = []
+        allHistoric = allHistoric.filter(historic => (historic.__data.product.data.id == selectedProduct.id))
+        var names = this.get('monthsPortuguese')
         var data = []
-        dates.forEach(date => {
+        var infos = []
+        dates.forEach((date,index) => {
             var currDateMoment = Moment(date);
             var currentHistorics = allHistoric.filter(historic => Moment(historic.__data.transactionDate).isSame(currDateMoment, 'month'))
             var totalAmount = 0
+            var totalValue = 0
             if (currentHistorics.length > 0) {
                 currentHistorics.forEach(function (element) {
                     var quantityAmount = element.__data.productAmount * element.__data.product.data.attributes.amountScale;
                     totalAmount += quantityAmount
+                    totalValue += element.__data.transactionCost
                 })
             }
             data.push(totalAmount);
+            infos.push({
+                month: names[index],
+                totalQuantity: totalAmount.toFixed(2).toString().replace('.', ',') + " Kg",
+                totalValue: "R$ " + totalValue.toFixed(2).toString().replace('.', ','),
+            })
         })
-        names = this.get('monthsPortuguese')
         data = [data]
         this.set('chartData', { names, data })
+        this.set('chartDataName',selectedProduct.name)
+        this.set('chartDataTable',infos)
     },
 
     enumerateMonthsBetweenDates(startDate, endDate) {
@@ -67,10 +95,11 @@ export default Component.extend({
             currentMonthData: products.map(item => item.totalQuantity)
         }
         this.set('overallChartData', chartData)
+        this.set('chartData', undefined)
     },
 
     filterByMonthAndYear(year, month) {
-        if (year != undefined) {
+        if (year == undefined) {
             return
         }
         var startDate = new Date(year, 0, 1, 0, 0, 0, 0);
@@ -113,6 +142,7 @@ export default Component.extend({
             if (indexProduct < 0) {
                 productsIds.push(objectId)
                 products.push({
+                    id: objectId,
                     name: historic[i].__data.product.data.attributes.name,
                     totalQuantity: historic[i].__data.productAmount * historic[i].__data.product.data.attributes.amountScale,
                     averagePrice: historic[i].__data.unityPrice,
@@ -142,18 +172,21 @@ export default Component.extend({
 
         }, this);
         this.set('products', products);
-
         var productsFilter = this.get('products').map(item => { return { id: item.id, name: item.name } });
+
         productsFilter.unshift({ name: "Todos" });
         this.set('productsFilter', productsFilter);
 
-        var moments = products.map(d => Moment(d.transactionDate));
-        var maxDate = Moment.max(moments).year();
-        var minDate = Moment.min(moments).year();
-        var years = [];
-        for (var i = minDate; i <= maxDate; i++) {
-            years.push(i);
+        var allYears =  this.get('years')
+        if (allYears == undefined) {
+            var moments = products.map(d => Moment(d.transactionDate));
+            var maxDate = Moment.max(moments).year();
+            var minDate = Moment.min(moments).year();
+            var years = [];
+            for (var i = minDate; i <= maxDate; i++) {
+                years.push(i);
+            }
+            this.set('years', years.reverse())
         }
-        this.set('years', years.reverse())
     },
 });

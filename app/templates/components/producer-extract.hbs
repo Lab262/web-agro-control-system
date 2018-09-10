@@ -8,7 +8,7 @@
             {{/power-selector-with-label}}
         </div>
         <div class="flex-30">
-            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=(array "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro") onchange=(action
+            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=months onchange=(action
                     (mut selectedMonth)) as |month|}}
                 {{month}}
             {{/power-selector-with-label}}
@@ -28,30 +28,45 @@
                 </span>
             </div>
             <table>
-                <tr class="header">
-                    <th class="name">Produto</th>
-                    <th>Quantidade total</th>
-                    <th>Preço Médio</th>
-                    <th>Valor Total</th>
-                </tr>
-                {{#each products as |item|}}
-                    <tr>
-                        <th class="name">{{item.name}}</th>
-                        <th>{{item.totalQuantity}}</th>
-                        <th>{{item.averagePrice}}</th>
-                        <th>{{item.totalValue}}</th>
+                {{#if chartData}}
+                    <tr class="header">
+                        <th class="name">Mês</th>
+                        <th>Quantidade total</th>
+                        <th>Valor Total</th>
                     </tr>
+                    {{#each chartDataTable as |item|}}
+                        <tr>
+                            <th class="name">{{item.month}}</th>
+                            <th>{{item.totalQuantity}}</th>
+                            <th>{{item.totalValue}}</th>
+                        </tr>
+                        {{else}}
+                            Nenhuma transação
+                    {{/each}}
+                {{else}}
+                    <tr class="header">
+                        <th class="name">Produto</th>
+                        <th>Quantidade total</th>
+                        <th>Preço Médio</th>
+                        <th>Valor Total</th>
+                    </tr>
+                    {{#each products as |item|}}
+                        <tr>
+                            <th class="name">{{item.name}}</th>
+                            <th>{{item.totalQuantity}}</th>
+                            <th>{{item.averagePrice}}</th>
+                            <th>{{item.totalValue}}</th>
+                        </tr>
                     {{else}}
                         Nenhuma transação
-                {{/each}}
+                    {{/each}}
+                {{/if}}
             </table>
         {{/paper-card}}
         {{#if chartData}}
             {{#paper-card class="box-big" as |card|}}
                 <div class="header">
-                    <p>
-                        Goiaba
-                    </p>
+                    <p>{{chartDataName}}</p>
                 </div>
                 {{line-graph-with-legend chartData=chartData height=150 graphInterpretationTitleYAxe="Total (Kg)"}}
             {{/paper-card}}
