@@ -19,6 +19,12 @@ export default Component.extend({
         }
     }),
 
+    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', function () {
+        var selectedYear = this.get('selectedYear');
+        var selectedMonth = this.get('selectedMonth');
+        //implement filter logic here
+    }),
+
     didInsertElement() {
         this.loadData()
     },
@@ -44,6 +50,14 @@ export default Component.extend({
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
             this.setupHistoricTable(historic)
             this.setupABCChart(historic)
+            var moments = historic.content.map(d => Moment(d.__data.transactionDate));
+            var maxDate = Moment.max(moments).year();
+            var minDate = Moment.min(moments).year();
+            var years = [];
+            for (var i = minDate; i <= maxDate; i++) {
+                years.push(i);
+            }
+            _this.set('years', years.reverse())
         }).catch(err => {
             console.log(err);
             _this.loadData()
@@ -52,7 +66,7 @@ export default Component.extend({
 
         var todayDate = new Date();
         var transactionDate = todayDate.getDate() + (todayDate.getMonth() + 1) + todayDate.getFullYear();
-        this.set('transactionDate', transactionDate.toString());
+        this.set('transactionDate', transactionDate);
     },
 
     setupHistoricTable(historic) {
@@ -67,7 +81,7 @@ export default Component.extend({
                 date: date
             })
         }
-        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()).slice(0, 4));
+        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()));
     },
 
     setupABCChart(historic) {
@@ -170,8 +184,10 @@ export default Component.extend({
         })
         this.set('abcData', abcData);
 
-        var dataABC = attributesABC.map(element => element.percentageSalesCost)
-        var dataXABC = attributesABC.map(element => element.percentageSalesAmount)
+        var dataABC = attributesABC.map(element => {
+            return { y: parseFloat(element.percentageSalesCost * 100).toFixed(2), x: parseFloat(element.percentageSalesAmount * 100).toFixed(2) }
+        })
+        var dataXABC = attributesABC.map(element => parseFloat(element.percentageSalesAmount * 100).toFixed(2))
 
         var labelsABC = attributesABC.map(element => element.name)
         var abcChartData = {

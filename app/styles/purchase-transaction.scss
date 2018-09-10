@@ -161,7 +161,7 @@
                     font-family: 'Montserrat-SemiBold', sans-serif;
                 }
                 .legend-item-content {
-                    // width: 60%;
+                    width: 45%;
                     margin: 10px;
                     height: 120px;
                     display: flex;
@@ -185,8 +185,7 @@
         margin-top: 20px;
     }
     .box-big {
-        width: 100%;
-        height: 300px;
+        width: 100%; // height: 300px;
         margin-top: 20px;
         button {
             font-size: 12.5px;
@@ -239,4 +238,90 @@
             }
         }
     }
+}
+
+.filters {
+    md-input-container.md-default-theme .md-input {
+        border-color: black;
+    }
+    label {
+        font-family: 'Poppins-Medium', sans-serif;
+        font-size: 15px;
+        color: #7B7B7B;
+    }
+    .md-input {
+        font-family: 'Poppins-Medium', sans-serif;
+        font-size: 13px;
+        color: black;
+        .md-input-focused {
+            border-color: black;
+        }
+    }
+    .flex-20 {
+        margin-right: 5%;
+    }
+    .ember-power-select-trigger {
+        margin-top: 8px;
+    }
+    .ember-power-select-selected-item,
+    .ember-power-select-placeholder {
+        font-family: 'Poppins-Medium', sans-serif;
+        font-size: 13px;
+    }
+    .ember-power-select-trigger--active,
+    .ember-power-select-placeholder {
+        font-family: 'Poppins-Medium', sans-serif;
+        font-size: 13px;
+        color: #7B7B7B;
+    }
+    .radio-buttons {
+        md-radio-group {
+            display: flex;
+            align-items: center;
+            width: 190px;
+            md-radio-button {
+                width: 50%;
+                .md-label {
+                    span {
+                        font-family: 'Poppins-Medium', sans-serif;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+        p {
+            font-family: 'Poppins-Medium', sans-serif;
+            font-size: 11px;
+            color: #7B7B7B;
+            margin-top: 5px;
+            margin-bottom: 8px;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 1.5%;
+    }
+    .md-button.md-default-theme {
+        margin-top: 20px;
+        height: 50px;
+        padding-left: 5%;
+        padding-right: 5%;
+        background: #36CC79;
+        font-family: 'Montserrat-Bold', sans-serif;
+        font-size: 13px;
+        &:hover {
+            background: #36CC50;
+        }
+    }
+    .dashboard-detail span,
+    .producer-dashboard-detail span {
+        width: unset;
+        text-align: left;
+    }
+}
+
+.dashboard-detail span,
+.producer-dashboard-detail span {
+    width: unset;
+    text-align: left;
 }

@@ -1,5 +1,25 @@
 <div class="producer-dashboard-detail">
     <h1>Extrato por produto</h1>
+    <div class="filters" style="width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedYear  placeholder="Ano" options=years onchange=(action
+                    (mut selectedYear)) as |year|}}
+                {{year}}
+            {{/power-selector-with-label}}
+        </div>
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=(array "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro") onchange=(action
+                    (mut selectedMonth)) as |month|}}
+                {{month}}
+            {{/power-selector-with-label}}
+        </div>
+        <div class="flex-30">
+            {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=productsFilter onchange=(action
+                    (mut selectedProduct)) as |product|}}
+                {{product.name}}
+            {{/power-selector-with-label}}
+        </div>
+    </div>
     <div class="transactions">
         {{#paper-card class="box-big" as |card|}}
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -28,12 +48,12 @@
         {{/paper-card}}
         {{#if chartData}}
             {{#paper-card class="box-big" as |card|}}
-            <div class="header">
-                <p>
-                Goiaba
-                </p>
-            </div>
-            {{line-graph-with-legend chartData=chartData height=150 graphInterpretationTitleYAxe="Total (Kg)"}}
+                <div class="header">
+                    <p>
+                        Goiaba
+                    </p>
+                </div>
+                {{line-graph-with-legend chartData=chartData height=150 graphInterpretationTitleYAxe="Total (Kg)"}}
             {{/paper-card}}
         {{else}}
             {{#paper-card class="box-full" as |card|}}

@@ -1,34 +1,42 @@
 import Component from '@ember/component';
-
+import Moment from 'npm:moment'
+import Ember from 'ember';
 export default Component.extend({
 
-    monthsPortuguese: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Aug","Set","Out","Nov","Dez"],
-    years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2015,2016,2017,2018],
+    monthsPortuguese: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez"],
+    years: [2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2015, 2016, 2017, 2018],
+
+    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', 'selectedProduct', function () {
+        var selectedYear = this.get('selectedYear');
+        var selectedMonth = this.get('selectedMonth');
+        var selectedProduct = this.get('selectedProduct');
+        //implement filter logic here
+    }),
 
     didInsertElement() {
         let model = this.get('model');
         model.getPurchaseTransaction(model.producer.id).then(historic => {
-            this.set('allHistoric',historic.content);
+            this.set('allHistoric', historic.content);
             this.calculateExtractProduct(historic.content);
         }).catch(err => console.log(err))
     },
 
     getExtractYearForProduct() {
 
-        var startDate = moment(new Date()).endOf('year').toDate()
-        var endDate = moment(new Date()).startOf('year').toDate()
+        var startDate = Moment(new Date()).endOf('year').toDate()
+        var endDate = Moment(new Date()).startOf('year').toDate()
         var dates = this.enumerateMonthsBetweenDates(endDate, startDate)
-       
+
         var allHistoric = this.get('allHistoric');
         //Hardcoded filter by id of Goiaba
         allHistoric = allHistoric.filter(historic => (historic.__data.product.data.id == "W1UUpYOtEv"))
         var names = []
         var data = []
         dates.forEach(date => {
-            var currDateMoment = moment(date);
-            var currentHistorics = allHistoric.filter(historic => moment(historic.__data.transactionDate).isSame(currDateMoment, 'month'))
+            var currDateMoment = Moment(date);
+            var currentHistorics = allHistoric.filter(historic => Moment(historic.__data.transactionDate).isSame(currDateMoment, 'month'))
             var totalAmount = 0
-            if (currentHistorics.length>0){
+            if (currentHistorics.length > 0) {
                 currentHistorics.forEach(function (element) {
                     var quantityAmount = element.__data.productAmount * element.__data.product.data.attributes.amountScale;
                     totalAmount += quantityAmount
@@ -43,8 +51,8 @@ export default Component.extend({
 
     enumerateMonthsBetweenDates(startDate, endDate) {
         var dates = [];
-        var currDate = moment(startDate).startOf('month');
-        var lastDate = moment(endDate).startOf('month');
+        var currDate = Moment(startDate).startOf('month');
+        var lastDate = Moment(endDate).startOf('month');
         dates.push(startDate);
         while (currDate.add(1, 'months').diff(lastDate) <= 0) {
             dates.push(currDate.clone().toDate());
@@ -61,17 +69,17 @@ export default Component.extend({
         this.set('overallChartData', chartData)
     },
 
-    filterByMonthAndYear(year,month){
+    filterByMonthAndYear(year, month) {
         if (year != undefined) {
             return
         }
         var startDate = new Date(year, 0, 1, 0, 0, 0, 0);
         var typeFilter = 'year'
         if (month != undefined) {
-            startDate = new Date(year, month-1, 1, 0, 0, 0, 0);
+            startDate = new Date(year, month - 1, 1, 0, 0, 0, 0);
             typeFilter = 'month'
         }
-        var filtered = this.filterByDate(startDate,typeFilter);
+        var filtered = this.filterByDate(startDate, typeFilter);
         this.calculateExtractProduct(filtered);
     },
 
@@ -79,7 +87,7 @@ export default Component.extend({
         var historics = [];
         var allHistoric = this.get('allHistoric');
         for (var i = 0, len = allHistoric.length; i < len; i++) {
-            var dateHistoric = moment(allHistoric[i].__data.transactionDate);
+            var dateHistoric = Moment(allHistoric[i].__data.transactionDate);
             if (dateHistoric.isSame(startDate, typeFilter)) {
                 historics.push(allHistoric[i])
             }
@@ -92,7 +100,7 @@ export default Component.extend({
         var productsIds = [];
         var products = [];
         for (var i = 0, len = historic.length; i < len; i++) {
-            var date = moment(historic[i].__data.transactionDate).format('DD/MM/YY');
+            var date = Moment(historic[i].__data.transactionDate).format('DD/MM/YY');
             var cost = "R$ " + historic[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
             historics.push({
                 cost: cost,
@@ -110,6 +118,8 @@ export default Component.extend({
                     averagePrice: historic[i].__data.unityPrice,
                     totalValue: historic[i].__data.transactionCost,
                     transactionCost: historic[i].__data.transactionCost,
+                    transactionDate: historic[i].__data.transactionDate,
+
                 })
             } else {
                 var quantityAmount = historic[i].__data.productAmount * historic[i].__data.product.data.attributes.amountScale
@@ -132,5 +142,18 @@ export default Component.extend({
 
         }, this);
         this.set('products', products);
+
+        var productsFilter = this.get('products').map(item => { return { id: item.id, name: item.name } });
+        productsFilter.unshift({ name: "Todos" });
+        this.set('productsFilter', productsFilter);
+
+        var moments = products.map(d => Moment(d.transactionDate));
+        var maxDate = Moment.max(moments).year();
+        var minDate = Moment.min(moments).year();
+        var years = [];
+        for (var i = minDate; i <= maxDate; i++) {
+            years.push(i);
+        }
+        this.set('years', years.reverse())
     },
 });
