@@ -3,6 +3,7 @@ import Ember from 'ember';
 import Moment from 'npm:moment';
 
 export default Component.extend({
+    titleButtonViewAll: "Ver Todos",
     producers: [],
     products: [],
     scales: [],
@@ -81,7 +82,9 @@ export default Component.extend({
                 date: date
             })
         }
-        this.set('historic', historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate()));
+        var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
+        this.set('allHistoric', sortedHistorics);
+        this.set('historic', sortedHistorics.slice(0,4));
     },
 
     setupABCChart(historic) {
@@ -200,6 +203,18 @@ export default Component.extend({
     },
 
     actions: {
+
+        openViewAll() {
+            var allHistorics = this.get('allHistoric')
+            var titleButtonViewAll = this.get('titleButtonViewAll')
+            if (titleButtonViewAll != "Fechar"){
+                this.set('historic', allHistorics);
+                this.set('titleButtonViewAll', "Fechar");
+            }else {
+                this.set('historic', allHistorics.slice(0,4));
+                this.set('titleButtonViewAll', "Ver Todos");
+            }
+        },
 
         saveTransaction() {
             if (this.get('selectedProducer') != undefined &&
