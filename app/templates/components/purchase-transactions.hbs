@@ -55,7 +55,7 @@
             </span>
         </th>
     {{/paper-card}}
-    <div class="filters" style="margin-top: 15px; margin-bottom:50px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
+    {{!-- <div class="filters" style="margin-top: 15px; margin-bottom:50px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
         <div class="flex-30">
             {{#power-selector-with-label selected=selectedYear  placeholder="Ano" options=years onchange=(action
                     (mut selectedYear)) as |year|}}
@@ -74,6 +74,6 @@
                 {{producer.name}}
             {{/power-selector-with-label}}
         </div>
-    </div>
+    </div> --}}
     {{!-- {{line-graph-with-filter title="Compras Realizadas" button-title="Ver Mais" chartData=purchasesChartData options=products onClick=(toggle "showHistoricModal" this)}} --}}
 </div>
