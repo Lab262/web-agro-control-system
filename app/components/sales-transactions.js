@@ -66,8 +66,8 @@ export default Component.extend({
         _this.setupSalesChart()
 
         var todayDate = new Date();
-        //var transactionDate = todayDate.getDate() + (todayDate.getMonth() + 1) + todayDate.getFullYear();
-        this.set('transactionDate', todayDate);
+        var transactionDate = todayDate.getDate() + "/" + (todayDate.getMonth() + 1) + "/" + todayDate.getFullYear();
+        this.set('transactionDate', transactionDate);
     },
 
     setupHistoricTable(historic) {
