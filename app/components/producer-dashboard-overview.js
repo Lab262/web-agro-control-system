@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import moment from 'npm:moment';
 
 export default Component.extend({
     didInsertElement() {

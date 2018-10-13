@@ -20,15 +20,13 @@ export default Component.extend({
         }
     }),
 
-    filterDidChange: Ember.observer('selectedYear', 'selectedMonth', 'selectedProducer', function () {
-        var selectedYear = this.get('selectedYear');
-        var selectedMonth = this.get('selectedMonth');
-        var selectedProducer = this.get('selectedProducer');
-        //implement filter logic here
-    }),
-
     didInsertElement() {
         this.loadData()
+    },
+
+    didRender() {
+        this.set('transactionDate', Moment(new Date()).format('DD/MM/YYYY'))
+
     },
 
     loadData() {
