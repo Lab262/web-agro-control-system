@@ -181,14 +181,18 @@ span.power-selector-with-label-label {
 
 .ember-power-select-selected-item,
 .ember-power-select-placeholder {
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .ember-power-select-trigger--active,
 .ember-power-select-placeholder {
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
+}
+
+.purchase-transaction .box-full .inputs .md-button.md-default-theme.red-white {
+    background: #FF6578
 }
