@@ -59,7 +59,7 @@ export default Component.extend({
             var totalValue = 0
             if (currentHistorics.length > 0) {
                 currentHistorics.forEach(function (element) {
-                    var quantityAmount = element.__data.productAmount * element.__data.product.data.attributes.amountScale;
+                    var quantityAmount = element.__data.productAmount * element.__data.product.data.attributes.scale.data.attributes.scaleProportion;
                     totalAmount += quantityAmount
                     totalValue += element.__data.transactionCost
                 })

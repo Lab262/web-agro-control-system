@@ -70,7 +70,12 @@ export default Component.extend({
                 && selectedScale != undefined
                 && model.get('name') != undefined
                 && model.get('name') != "") {
-
+                
+                var productAlreadyRegistered = this.get('products').filter(item => item.get('name') === model.get('name'))
+                if (productAlreadyRegistered.length > 0) {
+                    alert('Produto já cadastrado')
+                    return
+                }
                 model.set('scale', selectedScale);
                 model.set('cooperative', this.get('model').cooperative);
 
