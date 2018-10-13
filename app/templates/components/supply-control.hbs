@@ -1,5 +1,5 @@
 {{#if showPromptDialog}}
-    {{add-product-modal editMode=editMode model=editableProduct onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
+    {{add-product-modal selectedScale=selectedScale scales=scales editMode=editMode model=editableProduct onClose=(action "closePromptDialog") onSave=(action "closePromptDialog")}}
 {{/if}}
 {{#if showMeasuredSupplyDialog}}
     {{add-waste-modal products=products onClose=(action "closeMeasuredSupplyDialog") onSave=(action "closeMeasuredSupplyDialog")}}
@@ -20,7 +20,7 @@
     {{/paper-card}}
     {{#each products as |product index|}}
         {{supply-control-product-card product=product openPromptDialog=(action "openPromptDialog" product) }}
-        {{else}}
-            Nenhum produto cadastrado
+    {{else}}
+        Nenhum produto cadastrado
     {{/each}}
 </div>

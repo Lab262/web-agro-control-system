@@ -22,6 +22,17 @@ export default AuthenticatedRoute.extend({
                     }
                 });
             },
+            getScales: function (cooperativeId) {
+                return store.query('scale', {
+                    "where": {
+                        "cooperative": {
+                            "__type": "Pointer",
+                            "className": "Cooperative",
+                            "objectId": cooperativeId,
+                        }
+                    }
+                });
+            },
             getSupplyStatistics: function (products) {
                 return ParseCloudRequest('getCurrentSupplyStatistics', {
                     cooperativeId: cooperativeId,

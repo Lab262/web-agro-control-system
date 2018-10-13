@@ -2,6 +2,6 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
-  amountScale: DS.attr('number'),
+  scale: DS.belongsTo('scale'),
   cooperative: DS.belongsTo('cooperative'),
 });

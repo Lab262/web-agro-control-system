@@ -8,12 +8,17 @@
             {{/if}}
             <div class="inputs">
                 {{paper-input class="flex-40" label="Nome do produto" value=model.name onChange=(action (mut model.name))}}
-                {{paper-input class="flex-40" type="number" label="Unidade de Medida (em Kg)" value=model.amountScale onChange=(action (mut model.amountScale))}}
+                <div class="flex-40">
+                    {{#power-selector-with-label selected=selectedScale searchField="scaleName" placeholder="Scale" options=scales onchange=(action
+                    (mut selectedScale)) as |scale|}}
+                        {{scale.scaleName}}
+                    {{/power-selector-with-label}}
+                </div>
                 {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action 'closeModalAction')}}Cancelar{{/paper-button}}
                 {{#if editMode}}
-                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Salvar{{/paper-button}}
+                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale)}}Salvar{{/paper-button}}
                 {{else}}
-                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true)}}Adicionar{{/paper-button}}
+                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale)}}Adicionar{{/paper-button}}
                 {{/if}}
             </div>
         {{/paper-card}}

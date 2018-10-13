@@ -16,6 +16,10 @@ export default Component.extend({
                 this.set('products', products);
             }).catch(err => console.log(err))
 
+        model.getScales(model.cooperative.id)
+            .then(scales => {
+                this.set('scales', scales);
+            }).catch(err => console.log(err))
     },
 
     setupOverallChart(products) {
@@ -40,9 +44,12 @@ export default Component.extend({
     actions: {
         /* Prompt dialog */
         openPromptDialog(product) {
+            this.set('selectedScale', undefined);
             if (product.data) {
                 this.set('editMode', true);
                 this.set('editableProduct', product);
+                this.set('selectedScale', product.get('scale'));
+
             } else {
                 let newProduct = this.get('model.newProduct');
                 this.set('editableProduct', newProduct);
@@ -58,13 +65,13 @@ export default Component.extend({
         openMeasuredSupplyDialog() {
             this.set('showMeasuredSupplyDialog', true);
         },
-        closePromptDialog(model, isToSave) {
+        closePromptDialog(model, isToSave, selectedScale) {
             if (model != undefined
-                && model.get('amountScale') != undefined
+                && selectedScale != undefined
                 && model.get('name') != undefined
-                && model.get('amountScale') != 0
                 && model.get('name') != "") {
 
+                model.set('scale', selectedScale);
                 model.set('cooperative', this.get('model').cooperative);
 
                 model.save().then(saved => {
