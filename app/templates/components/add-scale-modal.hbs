@@ -1,0 +1,13 @@
+<div id="add-product-modal-overlay" class="add-product-modal" onClick={{action closeModal}}>
+    <div id="add-product-modal-overlay" class="purchase-transaction">
+        {{#paper-card class="box-full" as |card|}}
+            <p>Adicionar unidade de medida</p>
+            <div class="inputs">
+                {{paper-input class="flex-40" label="Nome da unidade de medida" value=model.scaleName onChange=(action (mut model.scaleName))}}
+                {{paper-input class="flex-40" type="number" label="Proporção Unidade de Medida (em Kg)" value=model.scaleProportion onChange=(action (mut model.scaleProportion))}}
+                {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action 'closeModalAction')}}Cancelar{{/paper-button}}
+                {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model)}}Adicionar{{/paper-button}}
+            </div>
+        {{/paper-card}}
+    </div>
+</div>
