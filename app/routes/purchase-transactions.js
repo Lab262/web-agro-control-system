@@ -1,8 +1,10 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../routes/authenticated-route';
+import Moment from 'npm:moment';
 
 export default AuthenticatedRoute.extend({
   session: Ember.inject.service('session'),
+
   model() {
     let store = this.store;
     return new Ember.RSVP.hash({
@@ -42,6 +44,18 @@ export default AuthenticatedRoute.extend({
               "__type": "Pointer",
               "className": "Cooperative",
               "objectId": cooperativeId,
+            },
+            "transactionDate": {
+              "$gte":
+              {
+                "__type": "Date",
+                "iso": Moment().startOf('day')
+              },
+              "$lte":
+              {
+                "__type": "Date",
+                "iso": Moment().endOf('day')
+              }
             }
           },
           include: 'product'
