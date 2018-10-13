@@ -111,26 +111,25 @@ export default Component.extend({
 
         saveTransaction() {
             if (this.get('selectedProducer') != undefined &&
-                // this.get('transactionDate') != undefined &&
+                this.get('transactionDate') != undefined &&
                 this.get('selectedProduct') != undefined
                 && this.get('unityPrice') != undefined
                 && this.get('amount') != undefined
                 && this.get('productCost') != undefined &&
                 this.get('selectedProducer') != null
                 && this.get('selectedProduct') != null
-                // && this.get('transactionDate') != ""
+                && this.get('transactionDate') != ""
                 && this.get('unityPrice') != ""
                 && this.get('amount') != ""
                 && this.get('productCost') != "") {
 
                 let newPurchaseTransaction = this.get('model.newPurchaseTransaction');
-                // var transactionDate = this.get('transactionDate');
-                // let day = transactionDate.substr(0, 2);
-                // let month = transactionDate.substr(2, 2);
-                // let year = transactionDate.substr(4, 4);
+                var transactionDate = this.get('transactionDate');
+                let day = transactionDate.substr(0, 2);
+                let month = transactionDate.substr(2, 2);
+                let year = transactionDate.substr(4, 4);
 
-                // transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
-                var transactionDate = new Date();
+                transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
 
                 newPurchaseTransaction.set('transactionDate', transactionDate);
                 newPurchaseTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.scale.data.attributes.scaleName);
