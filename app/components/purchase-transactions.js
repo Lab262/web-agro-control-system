@@ -75,7 +75,8 @@ export default Component.extend({
 
             var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
             _this.set('allHistoric', sortedHistorics);
-            _this.set('historic', sortedHistorics.slice(0, 4));
+            var onlyTodayHistoric = sortedHistorics.filter(item => Moment(item.date, 'DD/MM/YYYY').isSame(new Date(), 'day'))
+            this.set('historic', onlyTodayHistoric);
         }).catch(err => {
             console.log(err);
             _this.loadData()

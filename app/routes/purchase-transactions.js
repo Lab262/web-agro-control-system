@@ -44,18 +44,6 @@ export default AuthenticatedRoute.extend({
               "__type": "Pointer",
               "className": "Cooperative",
               "objectId": cooperativeId,
-            },
-            "transactionDate": {
-              "$gte":
-              {
-                "__type": "Date",
-                "iso": Moment().startOf('day')
-              },
-              "$lte":
-              {
-                "__type": "Date",
-                "iso": Moment().endOf('day')
-              }
             }
           },
           include: 'product'
