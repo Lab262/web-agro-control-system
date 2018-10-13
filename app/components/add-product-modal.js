@@ -9,6 +9,12 @@ export default Component.extend({
         }
     },
 
+    didInsertElement(){
+        if (this.get('model').get('tax') === undefined) {
+            this.set('model.tax',0.0);
+        }
+    },
+
     actions: {
         closeModalAction() {
             this.onClose()

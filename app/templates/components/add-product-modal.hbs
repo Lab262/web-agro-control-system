@@ -1,26 +1,27 @@
 <div id="add-product-modal-overlay" class="add-product-modal" onClick={{action closeModal}}>
     <div id="add-product-modal-overlay" class="purchase-transaction">
-        {{#paper-card class="box-full" as |card|}}
+        {{#paper-card class=(if editMode "box-full large" "box-full") as |card|}}
             {{#if editMode}}
                 <p>Editar produto</p>
             {{else}}
                 <p>Adicionar novo produto</p>
             {{/if}}
             <div class="inputs">
-                {{paper-input class="flex-40" label="Nome do produto" value=model.name onChange=(action (mut model.name))}}
+                {{paper-input class="flex-100" label="Nome do produto" value=model.name onChange=(action (mut model.name))}}
                 <div class="flex-40">
-                    {{#power-selector-with-label selected=selectedScale searchField="scaleName" placeholder="Scale" options=scales onchange=(action
+                    {{#power-selector-with-label selected=selectedScale searchField="scaleName" placeholder="Unidade de Medida" options=scales onchange=(action
                     (mut selectedScale)) as |scale|}}
                         {{scale.scaleName}}
                     {{/power-selector-with-label}}
                 </div>
+                {{paper-input class="flex-40" type="number" label="Imposto padrão do produto" value=model.tax onChange=(action (mut model.tax))}}
                 {{#if editMode}}
                     {{#paper-button class="flex-40 button red-white" raised=true primary=true onClick=(action  'deleteItem' model)}}Deletar{{/paper-button}}
-                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale)}}Salvar{{/paper-button}}
+                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale editMode)}}Salvar{{/paper-button}}
                     {{#paper-button class="flex-100 button gray-white" raised=true primary=true onClick=(action 'closeModalAction')}}Cancelar{{/paper-button}}
                 {{else}}
                     {{#paper-button class="flex-40 button gray-white" raised=true primary=true onClick=(action 'closeModalAction')}}Cancelar{{/paper-button}}
-                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale)}}Adicionar{{/paper-button}}
+                    {{#paper-button class="flex-40 button green-white" raised=true primary=true onClick=(action onSave model true selectedScale editMode)}}Adicionar{{/paper-button}}
                 {{/if}}
             </div>
         {{/paper-card}}

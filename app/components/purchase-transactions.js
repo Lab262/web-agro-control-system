@@ -9,7 +9,15 @@ export default Component.extend({
     scales: [],
     selectedProducer: null,
     selectedProduct: null,
-    impost: "0",
+    impost: Ember.computed('amount', 'selectedProduct', function () {
+        if (this.get('selectedProduct') != null && this.get('amount') != undefined && 
+            this.get('selectedProduct')._internalModel.__data.tax > 0 && this.get('amount').replace(',', '.') > 0) {
+                debugger;
+            return ("R$ " + (this.get('selectedProduct')._internalModel.__data.tax * this.get('amount').replace(',', '.')).toFixed(2)).replace('.', ',');
+        } else {
+            return "R$  0,00"
+        }
+    }),
     discount: "0",
     unityPrice: "0",
     productCost: Ember.computed('amount', 'unityPrice', function () {

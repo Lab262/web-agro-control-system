@@ -65,14 +65,16 @@ export default Component.extend({
         openMeasuredSupplyDialog() {
             this.set('showMeasuredSupplyDialog', true);
         },
-        closePromptDialog(model, isToSave, selectedScale) {
+        closePromptDialog(model, isToSave, selectedScale, editMode) {
             if (model != undefined
                 && selectedScale != undefined
+                && model.get('tax') != undefined
                 && model.get('name') != undefined
+                && model.get('tax') >= 0.0
                 && model.get('name') != "") {
                 
                 var productAlreadyRegistered = this.get('products').filter(item => item.get('name') === model.get('name'))
-                if (productAlreadyRegistered.length > 0) {
+                if (editMode === false && productAlreadyRegistered.length > 0) {
                     alert('Produto já cadastrado')
                     return
                 }
