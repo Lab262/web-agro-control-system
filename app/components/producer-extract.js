@@ -144,7 +144,7 @@ export default Component.extend({
                 products.push({
                     id: objectId,
                     name: historic[i].__data.product.data.attributes.name,
-                    totalQuantity: historic[i].__data.productAmount * historic[i].__data.product.data.attributes.amountScale,
+                    totalQuantity: historic[i].__data.productAmount * historic.content[i].__data.product.data.attributes.scale.data.attributes.scaleProportion,
                     averagePrice: historic[i].__data.unityPrice,
                     totalValue: historic[i].__data.transactionCost,
                     transactionCost: historic[i].__data.transactionCost,
@@ -152,7 +152,7 @@ export default Component.extend({
 
                 })
             } else {
-                var quantityAmount = historic[i].__data.productAmount * historic[i].__data.product.data.attributes.amountScale
+                var quantityAmount = historic[i].__data.productAmount * historic.content[i].__data.product.data.attributes.scale.data.attributes.scaleProportion
                 products[indexProduct].totalQuantity += quantityAmount
                 var newTransactionCost = (products[indexProduct].transactionCost + historic[i].__data.transactionCost)
                 products[indexProduct].averagePrice = newTransactionCost / products[indexProduct].totalQuantity

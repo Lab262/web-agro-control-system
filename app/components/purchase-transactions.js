@@ -75,7 +75,7 @@ export default Component.extend({
 
             var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
             _this.set('allHistoric', sortedHistorics);
-            _this.set('historic', sortedHistorics.slice(0,4));
+            _this.set('historic', sortedHistorics.slice(0, 4));
         }).catch(err => {
             console.log(err);
             _this.loadData()
@@ -100,38 +100,40 @@ export default Component.extend({
         openViewAll() {
             var allHistorics = this.get('allHistoric')
             var titleButtonViewAll = this.get('titleButtonViewAll')
-            if (titleButtonViewAll != "Fechar"){
+            if (titleButtonViewAll != "Fechar") {
                 this.set('historic', allHistorics);
                 this.set('titleButtonViewAll', "Fechar");
-            }else {
-                this.set('historic', allHistorics.slice(0,4));
+            } else {
+                this.set('historic', allHistorics.slice(0, 4));
                 this.set('titleButtonViewAll', "Ver Todos");
             }
         },
 
         saveTransaction() {
             if (this.get('selectedProducer') != undefined &&
-                this.get('transactionDate') != undefined &&
+                // this.get('transactionDate') != undefined &&
                 this.get('selectedProduct') != undefined
                 && this.get('unityPrice') != undefined
                 && this.get('amount') != undefined
                 && this.get('productCost') != undefined &&
                 this.get('selectedProducer') != null
                 && this.get('selectedProduct') != null
-                && this.get('transactionDate') != ""
+                // && this.get('transactionDate') != ""
                 && this.get('unityPrice') != ""
                 && this.get('amount') != ""
                 && this.get('productCost') != "") {
 
                 let newPurchaseTransaction = this.get('model.newPurchaseTransaction');
-                var transactionDate = this.get('transactionDate');
-                let day = transactionDate.substr(0, 2);
-                let month = transactionDate.substr(2, 2);
-                let year = transactionDate.substr(4, 4);
+                // var transactionDate = this.get('transactionDate');
+                // let day = transactionDate.substr(0, 2);
+                // let month = transactionDate.substr(2, 2);
+                // let year = transactionDate.substr(4, 4);
 
-                transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+                // transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+                var transactionDate = new Date();
+
                 newPurchaseTransaction.set('transactionDate', transactionDate);
-                newPurchaseTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
+                newPurchaseTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.scale.data.attributes.scaleName);
                 newPurchaseTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
                 if (this.get('discount') != undefined && this.get('discount') != "") {
                     newPurchaseTransaction.set('discount', Number(this.get('discount').replace(',', '.')));

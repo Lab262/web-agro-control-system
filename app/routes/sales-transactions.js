@@ -31,7 +31,8 @@ export default AuthenticatedRoute.extend({
               "className": "Cooperative",
               "objectId": cooperativeId,
             }
-          }
+          },
+          include: 'scale'
         })
       },
       getPurchaseTransaction: function (cooperativeId) {

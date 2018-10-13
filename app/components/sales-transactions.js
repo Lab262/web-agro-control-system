@@ -84,7 +84,7 @@ export default Component.extend({
         }
         var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
         this.set('allHistoric', sortedHistorics);
-        this.set('historic', sortedHistorics.slice(0,4));
+        this.set('historic', sortedHistorics.slice(0, 4));
     },
 
     setupABCChart(historic) {
@@ -159,11 +159,11 @@ export default Component.extend({
             this.set('productsIds', productsIds);
             sales.push({
                 name: historic.__data.product.data.attributes.name,
-                totalQuantity: historic.__data.productAmount * historic.__data.product.data.attributes.amountScale,
+                totalQuantity: historic.__data.productAmount * historic.__data.product.data.attributes.scale.data.attributes.scaleProportion,
                 transactionCost: historic.__data.transactionCost,
             })
         } else {
-            var quantityAmount = historic.__data.productAmount * historic.__data.product.data.attributes.amountScale
+            var quantityAmount = historic.__data.productAmount * historic.__data.product.data.attributes.scale.data.attributes.scaleProportion
             sales[indexProduct].totalQuantity += quantityAmount
             sales[indexProduct].transactionCost += historic.__data.transactionCost
         }
@@ -207,11 +207,11 @@ export default Component.extend({
         openViewAll() {
             var allHistorics = this.get('allHistoric')
             var titleButtonViewAll = this.get('titleButtonViewAll')
-            if (titleButtonViewAll != "Fechar"){
+            if (titleButtonViewAll != "Fechar") {
                 this.set('historic', allHistorics);
                 this.set('titleButtonViewAll', "Fechar");
-            }else {
-                this.set('historic', allHistorics.slice(0,4));
+            } else {
+                this.set('historic', allHistorics.slice(0, 4));
                 this.set('titleButtonViewAll', "Ver Todos");
             }
         },
@@ -237,7 +237,7 @@ export default Component.extend({
                 let year = transactionDate.substr(4, 4);
                 transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
                 newSaleTransaction.set('transactionDate', transactionDate);
-                newSaleTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.amountScale.toString() + " Kg");
+                newSaleTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.scale.data.attributes.scaleName);
                 newSaleTransaction.set('unityPrice', Number(this.get('unityPrice').replace(',', '.')));
                 if (this.get('discount') != undefined && this.get('discount') != "") {
                     newSaleTransaction.set('discount', Number(this.get('discount').replace(',', '.')));

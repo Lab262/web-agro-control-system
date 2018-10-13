@@ -18,7 +18,8 @@ export default Route.extend({
               "objectId": producerId,
             }
           },
-          include: 'product'
+          include: ['product', 'product.scale'],
+
         })
       }
     });

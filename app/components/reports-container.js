@@ -56,11 +56,11 @@ export default Component.extend({
             this.set('productsIds', productsIds);
             sales.push({
                 name: historic.__data.product.data.attributes.name,
-                totalQuantity: historic.__data.productAmount * historic.__data.product.data.attributes.amountScale,
+                totalQuantity: historic.__data.productAmount * historic.__data.product.data.attributes.scale.data.attributes.scaleProportion,
                 transactionCost: historic.__data.transactionCost,
             })
         } else {
-            var quantityAmount = historic.__data.productAmount * historic.__data.product.data.attributes.amountScale
+            var quantityAmount = historic.__data.productAmount * historic.__data.product.data.attributes.scale.data.attributes.scaleProportion
             sales[indexProduct].totalQuantity += quantityAmount
             sales[indexProduct].transactionCost += historic.__data.transactionCost
         }

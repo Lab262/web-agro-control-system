@@ -17,7 +17,7 @@ export default AuthenticatedRoute.extend({
               "objectId": cooperativeId,
             }
           },
-          include: 'product'
+          include: ['product', 'product.scale']
         })
       },
       getSaleTransaction: function (cooperativeId) {
@@ -29,7 +29,7 @@ export default AuthenticatedRoute.extend({
               "objectId": cooperativeId,
             }
           },
-          include: 'product'
+          include: ['product', 'product.scale']
         })
       }
     });
