@@ -24,11 +24,13 @@
                     {{product.name}}
                 {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}} {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.scale.scaleName onChange=null}}
+            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}}
+            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.scale.scaleName onChange=null}}
             {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
             {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input disabled=true class="flex-20" label="Imposto" value=impost onChange=null}}
             {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
-            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Compra
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar
+                Compra
             {{/paper-button}}
         </div>
     {{/paper-card}}
@@ -51,12 +53,12 @@
                         <th style="margin-right: 10%;">{{item.cost}}</th>
                         <th class="button">
                             <span>
-                                {{#paper-button onClick=(action "openDialogHistoric" item)}}Ver Mais{{/paper-button}}
+                                {{#paper-button class="hidebutton" onClick=(action "openDialogHistoric" item)}}Ver Mais{{/paper-button}}
                             </span>
                         </th>
                     </tr>
                 {{/each}}
-                {{else}}Nenhuma transação realizada no dia de hoje
+            {{else}}Nenhuma transação realizada no dia de hoje
             {{/each}}
         </table>
         <th class="button">

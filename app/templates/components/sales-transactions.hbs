@@ -1,11 +1,12 @@
 {{#if isShowInfoModal}}
-    <div id="add-product-modal-overlay" class="add-product-modal" onClick= {{toggle 'isShowInfoModal' this}}>
+    <div id="add-product-modal-overlay" class="add-product-modal" onClick={{toggle 'isShowInfoModal' this}}>
         <div id="add-product-modal-overlay" class="puarchase-transaction" style="display: flex; justify-content: center; align-items: center;">
             {{#paper-card class="box-small" as |card|}}
                 <p>
                     O que é a curva ABC
                 </p>
-                <p>A curva ABC, no caso de administração de estoques, apresenta resultados da demanda de cada item nas seguintes
+                <p>A curva ABC, no caso de administração de estoques, apresenta resultados da demanda de cada item nas
+                    seguintes
                     áreas:
                 </p>
                 <ul>
@@ -16,15 +17,18 @@
                 <p>Os itens são classificados como (Carvalho, 2002, p.&nbsp;227): </p>
                 <ul>
                     <li>
-                        <p>'''de Classe A''': de maior importância, valor ou quantidade, correspondendo a '''20%''' do total
+                        <p>'''de Classe A''': de maior importância, valor ou quantidade, correspondendo a '''20%''' do
+                            total
                             (podem ser itens do estoque com uma demanda de 65% num dado período); </p>
                     </li>
                     <li>
-                        <p>'''de Classe B''': com importância, quantidade ou valor intermediário, correspondendo a '''30%'''
+                        <p>'''de Classe B''': com importância, quantidade ou valor intermediário, correspondendo a
+                            '''30%'''
                             do total (podem ser itens do estoque com uma demanda de 25% num dado período);</p>
                     </li>
                     <li>
-                        <p>'''de Classe C''': de menor importância, valor ou quantidade, correspondendo a '''50%''' do total
+                        <p>'''de Classe C''': de menor importância, valor ou quantidade, correspondendo a '''50%''' do
+                            total
                             (podem ser itens do estoque com uma demanda de 10% num dado período).</p>
                     </li>
                 </ul>
@@ -44,14 +48,17 @@
         <div class="inputs">
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Produtor" options=producers onchange=(action
-                    (mut selectedProducer)) as |producer|}} {{producer.name}} {{/power-selector-with-label}}
+                    (mut selectedProducer)) as |producer|}}
+                    {{producer.name}} {{/power-selector-with-label}}
             </div>
             {{paper-input class="flex-20" id="date" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
-                    (mut selectedProduct)) as |product|}} {{product.name}} {{/power-selector-with-label}}
+                    (mut selectedProduct)) as |product|}}
+                    {{product.name}} {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-20" type="number" label="Quantidade" value=amount onChange=(action (mut amount))}} {{paper-input
+            {{paper-input class="flex-20" type="number" label="Quantidade" value=amount onChange=(action (mut amount))}}
+            {{paper-input
         disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.scale.scaleName onChange=null}}
             {{paper-input-mask
         mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
@@ -60,7 +67,8 @@
         label="Imposto" value=impost onChange=(action (mut impost))}}
             {{paper-input-mask mask='currency' class="flex-20"
         label="Desconto" value=discount onChange=(action (mut discount))}}
-            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Venda{{/paper-button}}
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar
+                Venda{{/paper-button}}
         </div>
     {{/paper-card}}
     {{#paper-card id="history" class="box-big" as |card|}}
@@ -82,12 +90,12 @@
                         <th style="margin-right: 10%;">{{item.cost}}</th>
                         <th class="button">
                             <span>
-                                {{#paper-button onClick=(action "openDialogHistoric" item)}}Ver Mais{{/paper-button}}
+                                {{#paper-button class="hidebutton" onClick=(action "openDialogHistoric" item)}}Ver Mais{{/paper-button}}
                             </span>
                         </th>
                     </tr>
                 {{/each}}
-                {{else}}Nenhuma transação realizada no dia de hoje
+            {{else}}Nenhuma transação realizada no dia de hoje
             {{/each}}
         </table>
         <th class="button">
@@ -95,7 +103,8 @@
                 {{#paper-button id="hidebutton" onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
             </span>
         </th>
-    {{/paper-card}} {{!--
+    {{/paper-card}}
+    {{!--
     <div class="filters" style="margin-top: 25px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
         <div class="flex-30">
             {{#power-selector-with-label selected=selectedYear placeholder="Ano" options=years onchange=(action (mut selectedYear)) as
@@ -112,7 +121,7 @@
             <p>
                 Curva ABC
             </p>
-            <div id="has-info-tooltip" onClick= {{toggle 'isShowInfoModal' this}}>
+            <div id="has-info-tooltip" onClick={{toggle 'isShowInfoModal' this}}>
                 <img class="logo" style=" cursor: pointer; height: 15px; width: 15px;" src="./images/info-icon.png">
             </div>
         </div>
