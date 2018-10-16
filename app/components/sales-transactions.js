@@ -38,33 +38,27 @@ export default Component.extend({
         model.getRetailers(model.cooperative.id)
             .then(retailers => {
                 _this.set('producers', retailers);
+                return model.getProducts(model.cooperative.id)
+            }).then(products => {
+                _this.set('products', products);
+                return model.getPurchaseTransaction(model.cooperative.id)
+            }).then(historic => {
+                this.setupHistoricTable(historic)
+                this.setupABCChart(historic)
+                var moments = historic.content.map(d => Moment(d.__data.transactionDate));
+                var maxDate = Moment.max(moments).year();
+                var minDate = Moment.min(moments).year();
+                var years = [];
+                for (var i = minDate; i <= maxDate; i++) {
+                    years.push(i);
+                }
+                _this.set('years', years.reverse())
+                _this.setupLastProducer();
             }).catch(err => {
                 console.log(err);
                 _this.loadData()
             })
 
-        model.getProducts(model.cooperative.id).then(products => {
-            _this.set('products', products);
-        }).catch(err => {
-            console.log(err);
-            _this.loadData()
-        })
-
-        model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-            this.setupHistoricTable(historic)
-            this.setupABCChart(historic)
-            var moments = historic.content.map(d => Moment(d.__data.transactionDate));
-            var maxDate = Moment.max(moments).year();
-            var minDate = Moment.min(moments).year();
-            var years = [];
-            for (var i = minDate; i <= maxDate; i++) {
-                years.push(i);
-            }
-            _this.set('years', years.reverse())
-        }).catch(err => {
-            console.log(err);
-            _this.loadData()
-        })
         _this.setupSalesChart()
 
         // var todayDate = new Date();
@@ -120,6 +114,13 @@ export default Component.extend({
         this.set('historic', onlyTodayHistoric);
         this.set('allHistoric', groupedByDate);
         this.set('todayHistoric', onlyTodayHistoric);
+    },
+
+    setupLastProducer() {
+        var producers = this.get('producers');
+        var onlyTodayHistoric = this.get('historic');
+        var previousProducer = producers.filter(item => onlyTodayHistoric[0].arrayHistoric[0].arrayHistoric[0].producerId === item.id)[0]
+        this.set('selectedProducer', previousProducer);
     },
 
     setupABCChart(historic) {
