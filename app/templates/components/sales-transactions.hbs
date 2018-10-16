@@ -1,12 +1,13 @@
 {{#if isShowInfoModal}}
-    <div id="add-product-modal-overlay" class="add-product-modal" onClick={{toggle 'isShowInfoModal' this}}>
+    <div id="add-product-modal-overlay" class="add-product-modal" onClick= {{toggle 'isShowInfoModal' this}}>
         <div id="add-product-modal-overlay" class="puarchase-transaction" style="display: flex; justify-content: center; align-items: center;">
-            {{#paper-card class="box-small"  as |card|}}
+            {{#paper-card class="box-small" as |card|}}
                 <p>
                     O que é a curva ABC
                 </p>
-                <p>A curva ABC, no caso de administração de estoques, apresenta resultados da demanda de cada item nas
-                    seguintes áreas:</p>
+                <p>A curva ABC, no caso de administração de estoques, apresenta resultados da demanda de cada item nas seguintes
+                    áreas:
+                </p>
                 <ul>
                     <li>giro no estoque;</li>
                     <li>proporção sobre o faturamento no período;</li>
@@ -15,16 +16,16 @@
                 <p>Os itens são classificados como (Carvalho, 2002, p.&nbsp;227): </p>
                 <ul>
                     <li>
-                        <p>'''de Classe A''': de maior importância, valor ou quantidade, correspondendo a '''20%''' do
-                            total (podem ser itens do estoque com uma demanda de 65% num dado período); </p>
+                        <p>'''de Classe A''': de maior importância, valor ou quantidade, correspondendo a '''20%''' do total
+                            (podem ser itens do estoque com uma demanda de 65% num dado período); </p>
                     </li>
                     <li>
-                        <p>'''de Classe B''': com importância, quantidade ou valor intermediário, correspondendo a
-                            '''30%''' do total (podem ser itens do estoque com uma demanda de 25% num dado período);</p>
+                        <p>'''de Classe B''': com importância, quantidade ou valor intermediário, correspondendo a '''30%'''
+                            do total (podem ser itens do estoque com uma demanda de 25% num dado período);</p>
                     </li>
                     <li>
-                        <p>'''de Classe C''': de menor importância, valor ou quantidade, correspondendo a '''50%''' do
-                            total (podem ser itens do estoque com uma demanda de 10% num dado período).</p>
+                        <p>'''de Classe C''': de menor importância, valor ou quantidade, correspondendo a '''50%''' do total
+                            (podem ser itens do estoque com uma demanda de 10% num dado período).</p>
                     </li>
                 </ul>
             {{/paper-card}}
@@ -38,25 +39,23 @@
         <div class="inputs">
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Produtor" options=producers onchange=(action
-                    (mut selectedProducer)) as |producer|}}
-                    {{producer.name}}
-                {{/power-selector-with-label}}
+                    (mut selectedProducer)) as |producer|}} {{producer.name}} {{/power-selector-with-label}}
             </div>
             {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
-                    (mut selectedProduct)) as |product|}}
-                    {{product.name}}
-                {{/power-selector-with-label}}
+                    (mut selectedProduct)) as |product|}} {{product.name}} {{/power-selector-with-label}}
             </div>
-            {{paper-input class="flex-20" type="number"  label="Quantidade" value=amount onChange=(action (mut amount))}}
-            {{paper-input disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.scale.scaleName onChange=null}}
-            {{paper-input-mask mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
-            {{paper-input class="flex-20" label="Custo dos produtos" value=productCost onChange=null}}
-            {{paper-input-mask mask='currency' class="flex-20" label="Imposto" value=impost onChange=(action (mut impost))}}
-            {{paper-input-mask mask='currency' class="flex-20" label="Desconto" value=discount onChange=(action (mut discount))}}
-            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar
-                Venda{{/paper-button}}
+            {{paper-input class="flex-20" type="number" label="Quantidade" value=amount onChange=(action (mut amount))}} {{paper-input
+        disabled=true class="flex-20" label="Unidade de Medida" value=selectedProduct.scale.scaleName onChange=null}}
+            {{paper-input-mask
+        mask='currency' class="flex-20" label="Preço unitário" value=unityPrice onChange=(action (mut unityPrice))}}
+            {{paper-input
+        class="flex-20" label="Custo dos produtos" value=productCost onChange=null}} {{paper-input-mask mask='currency' class="flex-20"
+        label="Imposto" value=impost onChange=(action (mut impost))}}
+            {{paper-input-mask mask='currency' class="flex-20"
+        label="Desconto" value=discount onChange=(action (mut discount))}}
+            {{#paper-button class="green-white" raised=true primary=true onClick=(action 'saveTransaction')}}Salvar Venda{{/paper-button}}
         </div>
     {{/paper-card}}
     {{#paper-card class="box-big" as |card|}}
@@ -64,19 +63,26 @@
         <table>
             <tr class="header">
                 <th>Data</th>
-                <th class="name">Produto</th>
-                <th>Quantidade</th>
-                <th>Custo</th>
+                <th>Produtor</th>
+                <th>Quantidade Total</th>
+                <th>Custo Total</th>
+                <th></th>
             </tr>
-            {{#each historic as |item|}}
-                <tr>
-                    <th>{{item.date}}</th>
-                    <th class="name">{{item.productName}}</th>
-                    <th class="name">{{item.quantity}}</th>
-                    <th>{{item.cost}}</th>
-                </tr>
-            {{else}}
-                Nenhuma transação
+            {{#each historic as |itemDate|}}
+                {{#each itemDate.arrayHistoric as |item|}}
+                    <tr>
+                        <th>{{item.date}}</th>
+                        <th>{{item.producerName}}</th>
+                        <th>{{item.quantity}}</th>
+                        <th style="margin-right: 10%;">{{item.cost}}</th>
+                        <th class="button">
+                            <span>
+                                {{#paper-button onClick=(action "openDialogHistoric" item)}}Ver Mais{{/paper-button}}
+                            </span>
+                        </th>
+                    </tr>
+                {{/each}}
+                {{else}}Nenhuma transação realizada no dia de hoje
             {{/each}}
         </table>
         <th class="button">
@@ -84,19 +90,16 @@
                 {{#paper-button onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
             </span>
         </th>
-    {{/paper-card}}
-    {{!-- <div class="filters" style="margin-top: 25px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
+    {{/paper-card}} {{!--
+    <div class="filters" style="margin-top: 25px; width: 100%; justify-content: space-around;  display: flex; flex-wrap:nowrap; flex-direction: row;">
         <div class="flex-30">
-            {{#power-selector-with-label selected=selectedYear  placeholder="Ano" options=years onchange=(action
-                    (mut selectedYear)) as |year|}}
-                {{year}}
-            {{/power-selector-with-label}}
+            {{#power-selector-with-label selected=selectedYear placeholder="Ano" options=years onchange=(action (mut selectedYear)) as
+            |year|}} {{year}} {{/power-selector-with-label}}
         </div>
         <div class="flex-30">
-            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=(array "Janeiro" "Fevereiro" "Março" "Abril" "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro") onchange=(action
-                    (mut selectedMonth)) as |month|}}
-                {{month}}
-            {{/power-selector-with-label}}
+            {{#power-selector-with-label selected=selectedMonth placeholder="Mês" options=(array "Janeiro" "Fevereiro" "Março" "Abril"
+            "Maio" "Junho" "Julho" "Agosto" "Setembro" "Outubro" "Novembro" "Dezembro") onchange=(action (mut selectedMonth))
+            as |month|}} {{month}} {{/power-selector-with-label}}
         </div>
     </div> --}}
     {{#paper-card class="box-full-large" as |card|}}
@@ -104,12 +107,11 @@
             <p>
                 Curva ABC
             </p>
-            <div id="has-info-tooltip" onClick={{toggle 'isShowInfoModal' this}}>
+            <div id="has-info-tooltip" onClick= {{toggle 'isShowInfoModal' this}}>
                 <img class="logo" style=" cursor: pointer; height: 15px; width: 15px;" src="./images/info-icon.png">
             </div>
         </div>
-        {{#if abcChartData}}
-            {{abc-curve-graph chartData=abcChartData legendType="" height=200 }}
+        {{#if abcChartData}} {{abc-curve-graph chartData=abcChartData legendType="" height=200 }}
             {{#if abcData}}
                 <div class="legend">
                     <div class="legend-item">
@@ -144,8 +146,7 @@
                     </div>
                 </div>
             {{/if}}
-        {{else}}
-            Carregando....
+        {{else}}Carregando....
         {{/if}}
     {{/paper-card}}
 </div>

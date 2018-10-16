@@ -46,7 +46,7 @@ export default AuthenticatedRoute.extend({
             }
           },
           // limit: 4,
-          include: 'product'
+          include: ['product','producer']
         })
       }
     });

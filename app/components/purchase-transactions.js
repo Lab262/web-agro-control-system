@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import Ember from 'ember';
 import Moment from 'npm:moment';
+import _ from 'npm:lodash';
 
 export default Component.extend({
     titleButtonViewAll: "Ver Todos",
@@ -10,9 +11,9 @@ export default Component.extend({
     selectedProducer: null,
     selectedProduct: null,
     impost: Ember.computed('amount', 'selectedProduct', function () {
-        if (this.get('selectedProduct') != null && this.get('amount') != undefined && 
+        if (this.get('selectedProduct') != null && this.get('amount') != undefined &&
             this.get('selectedProduct')._internalModel.__data.tax > 0 && this.get('amount').replace(',', '.') > 0) {
-                debugger;
+            debugger;
             return ("R$ " + (this.get('selectedProduct')._internalModel.__data.tax * this.get('amount').replace(',', '.')).toFixed(2)).replace('.', ',');
         } else {
             return "R$  0,00"
@@ -59,17 +60,7 @@ export default Component.extend({
         })
 
         model.getPurchaseTransaction(model.cooperative.id).then(historic => {
-            var historics = [];
-            for (var i = 0, len = historic.content.length; i < len; i++) {
-                var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
-                var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
-                historics.push({
-                    cost: cost,
-                    productName: historic.content[i].__data.product.data.attributes.name,
-                    quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
-                    date: date
-                })
-            }
+            this.setupHistoricTable(historic)
             var moments = historic.content.map(d => Moment(d.__data.transactionDate));
             var maxDate = Moment.max(moments).year();
             var minDate = Moment.min(moments).year();
@@ -78,20 +69,61 @@ export default Component.extend({
                 years.push(i);
             }
             _this.set('years', years.reverse())
-
-            var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
-            _this.set('allHistoric', sortedHistorics);
-            var onlyTodayHistoric = sortedHistorics.filter(item => Moment(item.date, 'DD/MM/YYYY').isSame(new Date(), 'day'))
-            this.set('historic', onlyTodayHistoric);
         }).catch(err => {
             console.log(err);
             _this.loadData()
         })
         _this.setupPurchasesChart()
+    },
 
-        // var todayDate = new Date();
-        // var transactionDate = todayDate.getDate() + (todayDate.getMonth() + 1) + todayDate.getFullYear();
-        // this.set('transactionDate', transactionDate.toString());
+    setupHistoricTable(historic) {
+        var historics = [];
+        for (var i = 0, len = historic.content.length; i < len; i++) {
+            var date = moment(historic.content[i].__data.transactionDate).format('DD/MM/YYYY');
+            var cost = "R$ " + historic.content[i].__data.transactionCost.toFixed(2).toString().replace('.', ',');
+            historics.push({
+                cost: cost,
+                productName: historic.content[i].__data.product.data.attributes.name,
+                quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
+                date: date,
+                valueAmountScale: historic.content[i].__data.amountScale,
+                valueAmount: historic.content[i].__data.productAmount,
+                valueCost: historic.content[i].__data.transactionCost,
+                producerId: historic.content[i].__data.producer.data.id,
+                producerName: historic.content[i].__data.producer.data.attributes.name,
+            })
+        }
+        var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
+
+        var groupByProducer = (historics => {
+
+            return _.chain(historics).groupBy("producerId").map(function (objs, key) {
+                return {
+                    cost: "R$ " + _.sumBy(objs, 'valueCost').toFixed(2).toString().replace('.', ','),
+                    productName: _.get(_.find(objs, 'productName'), 'productName'),
+                    quantity: _.sumBy(objs, 'valueAmount').toFixed(2).toString().replace('.', ',') + " x " + _.get(_.find(objs, 'valueAmountScale'), 'valueAmountScale'),
+                    date: _.get(_.find(objs, 'date'), 'date'),
+                    producerName: _.get(_.find(objs, 'producerName'), 'producerName'),
+                    arrayHistoric: objs
+                }
+            }).value();
+        })
+
+        var groupedByDate = _.chain(sortedHistorics).groupBy("date").map(function (objs, key) {
+            return {
+                date: key,
+                arrayHistoric: objs
+            }
+        }).value();
+
+        groupedByDate.forEach(item => {
+            item.arrayHistoric = groupByProducer(item.arrayHistoric)
+        })
+
+        var onlyTodayHistoric = groupedByDate.filter(item => Moment(item.date, 'DD/MM/YYYY').isSame(new Date(), 'day'))
+        this.set('historic', onlyTodayHistoric);
+        this.set('allHistoric', groupedByDate);
+        this.set('todayHistoric', onlyTodayHistoric);
     },
 
     setupPurchasesChart() {
@@ -105,13 +137,14 @@ export default Component.extend({
     actions: {
 
         openViewAll() {
-            var allHistorics = this.get('allHistoric')
             var titleButtonViewAll = this.get('titleButtonViewAll')
             if (titleButtonViewAll != "Fechar") {
+                var allHistorics = this.get('allHistoric')
                 this.set('historic', allHistorics);
                 this.set('titleButtonViewAll', "Fechar");
             } else {
-                this.set('historic', allHistorics.slice(0, 4));
+                var todayHistoric = this.get('todayHistoric')
+                this.set('historic', todayHistoric);
                 this.set('titleButtonViewAll', "Ver Todos");
             }
         },
@@ -163,6 +196,10 @@ export default Component.extend({
                 alert('Entre todos os campos');
             }
         },
+
+        openDialogHistoric(item) {
+
+        }
     }
 
 });
