@@ -273,8 +273,8 @@ export default Component.extend({
                 let newSaleTransaction = this.get('model.newSaleTransaction');
                 var transactionDate = this.get('transactionDate');
                 let day = transactionDate.substr(0, 2);
-                let month = transactionDate.substr(2, 2);
-                let year = transactionDate.substr(4, 4);
+                let month = transactionDate.substr(3, 2);
+                let year = transactionDate.substr(6, 4);
                 transactionDate = new Date(year, month - 1, day, 0, 0, 0, 0);
                 newSaleTransaction.set('transactionDate', transactionDate);
                 newSaleTransaction.set('amountScale', this.get('selectedProduct')._internalModel.__data.scale.data.attributes.scaleName);
