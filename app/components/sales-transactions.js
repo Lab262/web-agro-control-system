@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import Ember from 'ember';
 import Moment from 'npm:moment';
+import _ from 'npm:lodash';
 import Inputmask from "npm:inputmask";
 
 export default Component.extend({
@@ -80,13 +81,45 @@ export default Component.extend({
                 cost: cost,
                 productName: historic.content[i].__data.product.data.attributes.name,
                 quantity: historic.content[i].__data.productAmount + " x " + historic.content[i].__data.amountScale,
-                date: date
+                date: date,
+                valueAmountScale: historic.content[i].__data.amountScale,
+                valueAmount: historic.content[i].__data.productAmount,
+                valueCost: historic.content[i].__data.transactionCost,
+                producerId: historic.content[i].__data.producer.data.id,
+                producerName: historic.content[i].__data.producer.data.attributes.name,
             })
         }
         var sortedHistorics = historics.sort((a, b) => moment(b.date).toDate() - moment(a.date).toDate())
-        this.set('allHistoric', sortedHistorics);
-        var onlyTodayHistoric = sortedHistorics.filter(item => Moment(item.date, 'DD/MM/YYYY').isSame(new Date(), 'day'))
+
+        var groupByProducer = (historics => {
+
+            return _.chain(historics).groupBy("producerId").map(function (objs, key) {
+                return {
+                    cost: "R$ " + _.sumBy(objs, 'valueCost').toFixed(2).toString().replace('.', ','),
+                    productName: _.get(_.find(objs, 'productName'), 'productName'),
+                    quantity: _.sumBy(objs, 'valueAmount').toFixed(2).toString().replace('.', ',') + " x " + _.get(_.find(objs, 'valueAmountScale'), 'valueAmountScale'),
+                    date: _.get(_.find(objs, 'date'), 'date'),
+                    producerName: _.get(_.find(objs, 'producerName'), 'producerName'),
+                    arrayHistoric: objs
+                }
+            }).value();
+        })
+
+        var groupedByDate = _.chain(sortedHistorics).groupBy("date").map(function (objs, key) {
+            return {
+                date: key,
+                arrayHistoric: objs
+            }
+        }).value();
+
+        groupedByDate.forEach(item => {
+            item.arrayHistoric = groupByProducer(item.arrayHistoric)
+        })
+
+        var onlyTodayHistoric = groupedByDate.filter(item => Moment(item.date, 'DD/MM/YYYY').isSame(new Date(), 'day'))
         this.set('historic', onlyTodayHistoric);
+        this.set('allHistoric', groupedByDate);
+        this.set('todayHistoric', onlyTodayHistoric);
     },
 
     setupABCChart(historic) {
@@ -207,13 +240,14 @@ export default Component.extend({
     actions: {
 
         openViewAll() {
-            var allHistorics = this.get('allHistoric')
             var titleButtonViewAll = this.get('titleButtonViewAll')
             if (titleButtonViewAll != "Fechar") {
+                var allHistorics = this.get('allHistoric')
                 this.set('historic', allHistorics);
                 this.set('titleButtonViewAll', "Fechar");
             } else {
-                this.set('historic', allHistorics.slice(0, 4));
+                var todayHistoric = this.get('todayHistoric')
+                this.set('historic', todayHistoric);
                 this.set('titleButtonViewAll', "Ver Todos");
             }
         },
@@ -267,5 +301,9 @@ export default Component.extend({
                 alert('Entre todos os campos');
             }
         },
+
+        openDialogHistoric(item) {
+
+        }
     },
 });

@@ -46,7 +46,7 @@ export default AuthenticatedRoute.extend({
               "objectId": cooperativeId,
             }
           },
-          include: 'product'
+          include: ['product', 'producer']
         })
       }
     });
