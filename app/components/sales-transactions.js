@@ -4,6 +4,7 @@ import Moment from 'npm:moment';
 import Inputmask from "npm:inputmask";
 
 export default Component.extend({
+    printThis: Ember.inject.service(),
     titleButtonViewAll: "Ver Todos",
     producers: [],
     products: [],
@@ -215,6 +216,10 @@ export default Component.extend({
                 this.set('historic', allHistorics.slice(0, 4));
                 this.set('titleButtonViewAll', "Ver Todos");
             }
+        },
+
+        printReports() {
+            window.print();
         },
 
         saveTransaction() {

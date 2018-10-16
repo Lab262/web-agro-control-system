@@ -2,8 +2,13 @@
     {{transactions-graph-historic-modal title='Compras Realizadas - por produto' onClose=(toggle "showHistoricModal" this) chartData=chartData }}
 {{/if}}
 <div class="purchase-transaction">
-    <h1>Transação de compra</h1>
-    {{#paper-card class="box-full" as |card|}}
+    <div style="width: 100%; display: flex; justify-content: space-around">
+        <h1>Transação de compra</h1>
+        <span>
+            {{#paper-button id="printbutton" href="" onClick=(action 'printReports') }}Imprimir{{/paper-button}}
+        </span>
+    </div>
+    {{#paper-card class="box-full" id="form" as |card|}}
         <p>Nova compra</p>
         <div class="inputs">
             <div class="flex-20">
@@ -51,7 +56,7 @@
         </table>
         <th class="button">
             <span>
-                {{#paper-button onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
+                {{#paper-button id="hidebutton" onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
             </span>
         </th>
     {{/paper-card}}

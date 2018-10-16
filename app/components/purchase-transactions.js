@@ -102,7 +102,9 @@ export default Component.extend({
     },
 
     actions: {
-
+        printReports() {
+            window.print();
+        },
         openViewAll() {
             var allHistorics = this.get('allHistoric')
             var titleButtonViewAll = this.get('titleButtonViewAll')

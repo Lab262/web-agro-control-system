@@ -52,6 +52,7 @@
     "ember-parse-adapter": "git://github.com/thiagotmb/ember-parse-adapter.git",
     "ember-power-calendar": "^0.7.2",
     "ember-power-select": "1.10.4",
+    "ember-print-this": "^1.0.0-beta.11",
     "ember-resolver": "^4.0.0",
     "ember-simple-auth": "^1.4.2",
     "ember-source": "~2.16.0",

@@ -32,8 +32,13 @@
     </div>
 {{/if}}
 <div class="purchase-transaction">
-    <h1>Transação de Venda</h1>
-    {{#paper-card class="box-full" as |card|}}
+    <div style="width: 100%; display: flex; justify-content: space-around">
+        <h1 id="header">Transação de Venda</h1>
+        <span>
+            {{#paper-button id="printbutton" href="" onClick=(action 'printReports')}}Imprimir{{/paper-button}}
+        </span>
+    </div>
+    {{#paper-card class="box-full" id="form" as |card|}}
         <p>Nova Venda</p>
         <div class="inputs">
             <div class="flex-20">
@@ -59,7 +64,7 @@
                 Venda{{/paper-button}}
         </div>
     {{/paper-card}}
-    {{#paper-card class="box-big" as |card|}}
+    {{#paper-card id="history" class="box-big" as |card|}}
         <p>Histórico</p>
         <table>
             <tr class="header">
@@ -81,7 +86,7 @@
         </table>
         <th class="button">
             <span>
-                {{#paper-button onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
+                {{#paper-button id="hidebutton" onClick=(action "openViewAll")}}{{titleButtonViewAll}}{{/paper-button}}
             </span>
         </th>
     {{/paper-card}}
@@ -99,7 +104,7 @@
             {{/power-selector-with-label}}
         </div>
     </div> --}}
-    {{#paper-card class="box-full-large" as |card|}}
+    {{#paper-card id="abcgraph"  class="box-full-large" as |card|}}
         <div class="header" style="display: flex; justify-content: space-between; margin-right:25px;">
             <p>
                 Curva ABC

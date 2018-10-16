@@ -196,3 +196,26 @@ span.power-selector-with-label-label {
 .purchase-transaction .box-full .inputs .md-button.md-default-theme.red-white {
     background: #FF6578
 }
+
+@media print {
+    .bm-menu {
+        display: none;
+    }
+    .ember-burger-menu {
+        .content {
+            margin-left: 0px;
+        }
+    }
+    #form {
+        display: none;
+    }
+    #abcgraph {
+        display: none;
+    }
+    #printbutton {
+        display: none;
+    }
+    #hidebutton {
+        display: none;
+    }
+}
