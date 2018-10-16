@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import Ember from 'ember';
 import Moment from 'npm:moment';
 import _ from 'npm:lodash';
+import Inputmask from "npm:inputmask";
 
 export default Component.extend({
     titleButtonViewAll: "Ver Todos",
@@ -23,12 +24,12 @@ export default Component.extend({
 
     didInsertElement() {
         this.loadData()
-    },
-
-    didRender() {
         this.set('transactionDate', Moment(new Date()).format('DD/MM/YYYY'))
-
+        Ember.$(document).ready(function () {
+            Inputmask({ "mask": "99/99/9999", "placeholder": "DD/MM/AAAA" }).mask(Ember.$('#date').find('#input-date'));
+        });
     },
+
 
     loadData() {
         var _this = this;

@@ -41,7 +41,7 @@
                 {{#power-selector-with-label selected=selectedProducer searchField="name" placeholder="Produtor" options=producers onchange=(action
                     (mut selectedProducer)) as |producer|}} {{producer.name}} {{/power-selector-with-label}}
             </div>
-            {{paper-input-mask class="flex-20" label="Data da transação" mask='date' value=transactionDate onChange=(action (mut transactionDate))}}
+            {{paper-input class="flex-20" id="date" label="Data da transação" value=transactionDate onChange=(action (mut transactionDate))}}
             <div class="flex-20">
                 {{#power-selector-with-label selected=selectedProduct searchField="name" placeholder="Produto" options=products onchange=(action
                     (mut selectedProduct)) as |product|}} {{product.name}} {{/power-selector-with-label}}

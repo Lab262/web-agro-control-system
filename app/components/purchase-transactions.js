@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import Ember from 'ember';
 import Moment from 'npm:moment';
 import _ from 'npm:lodash';
+import Inputmask from "npm:inputmask";
 
 export default Component.extend({
     titleButtonViewAll: "Ver Todos",
@@ -13,7 +14,6 @@ export default Component.extend({
     impost: Ember.computed('amount', 'selectedProduct', function () {
         if (this.get('selectedProduct') != null && this.get('amount') != undefined &&
             this.get('selectedProduct')._internalModel.__data.tax > 0 && this.get('amount').replace(',', '.') > 0) {
-            debugger;
             return ("R$ " + (this.get('selectedProduct')._internalModel.__data.tax * this.get('amount').replace(',', '.')).toFixed(2)).replace('.', ',');
         } else {
             return "R$  0,00"
@@ -31,11 +31,10 @@ export default Component.extend({
 
     didInsertElement() {
         this.loadData()
-    },
-
-    didRender() {
         this.set('transactionDate', Moment(new Date()).format('DD/MM/YYYY'))
-
+        Ember.$(document).ready(function () {
+            Inputmask({ "mask": "99/99/9999", "placeholder": "DD/MM/AAAA" }).mask(Ember.$('#date').find('#input-date'));
+        });
     },
 
     loadData() {

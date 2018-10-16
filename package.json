@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@fnando/cnpj": "^0.1.0",
-    "@fnando/cpf": "^0.1.0"
+    "@fnando/cpf": "^0.1.0",
+    "inputmask": "^4.0.2"
   }
 }
